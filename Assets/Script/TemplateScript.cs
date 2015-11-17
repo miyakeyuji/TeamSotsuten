@@ -1,5 +1,6 @@
 ﻿//-------------------------------------------------------------
 //  テンプレートスクリプト (スクリプトの処理内容を記述する。)
+//  これを参考にスクリプトを作ってください。
 //
 //  code by m_yamada (作成者) を記述する。
 //-------------------------------------------------------------
@@ -7,7 +8,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TemplateScript : MonoBehaviour 
+public class TemplateScript : ISequenceBehaviour 
 {
 
     /// <summary>
@@ -17,31 +18,49 @@ public class TemplateScript : MonoBehaviour
     int value = 0;
 
     /// <summary>
-    /// 生成した瞬間に呼ばれる処理
-    /// 1度だけしか呼ばれない
+    /// 初期化
     /// </summary>
-    void Awake()
-    { 
-    
+    public override void Init()
+    {
+
     }
 
     /// <summary>
-    /// Awakeの1フレーム後に呼ばれる処理
-    /// 1度だけしか呼ばれない
+    /// スクリプトのインスタンスがロードされたときに呼び出されます
     /// </summary>
-	void Start () 
+    void Awake()
     {
-	
-	}
+
+    }
 
     /// <summary>
-    /// Startの1フレーム後に呼ばれる処理
-    /// マイフレーム呼ばれる
+    /// Update メソッドが最初に呼び出される前のフレームで呼び出されます
     /// </summary>
-	void Update () 
+    void Start()
     {
-	
-	}
+    }
 
+    /// <summary>
+    /// 毎フレーム呼ばれる。
+    /// </summary>
+    void Update()
+    {
+    }
+
+    /// <summary>
+    /// Behaviour が有効の場合、LateUpdate は毎フレーム呼びだされます
+    /// </summary>
+    void LateUpdate()
+    {
+
+    }
+
+    /// <summary>
+    /// MonoBehaviour が有効の場合、この関数は毎回、固定フレームレートで呼び出されます。
+    /// </summary>
+    void FixedUpdate()
+    {
+
+    }
 
 }
