@@ -9,19 +9,55 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SequenceManager : Singleton<SequenceManager> 
+/// <summary>
+/// シーンID
+/// </summary>
+public enum SceneID
 {
+    TITLE,      // タイトル
+    MAIN_MENU,  // メニュー
+    GAME,       // ゲーム
+    MAX,
+}
+
+
+public class SequenceManager : Singleton<SequenceManager>
+{
+    /// <summary>
+    /// シーン情報
+    /// </summary>
+    [System.Serializable]
+    public struct SceneInfoData
+    {
+        public SceneID scene;
+        public SequenceBehaviour behaviour;
+    }
+    
+    /// <summary>
+    /// シーンリスト
+    /// </summary>
     [SerializeField]
-    List<ISequenceBehaviour> behaviorList = new List<ISequenceBehaviour>();
+    SceneInfoData[] sceneList = new SceneInfoData[(int)SceneID.MAX];
+
+    /// <summary>
+    /// 今のシーン情報
+    /// </summary>
+    SceneID nowScene = SceneID.TITLE;
 
     public override void Awake() 
     {
         base.Awake();
-
-        for (int i = 0; i < behaviorList.Count; i++)
+        
+        for (int i = 0; i < sceneList.Length; i++)
         {
-            behaviorList[i].Init();
+            sceneList[i].behaviour.Reset();
+
+            if (sceneList[i].scene == nowScene)
+            {
+                sceneList[i].behaviour.gameObject.SetActive(true);
+            }
         }
+
     }
 
     public override void Start() 
@@ -29,6 +65,39 @@ public class SequenceManager : Singleton<SequenceManager>
         base.Start();
 
 	}
+
+    /// <summary>
+    /// 次のシーンに行かせる処理です。
+    /// 切り替えたいシーンを引数で設定してください。
+    /// </summary>
+    /// <param name="nextScene"></param>
+    public void ChangeScene(SceneID nextScene)
+    {
+        // 例外処理 ---------------------------------------------//
+
+        if (nextScene == SceneID.MAX)
+        {
+            Debugger.LogError("そんなシーンはありません。");
+        }
+
+        if (nextScene == nowScene)
+        {
+            Debugger.LogWarning("同じシーンが設定されています。");
+        }
+
+        // -------------------------------------------------------//
+
+        // 次のシーンを表示
+        sceneList[(int)nextScene].behaviour.gameObject.SetActive(true);
+        
+        // 現在のシーンを非表示
+        sceneList[(int)nowScene].behaviour.gameObject.SetActive(false);
+
+        // 現在のシーンの終了処理
+        sceneList[(int)nowScene].behaviour.Finish();
+
+        nowScene = nextScene;
+    }
 
     public override void Update()
     {

@@ -8,7 +8,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TemplateScript : ISequenceBehaviour 
+public class TemplateScript : MonoBehaviour 
 {
 
     /// <summary>
@@ -17,13 +17,6 @@ public class TemplateScript : ISequenceBehaviour
     [SerializeField]
     int value = 0;
 
-    /// <summary>
-    /// 初期化
-    /// </summary>
-    public override void Init()
-    {
-
-    }
 
     /// <summary>
     /// スクリプトのインスタンスがロードされたときに呼び出されます

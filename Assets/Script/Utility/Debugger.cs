@@ -6,9 +6,27 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Debugger : MonoBehaviour 
 {
+    static Text debugText = null;
+
+    void Awake()
+    {
+        debugText = GetComponent<Text>();
+        Reset();
+    }
+
+    /// <summary>
+    /// デバッグ用のテキストをリセットする。
+    /// </summary>
+    public static void Reset()
+    {
+        debugText.text = "";
+    }
+
+
     /// <summary>
     /// ログにメッセージを表示させる。
     /// </summary>
@@ -18,6 +36,7 @@ public class Debugger : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log(message);
 #endif
+        debugText.text += message + "\n";
     }
 
     /// <summary>
@@ -29,6 +48,8 @@ public class Debugger : MonoBehaviour
 #if UNITY_EDITOR
         Debug.LogError(message);
 #endif
+
+        debugText.text += "<color=red>" + message + "</color>" + "\n";
     }
 
     /// <summary>
@@ -40,5 +61,8 @@ public class Debugger : MonoBehaviour
 #if UNITY_EDITOR
         Debug.LogWarning(message);
 #endif
+
+        debugText.text += "<color=yellow>" + message + "</color>" + "\n";
+
     }
 }
