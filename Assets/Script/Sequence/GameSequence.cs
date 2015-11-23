@@ -29,7 +29,7 @@ public class GameSequence : SequenceBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SequenceManager.Instance.ChangeScene(SceneID.TITLE);
+            SequenceManager.Instance.ChangeScene(SceneID.RESULT);
         }
 	}
 }

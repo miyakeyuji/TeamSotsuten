@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------
-//  メインメニューシーン遷移クラス
+//  リザルトシーン遷移クラス
 // 
 //  code by m_yamada
 //-------------------------------------------------------------
@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MainMenuSequence : SequenceBehaviour
+public class ResultSequence : SequenceBehaviour
 {
 
     public override void Reset()
@@ -20,19 +20,16 @@ public class MainMenuSequence : SequenceBehaviour
         base.Finish();
     }
 
-	// Use this for initialization
-	void Start () 
-    {
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    void Start()
     {
 
+    }
+
+    void Update()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            SequenceManager.Instance.ChangeScene(SceneID.GAME);
+            SequenceManager.Instance.ChangeScene(SceneID.TITLE);
         }
-	}
+    }
 }

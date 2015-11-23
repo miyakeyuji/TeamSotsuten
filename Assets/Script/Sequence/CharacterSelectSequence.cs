@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------
-//  タイトルシーン遷移クラス
+//  キャラクター選択シーン遷移クラス
 // 
 //  code by m_yamada
 //-------------------------------------------------------------
@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TitleSequence : SequenceBehaviour
+public class CharacterSelectSequence : SequenceBehaviour
 {
 
     public override void Reset()
@@ -27,11 +27,12 @@ public class TitleSequence : SequenceBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update ()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
-            SequenceManager.Instance.ChangeScene(SceneID.CHARACTER_SELECT);
+            SequenceManager.Instance.ChangeScene(SceneID.GAME);
         }
 	}
 }
