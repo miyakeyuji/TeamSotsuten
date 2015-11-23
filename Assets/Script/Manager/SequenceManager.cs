@@ -14,9 +14,10 @@ using System.Collections.Generic;
 /// </summary>
 public enum SceneID
 {
-    TITLE,      // タイトル
-    MAIN_MENU,  // メニュー
-    GAME,       // ゲーム
+    TITLE,              // タイトル
+    CHARACTER_SELECT,   // キャラクター選択
+    GAME,               // ゲーム
+    RESULT,             // リザルト
     MAX,
 }
 
