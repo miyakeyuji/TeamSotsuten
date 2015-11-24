@@ -14,6 +14,7 @@ using System.Collections.Generic;
 /// </summary>
 public enum SceneID
 {
+    CONNECTION,         // コネクション
     TITLE,              // タイトル
     CHARACTER_SELECT,   // キャラクター選択
     GAME,               // ゲーム
@@ -43,7 +44,7 @@ public class SequenceManager : Singleton<SequenceManager>
     /// <summary>
     /// 今のシーン情報
     /// </summary>
-    SceneID nowScene = SceneID.TITLE;
+    SceneID nowScene = SceneID.CONNECTION;
 
     public override void Awake() 
     {
