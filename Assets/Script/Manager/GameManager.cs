@@ -28,4 +28,16 @@ public class GameManager : Singleton<CharacterSelectManager>
         base.Update();
 
     }
+
+    public EnemyMasterData EnemyMansterData { get; private set; }
+    public PlayerMasterData PlayerMansterData { get; private set; }
+
+    /// <summary>
+    /// 敵がヒットしたら、この関数をよんでください。
+    /// </summary>
+    /// <param name="isHit"></param>
+    public void EnemyHit(bool isHit)
+    {
+        EnemyMansterData.IsHit = isHit;
+    }
 }
