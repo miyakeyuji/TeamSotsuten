@@ -37,4 +37,7 @@ MonoBehaviour:
   - SetWatchID
   - SyncChangeScene
   - SyncOwerMessage
+  - DataAsync
+  - AllCompletion
+  - TerminalSync
   DisableAutoOpenWizard: 1

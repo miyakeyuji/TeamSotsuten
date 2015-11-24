@@ -47,6 +47,11 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
 
     PhotonView view = null;
 
+    /// <summary>
+    /// 接続ID
+    /// </summary>
+    static public int ID { get; private set; }
+
     static TerminalType type = TerminalType.Null;
 
     int smartPhoneID = 0;
@@ -119,6 +124,35 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
     {
         base.Update();
 
+        if(PhotonNetwork.isMasterClient)
+        {
+            // 2人なら、もう一つの要素もnullチェックをする。
+            if (watchPlayer[0] != null)
+            {
+                // すべての接続が完了したら処理する。
+                view.RPC("AllCompletion", PhotonTargets.All);
+
+                if (Input.GetMouseButtonDown(0))    // テストコード
+                {
+                    // ホストが持っている端末情報を子機へ同期させる。
+                    // すべての端末がホストの各端末情報をもらう。
+                    var data = new object[] { 0, OwnerPlayer, smartPhonePlayer[0], watchPlayer[0] };
+                    view.RPC("TerminalSync", PhotonTargets.All, data);
+                    view.RPC("SyncChangeScene", PhotonTargets.All);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// オール接続完了
+    /// </summary>
+    /// <param name="watch"></param>
+    /// <param name="info"></param>
+    [PunRPC]
+    void AllCompletion(PhotonMessageInfo info)
+    {
+        connectionStateText.text = "接続完了";
     }
 
     /// <summary>
@@ -129,6 +163,7 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
         smartPhoneButton.enabled = false;
         watchButton.enabled = false;
         hostButton.enabled = false;
+
     }
 
     /// <summary>
@@ -212,13 +247,10 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
     public void SetSmartPhoneID(PhotonPlayer player, PhotonMessageInfo info)
     {
         smartPhonePlayer[smartPhoneID] = player;
-
+        
         var debugIndex = smartPhoneID + 1;
         Debugger.Log("スマホ_" + debugIndex + " : 接続");
-
-        connectionStateText.enabled = true;
-        connectionStateText.text = "接続待ち";
-
+        
         smartPhoneID++;
     }
 
@@ -252,6 +284,20 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
     }
 
     /// <summary>
+    /// 端末情報を取得
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="phone"></param>
+    /// <param name="watch"></param>
+    [PunRPC]
+    void TerminalSync(int id, PhotonPlayer owner, PhotonPlayer phone, PhotonPlayer watch, PhotonMessageInfo info)
+    {
+        OwnerPlayer = owner;
+        watchPlayer[id] = watch;
+        smartPhonePlayer[id] = phone;
+    }
+
+    /// <summary>
     /// シーンを切り替える。　同期
     /// </summary>
     /// <param name="info"></param>
@@ -266,7 +312,7 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
     /// </summary>
     void ChangeScene()
     {
-        SequenceManager.Instance.ChangeScene(SceneID.TITLE);
+        SequenceManager.Instance.ChangeScene(SceneID.GAME);
     }
 
     /// <summary>
@@ -289,6 +335,15 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
 
         var index = PhotonNetwork.playerList.Length - 1;
 
+        if (!PhotonNetwork.isMasterClient)
+        {
+            ID = watchID;
+            Debugger.Log("ID : " + ID);
+        }
+
+        connectionStateText.enabled = true;
+        connectionStateText.text = "接続待ち";
+
         switch (type)
         {
             case TerminalType.Phone:
@@ -296,13 +351,12 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
                 break;
 
             case TerminalType.Watch:
+
                 view.RPC("SetWatchID", PhotonTargets.All, new object[] { PhotonNetwork.playerList[index] });
                 view.RPC("ActiveRoomState", PhotonTargets.All);
-                view.RPC("SyncChangeScene", PhotonTargets.All);
                 break;
 
             case TerminalType.Owner:
-                ChangeScene();        
                 Debugger.Log("オーナー : 接続中");
                 break;
 
