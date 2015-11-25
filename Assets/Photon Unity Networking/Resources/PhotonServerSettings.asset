@@ -15,11 +15,11 @@ MonoBehaviour:
   Protocol: 0
   ServerAddress: 
   ServerPort: 5055
-  AppID: e5c2a811-bd1b-4d6f-ae18-c6cee290cbf4
+  AppID: 799a6302-a764-4ee1-864f-c2bc01b36a98
   PreferredRegion: 3
   EnabledRegions: -1
   JoinLobby: 0
-  EnableLobbyStatistics: 0
+  EnableLobbyStatistics: 1
   RpcList:
   - Chat
   - DestroyRpc
@@ -30,4 +30,14 @@ MonoBehaviour:
   - PunPickupSimple
   - PunRespawn
   - RequestForPickupTimes
+  - ActiveARCamera
+  - ActiveRoomState
+  - AllEgressRoom
+  - SetSmartPhoneID
+  - SetWatchID
+  - SyncChangeScene
+  - SyncOwerMessage
+  - DataAsync
+  - AllCompletion
+  - TerminalSync
   DisableAutoOpenWizard: 1
