@@ -26,15 +26,13 @@ public class TemplateScript : MonoBehaviour
     /// </summary>
     void Awake()
     {
-
     }
 
-    /// <summary>
+    /// <summary>   
     /// Update メソッドが最初に呼び出される前のフレームで呼び出されます
     /// </summary>
     void Start()
     {
-
     }
 
     /// <summary>
