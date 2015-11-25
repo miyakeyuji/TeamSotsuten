@@ -46,7 +46,7 @@ public class GameSequence : SequenceBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SequenceManager.Instance.ChangeScene(SceneID.RESULT);
+            //SequenceManager.Instance.ChangeScene(SceneID.RESULT);
         }
 	}
 }

@@ -1370,6 +1370,22 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 1323460690}
+    - target: {fileID: 419164, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: .707106829
+      objectReference: {fileID: 0}
+    - target: {fileID: 419164, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: .707106709
+      objectReference: {fileID: 0}
+    - target: {fileID: 419164, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 419164, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
   m_IsPrefabParent: 0
