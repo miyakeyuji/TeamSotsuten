@@ -333,7 +333,7 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
 
         if (!PhotonNetwork.isMasterClient)
         {
-            ID = watchID;
+            ID = smartPhoneID;
             Debugger.Log("ID : " + ID);
         }
 
