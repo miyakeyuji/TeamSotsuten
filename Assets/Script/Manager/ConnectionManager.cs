@@ -137,7 +137,7 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
                     // ホストが持っている端末情報を子機へ同期させる。
                     // すべての端末がホストの各端末情報をもらう。
                     var data = new object[] { 0, OwnerPlayer, smartPhonePlayer[0], watchPlayer[0] };
-                    view.RPC("TerminalSync", PhotonTargets.All, data);
+                    view.RPC("SyncTerminalInfo", PhotonTargets.All, data);
                     view.RPC("SyncChangeScene", PhotonTargets.All);
                 }
             }
@@ -290,8 +290,10 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
     /// <param name="phone"></param>
     /// <param name="watch"></param>
     [PunRPC]
-    void TerminalSync(int id, PhotonPlayer owner, PhotonPlayer phone, PhotonPlayer watch, PhotonMessageInfo info)
+    void SyncTerminalInfo(int id, PhotonPlayer owner, PhotonPlayer phone, PhotonPlayer watch, PhotonMessageInfo info)
     {
+        Debugger.Log(">> 端末情報を同期します。");
+
         OwnerPlayer = owner;
         watchPlayer[id] = watch;
         smartPhonePlayer[id] = phone;
@@ -304,17 +306,11 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
     [PunRPC]
     public void SyncChangeScene(PhotonMessageInfo info)
     {
-        ChangeScene();
-    }
-    
-    /// <summary>
-    /// シーンを切り替える
-    /// </summary>
-    void ChangeScene()
-    {
+        Debugger.Log(">> ゲームシーンを変更します。");
+
         SequenceManager.Instance.ChangeScene(SceneID.GAME);
     }
-
+    
     /// <summary>
     /// マスターサーバーのロビー入室時
     /// </summary>

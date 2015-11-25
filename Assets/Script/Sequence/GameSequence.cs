@@ -9,10 +9,19 @@ using System.Collections;
 
 public class GameSequence : SequenceBehaviour
 {
+    [SerializeField]
+    Camera mainCamera = null;
+    
+    /// <summary>
+    /// ウォッチ端末の場合、隠すべきオブジェクト集
+    /// </summary>
+    [SerializeField]
+    GameObject watchHidenObj = null;
 
     public override void Reset()
     {
  	     base.Reset();
+
     }
 
     public override void Finish()
@@ -22,7 +31,15 @@ public class GameSequence : SequenceBehaviour
 
 	void Start () 
     {
-	
+        // ウォッチの場合の処理。
+        // いらないゲームオブジェクトをアクティブにしない。
+        if (ConnectionManager.IsWacth)
+        {
+            watchHidenObj.SetActive(false);
+            return;
+        }
+
+        mainCamera.enabled = false;
 	}
 	
 	void Update () 
