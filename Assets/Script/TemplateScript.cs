@@ -17,6 +17,9 @@ public class TemplateScript : MonoBehaviour
     [SerializeField]
     int value = 0;
 
+    [SerializeField]
+    GameObject attackObject;
+
 
     /// <summary>
     /// スクリプトのインスタンスがロードされたときに呼び出されます
@@ -31,6 +34,7 @@ public class TemplateScript : MonoBehaviour
     /// </summary>
     void Start()
     {
+
     }
 
     /// <summary>
@@ -38,6 +42,7 @@ public class TemplateScript : MonoBehaviour
     /// </summary>
     void Update()
     {
+
     }
 
     /// <summary>
