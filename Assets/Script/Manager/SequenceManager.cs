@@ -91,7 +91,7 @@ public class SequenceManager : Singleton<SequenceManager>
 
         // 次のシーンを表示
         sceneList[(int)nextScene].behaviour.gameObject.SetActive(true);
-        
+
         // 現在のシーンを非表示
         sceneList[(int)nowScene].behaviour.gameObject.SetActive(false);
 
