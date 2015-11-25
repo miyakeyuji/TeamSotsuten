@@ -17,16 +17,18 @@ public class TemplateScript : MonoBehaviour
     [SerializeField]
     int value = 0;
 
+    [SerializeField]
+    GameObject attackObject;
+
 
     /// <summary>
     /// スクリプトのインスタンスがロードされたときに呼び出されます
     /// </summary>
     void Awake()
     {
-
     }
 
-    /// <summary>
+    /// <summary>   
     /// Update メソッドが最初に呼び出される前のフレームで呼び出されます
     /// </summary>
     void Start()
@@ -38,6 +40,7 @@ public class TemplateScript : MonoBehaviour
     /// </summary>
     void Update()
     {
+
     }
 
     /// <summary>

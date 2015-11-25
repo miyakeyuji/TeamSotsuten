@@ -31,7 +31,7 @@ public class Debugger : MonoBehaviour
     /// ログにメッセージを表示させる。
     /// </summary>
     /// <param name="message"></param>
-    public static void Log(string message)
+    public static void Log(object message)
     { 
 #if UNITY_EDITOR
         Debug.Log(message);
@@ -43,7 +43,7 @@ public class Debugger : MonoBehaviour
     /// ログにエラーを表示させる。
     /// </summary>
     /// <param name="message"></param>
-    public static void LogError(string message)
+    public static void LogError(object message)
     {
 #if UNITY_EDITOR
         Debug.LogError(message);
@@ -56,7 +56,7 @@ public class Debugger : MonoBehaviour
     /// ログに警告を表示させる。
     /// </summary>
     /// <param name="message"></param>
-    public static void LogWarning(string message)
+    public static void LogWarning(object message)
     {
 #if UNITY_EDITOR
         Debug.LogWarning(message);

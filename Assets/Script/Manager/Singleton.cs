@@ -8,7 +8,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public class Singleton<T> : Photon.MonoBehaviour where T : Photon.MonoBehaviour
 {
     private static T instance = null;
 
