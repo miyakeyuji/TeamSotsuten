@@ -28,14 +28,15 @@ public class EnemyMasterData
 
     public int ID;      //各エネミー判定用のID
 
+    public int HP;      //体力
+
     public Vector3 Position;    // 座標
 
-    public Vector3 Rotasion;    //方向
+    public Vector3 Rotation;    //方向
 
     public bool IsLife; // 生存フラグ
 
-
-
+    
 }
 
 

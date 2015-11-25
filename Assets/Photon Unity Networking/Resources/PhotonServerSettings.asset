@@ -40,4 +40,9 @@ MonoBehaviour:
   - DataAsync
   - AllCompletion
   - TerminalSync
+  - SyncAwakeEnemyData
+  - SyncEnemyHP
+  - SyncEnemyPosition
+  - SyncEnemyRotation
+  - SyncSpawnEnemy
   DisableAutoOpenWizard: 1
