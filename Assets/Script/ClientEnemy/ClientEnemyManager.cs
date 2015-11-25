@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClientEnemyAttacker : MonoBehaviour {
+public class ClientEnemyManager : MonoBehaviour {
 
     [SerializeField]
-    private GameObject attackObj = null;
+    private GameObject clientEnemy;
 
 	// Use this for initialization
 	void Start () {
-        ObjectPool.Instance.SetObject(attackObj, 10);
+        ObjectPool.Instance.SetObject(clientEnemy, 5);   
 	}
 	
 	// Update is called once per frame
