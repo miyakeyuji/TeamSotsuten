@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e06cea644810e3a4888015fb18d25371
+timeCreated: 1448441226
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - attackEffect: {instanceID: 0}
+  - weakAttackSprite: {instanceID: 0}
+  - strongAttackSprite: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

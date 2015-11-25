@@ -13,15 +13,19 @@ public class GetDeviceData : MonoBehaviour {
     [SerializeField]
     GameObject device;
 
-	// Use this for initialization
-	void Start ()
+    /// <summary>
+    /// Update メソッドが最初に呼び出される前のフレームで呼び出されます
+    /// </summary>
+    void Start()
     {
         /// デバイスの座標を取得
         gameObject.transform.position = device.transform.position;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    /// <summary>
+    /// 毎フレーム呼ばれる。
+    /// </summary>
+    void Update()
     {
         /// デバイスの座標を取得
         gameObject.transform.position = device.transform.position;
