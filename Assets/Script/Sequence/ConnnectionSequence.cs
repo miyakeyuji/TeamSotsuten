@@ -27,6 +27,11 @@ public class ConnnectionSequence : SequenceBehaviour
 
     void Update()
     {
-
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SequenceManager.Instance.ChangeScene(SceneID.GAME);
+        }
+#endif
     }
 }

@@ -18,15 +18,22 @@ public class GameSequence : SequenceBehaviour
     [SerializeField]
     GameObject watchHidenObj = null;
 
+    [SerializeField]
+    WatchDeviceInfoRecorder watchRecorder = null;
+
     public override void Reset()
     {
  	     base.Reset();
 
+         watchRecorder.StopDebugShow();
     }
 
     public override void Finish()
     {
         base.Finish();
+
+        watchRecorder.StopDebugShow();
+
     }
 
 	void Start () 
@@ -40,6 +47,8 @@ public class GameSequence : SequenceBehaviour
         }
 
         mainCamera.enabled = false;
+
+        watchRecorder.StartDebugShow();
 	}
 	
 	void Update () 
