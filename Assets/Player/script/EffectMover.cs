@@ -27,16 +27,16 @@ public class EffectMover : MonoBehaviour {
     float speed = 5.0f;
 
     /// <summary>
-    /// 弱攻撃用のスプライト
+    /// 攻撃用のスプライト
     /// </summary>
     [SerializeField]
-    Sprite weakAttackSprite;
-
-    /// <summary>
-    /// 強攻撃用のスプライト
-    /// </summary>
+    Sprite upDownAttackSprite;
     [SerializeField]
-    Sprite strongAttackSprite;
+    Sprite downUpAttackSprite;
+    [SerializeField]
+    Sprite leftRightAttackSprite;
+    [SerializeField]
+    Sprite rightLeftAttackSprite;
 
     /// <summary>
     /// ITweenの再生中の管理
@@ -47,30 +47,37 @@ public class EffectMover : MonoBehaviour {
     /// 攻撃用のエフェクトの貼り付け先
     /// </summary>
     SpriteRenderer attackSpriteRenderer;
+    private Sprite strongAttackSprite;
 
     /// <summary>
     /// プレイヤーの挙動を受け取り攻撃タイプを判別
     /// </summary>
     /// <param name="attackType"></param>
-    public void OnObject(string attackType)
+    public void OnObject(int attackType)
     {
         gameObject.SetActive(true);
-        targetPosition.x = player.transform.position.x;
+        targetPosition = new Vector3( player.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         switch (attackType)
         {
-            case "強":
-                if (itweenCheck == false)
-                {
-                    attackSpriteRenderer.sprite = strongAttackSprite;
-                    Move();
-                }
+            case 1:
+                if (itweenCheck != false) break;
+                attackSpriteRenderer.sprite = upDownAttackSprite;
+                Move();
                 break;
-            case "弱":
-                if (itweenCheck == false)
-                {
-                    attackSpriteRenderer.sprite = weakAttackSprite;
-                    Move();
-                }
+            case 2:
+                if (itweenCheck != false) break;
+                attackSpriteRenderer.sprite = downUpAttackSprite;
+                Move();
+                break;
+            case 3:
+                if (itweenCheck != false) break;
+                attackSpriteRenderer.sprite = leftRightAttackSprite;
+                Move();
+                break;
+            case 4:
+                if (itweenCheck != false) break;
+                attackSpriteRenderer.sprite = rightLeftAttackSprite;
+                Move();
                 break;
         }
 
@@ -133,8 +140,8 @@ public class EffectMover : MonoBehaviour {
 
         // プレイヤーの位置までいったん移動
         gameObject.transform.position = player.transform.position;
-        
-        // プレイヤーのX座標と終着点のX座標を合わせて出現地点から一直線に進ませる
+
+        //　プレイヤーとエフェクトのX、Y座標を同期
         targetPosition.x = player.transform.position.x;
         targetPosition.y = player.transform.position.y;
 
