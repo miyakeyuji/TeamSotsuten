@@ -5,16 +5,21 @@ using System.Collections;
 // 衝突判定を行うクラス
 // 
 public class ClientEnemyHitChecker : MonoBehaviour {
-
-	// Use this for initialization
-	void Start ()
-    {
-	
-	}
-
     // 衝突判定
     void OnTriggerEnter(Collider other)
     {
+        int ID = 0;
+
+        var data = GameManager.Instance.GetEnemyData(ID);
+
+        if(data.HP <= 0)
+        {
+            //GameManager.Instance.SendEnemyDeath(ID);
+        }
+
 
     }
+
+
+    
 }

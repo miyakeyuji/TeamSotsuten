@@ -2,8 +2,10 @@
 using UnityEngine;
 using System.Collections;
 
-// サーバーとの通信結果を受け取るクラス
+// サーバーとの通信を行う
 public class ClientEnemyOperator : MonoBehaviour {
+
+    public int Id { get; set; }
 
 	// Use this for initialization
 	void Start () {
