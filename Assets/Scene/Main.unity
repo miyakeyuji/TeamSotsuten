@@ -568,6 +568,51 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 491584, guid: 18fa3b6208034b24b92f991a176968ee, type: 2}
   m_PrefabInternal: {fileID: 850877735}
+--- !u!1 &850877737 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 118234, guid: 18fa3b6208034b24b92f991a176968ee, type: 2}
+  m_PrefabInternal: {fileID: 850877735}
+--- !u!114 &850877738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 850877737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2f7149a40038e41bdee7c849f2789d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accRange: .100000001
+  motionData:
+  - isCalcX: 0
+    isCalcY: 0
+    isCalcZ: 1
+    skillType: 1
+    acc:
+    - {x: 0, y: 0, z: -1}
+    - {x: 0, y: 0, z: .600000024}
+  - isCalcX: 0
+    isCalcY: 0
+    isCalcZ: 1
+    skillType: 2
+    acc:
+    - {x: 1, y: 0, z: -1}
+    - {x: -1, y: 0, z: -2}
+  - isCalcX: 1
+    isCalcY: 0
+    isCalcZ: 0
+    skillType: 3
+    acc:
+    - {x: 0, y: 0, z: 0}
+    - {x: .600000024, y: 0, z: 0}
+  - isCalcX: 1
+    isCalcY: 0
+    isCalcZ: 0
+    skillType: 4
+    acc:
+    - {x: 0, y: 0, z: 0}
+    - {x: .600000024, y: 0, z: 0}
 --- !u!1001 &901491657
 Prefab:
   m_ObjectHideFlags: 0
