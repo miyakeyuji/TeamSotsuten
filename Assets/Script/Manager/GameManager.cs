@@ -69,6 +69,10 @@ public class GameManager : Singleton<GameManager>
     [PunRPC]
     void SyncAwakeEnemyData(PhotonMessageInfo _info)
     {
+        for(int i = 0; i< MAXIMUM_ENEMY_NUM;i++)
+        {
+            EnemyDataArray[i] = new EnemyMasterData();
+        }
         //エネミーＩＤの同期
         for (int i = 0;i<MAXIMUM_ENEMY_NUM;i++)
         {
