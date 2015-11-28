@@ -48,6 +48,8 @@ public class GameSequence : SequenceBehaviour
 
         mainCamera.enabled = false;
 
+        if (!ConnectionManager.IsSmartPhone) return;
+
         watchRecorder.StartDebugShow();
 	}
 	
