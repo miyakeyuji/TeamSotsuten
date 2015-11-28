@@ -40,3 +40,13 @@ public class EnemyMasterData
 }
 
 
+
+/// <summary>
+/// 攻撃のマスターデータ
+/// </summary>
+public class AttackMasterData
+{
+    public int ID;  //認識用ID
+
+    public bool IsLife; //生存（有効）フラグ
+}
