@@ -25,6 +25,17 @@ public class WatchManager : Singleton<WatchManager>
     /// ジャイロセンサー
     /// </summary>
     public Vector3 GyroAngle { get; private set; }
+    
+#if UNITY_ANDROID && !UNITY_EDITOR
+    static AndroidJavaObject androidJavaObject = null;
+
+    public class Data
+    {
+        public float x, y, z;
+    }
+    
+    Data data = null;
+#endif
 
     public override void Awake()
     {
@@ -33,6 +44,11 @@ public class WatchManager : Singleton<WatchManager>
         view = GetComponent<PhotonView>();
 
         Input.gyro.enabled = true;
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        androidJavaObject = new AndroidJavaObject("com.vantanps13.teamsotsuten.MainActivity");
+#endif
+
     }
 
     public override void Start()
@@ -52,7 +68,13 @@ public class WatchManager : Singleton<WatchManager>
 
         if (ConnectionManager.IsWacth)
         {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            data = androidJavaObject.Call<Data>("getAccData");
+            var acc = new Vector3(data.x, data.y, data.z);
+#else
             var acc = Input.acceleration;
+#endif
+
             var gyroAngle = Input.gyro.attitude.eulerAngles;
 
             view.RPC("DataAsync", ConnectionManager.GetSmartPhonePlayer(ConnectionManager.ID),
