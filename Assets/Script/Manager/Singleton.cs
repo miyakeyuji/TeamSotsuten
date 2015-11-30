@@ -34,8 +34,13 @@ public class Singleton<T> : Photon.MonoBehaviour where T : Photon.MonoBehaviour
     /// </summary>
     public virtual void Awake()
     {
-        // TO DO
-        // 追加していく
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        instance = this as T;
     }
 
     /// <summary>

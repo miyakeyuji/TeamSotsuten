@@ -8,7 +8,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class ConnectionManager : Singleton<CharacterSelectManager>
+public class ConnectionManager : Singleton<ConnectionManager>
 {
     enum TerminalType
     {

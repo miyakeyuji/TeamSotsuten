@@ -7,10 +7,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class TitleManager : Singleton<CharacterSelectManager>
+public class TitleManager : Singleton<TitleManager>
 {
-
-
     public override void Awake()
     {
         base.Awake();
