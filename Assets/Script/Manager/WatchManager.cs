@@ -49,6 +49,10 @@ public class WatchManager : Singleton<WatchManager>
         androidJavaObject = new AndroidJavaObject("com.vantanps13.teamsotsuten.MainActivity");
 #endif
 
+        if (!ConnectionManager.IsSmartPhone)
+        {
+            enabled = false;
+        }
     }
 
     public override void Start()
@@ -66,8 +70,9 @@ public class WatchManager : Singleton<WatchManager>
     {
         base.Update();
 
-        if (ConnectionManager.IsWacth)
+        if (ConnectionManager.IsSmartPhone)
         {
+
 #if UNITY_ANDROID && !UNITY_EDITOR
             data = androidJavaObject.Call<Data>("getAccData");
             var acc = new Vector3(data.x, data.y, data.z);
@@ -77,10 +82,16 @@ public class WatchManager : Singleton<WatchManager>
 
             var gyroAngle = Input.gyro.attitude.eulerAngles;
 
-            view.RPC("DataAsync", ConnectionManager.GetSmartPhonePlayer(ConnectionManager.ID),
-                new object[] { acc, gyroAngle });
+            //view.RPC("DataAsync", ConnectionManager.GetSmartPhonePlayer(ConnectionManager.ID),
+            //    new object[] { acc, gyroAngle });
 
-            DebugTextShow(acc, gyroAngle);
+            //DebugTextShow(acc, gyroAngle);
+
+            Acc = acc;
+            GyroAngle = gyroAngle;
+
+            DebugTextShow(Acc, GyroAngle);
+
         }
     }
 
