@@ -88,7 +88,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     /// <param name="_id"></param>
     /// <returns></returns>
-    public EnemyMasterData GetEnemyData(int _id, PhotonMessageInfo _info)
+    public EnemyMasterData GetEnemyData(int _id)
     {
         return EnemyDataArray[_id];
     }
