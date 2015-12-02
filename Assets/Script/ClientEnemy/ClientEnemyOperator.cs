@@ -33,7 +33,6 @@ public class ClientEnemyOperator : MonoBehaviour {
     void UpdateDatas()
     {
         data = GameManager.Instance.GetEnemyData(ID);
-        //DataSet();
     }
 
     // ポジションなどの更新
