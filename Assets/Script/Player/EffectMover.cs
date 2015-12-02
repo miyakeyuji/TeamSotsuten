@@ -52,37 +52,51 @@ public class EffectMover : MonoBehaviour {
     private Sprite strongAttackSprite;
 
     /// <summary>
+    /// 動作から取得したIDを取得
+    /// </summary>
+    AttackMotionSkilManager.MotionSkillType type;
+
+    /// <summary>
     /// プレイヤーの挙動を受け取り攻撃タイプを判別
     /// </summary>
-    /// <param name="attackType"></param>
-    public void OnObject(int attackType)
+    /// <param name="attackType">動作から受け取った行動ID</param>
+    public void OnObject(AttackMotionSkilManager.MotionSkillType attackType)
     {
+        //　エフェクトオブジェクトをアクティブ化
         gameObject.SetActive(true);
+
+        //　エフェクトがどの攻撃タイプか情報を保存
+        type = attackType;
+
+        //　エフェクトのターゲットを設定
         targetPosition = new Vector3( player.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+
+        //　動きから受け取ったタイプからテクスチャなどをオブジェクトに張り付ける
         switch (attackType)
         {
-            case 1:
+            case AttackMotionSkilManager.MotionSkillType.VERTICAL_UP_DOWN:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = upDownAttackSprite;
                 Move();
                 break;
-            case 2:
+            case AttackMotionSkilManager.MotionSkillType.VERTICAL_DOWN_UP:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = downUpAttackSprite;
                 Move();
                 break;
-            case 3:
+            case AttackMotionSkilManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = leftRightAttackSprite;
                 Move();
                 break;
-            case 4:
+            case AttackMotionSkilManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = rightLeftAttackSprite;
                 Move();
                 break;
         }
 
+        //　ITweenが再生中のフラグを立てる
         itweenCheck = true;
     }
 
@@ -110,6 +124,7 @@ public class EffectMover : MonoBehaviour {
             gameObject.transform.position.y,
             player.transform.position.z);
 
+        // ITweenが無効になっているフラグたて
         itweenCheck = false;
 
         //オブジェクトの非アクティブ化
@@ -152,6 +167,9 @@ public class EffectMover : MonoBehaviour {
 
         // ITween用のフラグ初期化
         itweenCheck = false;
+
+        // 攻撃タイプの初期化
+        type = AttackMotionSkilManager.MotionSkillType.NONE;
     }
 
     /// <summary>

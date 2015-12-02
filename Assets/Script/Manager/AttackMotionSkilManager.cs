@@ -27,6 +27,12 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
     public MotionSkillType MotionSkill { get; private set; }
 
     /// <summary>
+    /// 判別した攻撃タイプの送信先
+    /// </summary>
+    [SerializeField]
+    GameObject attackEffect;
+
+    /// <summary>
     /// 計算するモーションの種類、
     /// </summary>
     MotionSkillType calcMotionSkill = MotionSkillType.NONE;
@@ -137,19 +143,19 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
         switch (MotionSkill)
         { 
             case MotionSkillType.VERTICAL_DOWN_UP:
-
+                attackEffect.SendMessage("OnObject", MotionSkill);
                 break;
 
             case MotionSkillType.VERTICAL_UP_DOWN:
-
+                attackEffect.SendMessage("OnObject", MotionSkill);
                 break;
 
             case MotionSkillType.HORIZONTAL_LEFT_RIGHT:
-
+                attackEffect.SendMessage("OnObject", MotionSkill);
                 break;
 
             case MotionSkillType.HORIZONTAL_RIGHT_LEFT:
-
+                attackEffect.SendMessage("OnObject", MotionSkill);
                 break;
         }
     }
