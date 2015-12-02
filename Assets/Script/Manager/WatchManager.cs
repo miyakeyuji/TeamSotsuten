@@ -26,17 +26,6 @@ public class WatchManager : Singleton<WatchManager>
     /// </summary>
     public Vector3 GyroAngle { get; private set; }
     
-#if UNITY_ANDROID && !UNITY_EDITOR
-    static AndroidJavaObject androidJavaObject = null;
-
-    public class Data
-    {
-        public float x, y, z;
-    }
-    
-    Data data = null;
-#endif
-
     public override void Awake()
     {
         base.Awake();
@@ -45,66 +34,43 @@ public class WatchManager : Singleton<WatchManager>
 
         Input.gyro.enabled = true;
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-        androidJavaObject = new AndroidJavaObject("com.vantanps13.teamsotsuten.MainActivity");
-#endif
-
-        if (!ConnectionManager.IsSmartPhone)
+        if (ConnectionManager.IsOwner)
         {
             enabled = false;
         }
+
     }
 
     public override void Start()
     {
         base.Start();
-
-
-        Debugger.Log("IsWatch : " + ConnectionManager.IsWacth);
-
-        Debugger.Log(ConnectionManager.GetSmartPhonePlayer(ConnectionManager.ID));
-
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (ConnectionManager.IsSmartPhone)
+        if (ConnectionManager.IsWacth)
         {
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-            data = androidJavaObject.Call<Data>("getAccData");
-            var acc = new Vector3(data.x, data.y, data.z);
-#else
             var acc = Input.acceleration;
-#endif
-
             var gyroAngle = Input.gyro.attitude.eulerAngles;
 
-            //view.RPC("DataAsync", ConnectionManager.GetSmartPhonePlayer(ConnectionManager.ID),
-            //    new object[] { acc, gyroAngle });
-
-            //DebugTextShow(acc, gyroAngle);
-
-            Acc = acc;
-            GyroAngle = gyroAngle;
-
-            DebugTextShow(Acc, GyroAngle);
-
+            view.RPC("SyncData", 
+                ConnectionManager.GetSmartPhonePlayer(ConnectionManager.ID), 
+                new object[] { acc, gyroAngle });
+            
+            DebugTextShow(acc, gyroAngle);
         }
     }
 
     [PunRPC]
-    public void DataAsync(Vector3 acc, Vector3 gyroAngle, PhotonMessageInfo info)
+    void SyncData(Vector3 acc,Vector3 gyroAngle,PhotonMessageInfo info)
     {
         Acc = acc;
         GyroAngle = gyroAngle;
 
         DebugTextShow(Acc, GyroAngle);
-
     }
-
 
     void DebugTextShow(Vector3 acc, Vector3 gyroAngle)
     {
