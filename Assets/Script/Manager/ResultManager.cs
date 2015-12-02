@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ResultManager : Singleton<CharacterSelectManager>
+public class ResultManager : Singleton<ResultManager>
 {
 
 

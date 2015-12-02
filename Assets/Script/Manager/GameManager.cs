@@ -24,6 +24,9 @@ public class GameManager : Singleton<GameManager>
     EnemyMasterData[] EnemyDataArray = new EnemyMasterData[MAXIMUM_ENEMY_NUM];
 
 
+    //　アタックデータ
+    public const int MAXIMUM_ATTACK_NUM = 1;
+    AttackMasterData[] AttackDataArray = new AttackMasterData[MAXIMUM_ATTACK_NUM];
 
 
     public override void Awake()
@@ -35,12 +38,14 @@ public class GameManager : Singleton<GameManager>
         SendEnemyDataAwake();
     }
 
+    //毎回の初期化処理
     public override void Start()
     {
         base.Start();
         
     }
 
+    //更新
     public override void Update()
     {
         base.Update();
@@ -64,6 +69,10 @@ public class GameManager : Singleton<GameManager>
     [PunRPC]
     void SyncAwakeEnemyData(PhotonMessageInfo _info)
     {
+        for(int i = 0; i< MAXIMUM_ENEMY_NUM;i++)
+        {
+            EnemyDataArray[i] = new EnemyMasterData();
+        }
         //エネミーＩＤの同期
         for (int i = 0;i<MAXIMUM_ENEMY_NUM;i++)
         {
@@ -88,11 +97,23 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     /// <param name="_id"></param>
     /// <returns></returns>
-    public EnemyMasterData GetEnemyData(int _id, PhotonMessageInfo _info)
+    public EnemyMasterData GetEnemyData(int _id)
     {
         return EnemyDataArray[_id];
     }
 
+
+
+    /// <summary>
+    /// 攻撃の情報を取得したい場合、この関数を読んでください、
+    /// ※取得したデータを直接書き換えないでください。
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <returns></returns>
+    public AttackMasterData GetAttackData(int _id)
+    {
+        return AttackDataArray[_id];
+    }
 
     
 
@@ -112,9 +133,8 @@ public class GameManager : Singleton<GameManager>
     }
 
 
-
     /// <summary>
-    /// エネミーのHPをセットします。
+    /// エネミーのHPをセット(変更)します。
     /// </summary>
     /// <param name="_id"></param>
     /// <param name="_hp"></param>
@@ -164,7 +184,25 @@ public class GameManager : Singleton<GameManager>
     }
 
 
-    
+
+
+
+
+    /// <summary>
+    /// 攻撃を生成します。
+    /// </summary>
+    public void CreateAttack(int _id)
+    {
+        view.RPC("SyncCreateAttack", PhotonTargets.All, new object[] { _id });
+    }
+
+    [PunRPC]
+    void SyncCreateAttack(int _id, PhotonMessageInfo _info)
+    {//攻撃生成情報送信
+        AttackDataArray[_id].IsLife = true;
+    }
+
+
 
 
 

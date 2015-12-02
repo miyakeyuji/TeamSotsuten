@@ -49,7 +49,6 @@ public class WatchDeviceInfoRecorder : MonoBehaviour
         recordButton.image.color = new Color(0, 0, 1);
         recordText.text = "記録開始";
 #endif
-
     }
 
     /// <summary>
@@ -58,10 +57,7 @@ public class WatchDeviceInfoRecorder : MonoBehaviour
     /// </summary>
     public void StopDebugShow()
     {
-#if UNITY_EDITOR
         recordButton.gameObject.SetActive(false);
-#endif
-
     }
 
     /// <summary>
