@@ -8,7 +8,9 @@ using System.Collections;
 
 // サーバーとの通信を行う
 public class ClientEnemyOperator : MonoBehaviour {
-
+    /// <summary>
+    /// エネミーのID
+    /// </summary>
     private int id = 0;
     public int ID
     {
@@ -23,19 +25,17 @@ public class ClientEnemyOperator : MonoBehaviour {
     }
     EnemyMasterData data = null;
 
-	// Use this for initialization
-	//void Start () {}
-	
-	// Update is called once per frame
-	//void Update () {}
-
-    // ポジションなどの更新
+    /// <summary>
+    /// ポジションなどの更新
+    /// </summary>
     void UpdateDatas()
     {
         data = GameManager.Instance.GetEnemyData(ID);
     }
 
-    // ポジションなどの更新
+    /// <summary>
+    /// ポジションなどの更新
+    /// </summary>
     void DataSet()
     {
         this.gameObject.transform.position = data.Position;                     // ポジション

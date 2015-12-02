@@ -8,12 +8,19 @@ using System.Collections;
 
 // 衝突判定を行うクラス
 public class ClientEnemyHitChecker : MonoBehaviour {
-    // 衝突判定
+    ClientEnemyOperator enemyOperator = null;
+
+    void Start()
+    {
+        enemyOperator = GetComponent<ClientEnemyOperator>();
+    }
+
+    /// <summary>
+    /// 衝突判定
+    /// </summary>
     void OnTriggerEnter(Collider other)
     {
-        int ID = 0;
-
-        var data = GameManager.Instance.GetEnemyData(ID);
+        var data = GameManager.Instance.GetEnemyData(enemyOperator.ID);
 
         if(data.HP <= 0)
         {
