@@ -9,8 +9,18 @@ using System.Collections;
 // サーバーとの通信を行う
 public class ClientEnemyOperator : MonoBehaviour {
 
-    private int id;
-    public int Id { get { return id; } set { id = value; } }
+    private int id = 0;
+    public int ID
+    {
+        get
+        {
+            return id;
+        }
+        set
+        {
+            if (id == 0) id = value;
+        }
+    }
     EnemyMasterData data = null;
 
 	// Use this for initialization
@@ -26,8 +36,8 @@ public class ClientEnemyOperator : MonoBehaviour {
     // ポジションなどの更新
     void UpdateDatas()
     {
-        data = GameManager.Instance.GetEnemyData(Id);
-        DataSet();
+        data = GameManager.Instance.GetEnemyData(ID);
+        //DataSet();
     }
 
     // ポジションなどの更新
