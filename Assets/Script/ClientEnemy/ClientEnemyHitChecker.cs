@@ -15,10 +15,5 @@ public class ClientEnemyHitChecker : MonoBehaviour {
         {
             //GameManager.Instance.SendEnemyDeath(ID);
         }
-
-
     }
-
-
-    
 }

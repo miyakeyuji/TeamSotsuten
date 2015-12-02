@@ -5,7 +5,8 @@ using System.Collections;
 // サーバーとの通信を行う
 public class ClientEnemyOperator : MonoBehaviour {
 
-    public int Id { get; set; }
+    private int id;
+    public int Id { get { return id; } set { id = value; } }
     EnemyMasterData data = null;
 
 	// Use this for initialization
@@ -22,5 +23,13 @@ public class ClientEnemyOperator : MonoBehaviour {
     void UpdateDatas()
     {
         data = GameManager.Instance.GetEnemyData(Id);
+        DataSet();
+    }
+
+    // ポジションなどの更新
+    void DataSet()
+    {
+        this.gameObject.transform.position = data.Position;                     // ポジション
+        this.gameObject.transform.rotation = Quaternion.Euler(data.Rotation);   // 角度
     }
 }
