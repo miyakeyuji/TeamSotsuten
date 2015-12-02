@@ -8,7 +8,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class ConnectionManager : Singleton<CharacterSelectManager>
+public class ConnectionManager : Singleton<ConnectionManager>
 {
     enum TerminalType
     {
@@ -127,7 +127,7 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
         if(PhotonNetwork.isMasterClient)
         {
             // 2人なら、もう一つの要素もnullチェックをする。
-            if (watchPlayer[0] != null)
+            if (smartPhoneID >= 1)
             {
                 // すべての接続が完了したら処理する。
                 view.RPC("AllCompletion", PhotonTargets.All);
@@ -137,7 +137,7 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
                     // ホストが持っている端末情報を子機へ同期させる。
                     // すべての端末がホストの各端末情報をもらう。
                     var data = new object[] { 0, OwnerPlayer, smartPhonePlayer[0], watchPlayer[0] };
-                    view.RPC("TerminalSync", PhotonTargets.All, data);
+                    view.RPC("SyncTerminalInfo", PhotonTargets.All, data);
                     view.RPC("SyncChangeScene", PhotonTargets.All);
                 }
             }
@@ -177,7 +177,6 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
         type = TerminalType.Phone;
 
         AllConnectionButtonDisable();
-
     }
 
     /// <summary>
@@ -290,8 +289,10 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
     /// <param name="phone"></param>
     /// <param name="watch"></param>
     [PunRPC]
-    void TerminalSync(int id, PhotonPlayer owner, PhotonPlayer phone, PhotonPlayer watch, PhotonMessageInfo info)
+    void SyncTerminalInfo(int id, PhotonPlayer owner, PhotonPlayer phone, PhotonPlayer watch, PhotonMessageInfo info)
     {
+        Debugger.Log(">> 端末情報を同期します。");
+
         OwnerPlayer = owner;
         watchPlayer[id] = watch;
         smartPhonePlayer[id] = phone;
@@ -304,17 +305,11 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
     [PunRPC]
     public void SyncChangeScene(PhotonMessageInfo info)
     {
-        ChangeScene();
-    }
-    
-    /// <summary>
-    /// シーンを切り替える
-    /// </summary>
-    void ChangeScene()
-    {
+        Debugger.Log(">> ゲームシーンを変更します。");
+
         SequenceManager.Instance.ChangeScene(SceneID.GAME);
     }
-
+    
     /// <summary>
     /// マスターサーバーのロビー入室時
     /// </summary>
@@ -337,7 +332,7 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
 
         if (!PhotonNetwork.isMasterClient)
         {
-            ID = watchID;
+            ID = smartPhoneID;
             Debugger.Log("ID : " + ID);
         }
 
@@ -348,12 +343,13 @@ public class ConnectionManager : Singleton<CharacterSelectManager>
         {
             case TerminalType.Phone:
                 view.RPC("SetSmartPhoneID", PhotonTargets.All, new object[] { PhotonNetwork.playerList[index] });
+                view.RPC("ActiveRoomState", PhotonTargets.All);
                 break;
 
             case TerminalType.Watch:
 
                 view.RPC("SetWatchID", PhotonTargets.All, new object[] { PhotonNetwork.playerList[index] });
-                view.RPC("ActiveRoomState", PhotonTargets.All);
+                //view.RPC("ActiveRoomState", PhotonTargets.All);
                 break;
 
             case TerminalType.Owner:

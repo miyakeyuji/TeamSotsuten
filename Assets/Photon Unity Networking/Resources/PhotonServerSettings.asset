@@ -45,4 +45,7 @@ MonoBehaviour:
   - SyncEnemyPosition
   - SyncEnemyRotation
   - SyncSpawnEnemy
+  - SyncTerminalInfo
+  - SyncData
+  - SyncCreateAttack
   DisableAutoOpenWizard: 1
