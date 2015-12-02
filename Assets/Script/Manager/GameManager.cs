@@ -16,16 +16,19 @@ public class GameManager : Singleton<GameManager>
     PhotonView view = null;
 
     // プレイヤーデータ
-    public const int MAXIMUM_PLAYER_NUM = 1;   // 最大プレイヤー数
+    const int MAXIMUM_PLAYER_NUM = 1;   // 最大プレイヤー数
+    public int MaxPlayerNum { get { return MAXIMUM_PLAYER_NUM; } }      // 外から最大数を取得したい場合、プレイヤー
     PlayerMasterData[] PlayerDataArray = new PlayerMasterData[MAXIMUM_PLAYER_NUM];
 
     // エネミーデータ
-    public const int MAXIMUM_ENEMY_NUM = 1;
+    const int MAXIMUM_ENEMY_NUM = 1;
+    public int MaxEnemyNum { get { return MAXIMUM_ENEMY_NUM; } }        // 外から最大数を取得したい場合、エネミー
     EnemyMasterData[] EnemyDataArray = new EnemyMasterData[MAXIMUM_ENEMY_NUM];
 
 
     //　アタックデータ
-    public const int MAXIMUM_ATTACK_NUM = 1;
+    const int MAXIMUM_ATTACK_NUM = 1;
+    public int MaxAttackNum { get { return MAXIMUM_ATTACK_NUM;} }       // 外から最大数を取得したい場合、アタック
     AttackMasterData[] AttackDataArray = new AttackMasterData[MAXIMUM_ATTACK_NUM];
 
 
@@ -35,7 +38,9 @@ public class GameManager : Singleton<GameManager>
 
         view = GetComponent<PhotonView>();
 
+        SendPlayerDataAwake();
         SendEnemyDataAwake();
+        SendAttackDataAwake();
     }
 
     //毎回の初期化処理
@@ -52,22 +57,49 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    
+
+    /// <summary>
+    /// 敵情報のアウェイク
+    /// </summary>
+    void SendPlayerDataAwake()
+    {
+        view.RPC("SyncPlayerDataAwake", PhotonTargets.All);
+    }
+
+    /// <summary>
+    /// アウェイクで同期させるプレイヤーデータ
+    /// </summary>
+    /// <param name="_info"></param>
+    [PunRPC]
+    void SyncPlayerDataAwake(PhotonMessageInfo _info)
+    {
+        for (int i = 0; i < MAXIMUM_PLAYER_NUM; i++)
+        {
+            PlayerDataArray[i] = new PlayerMasterData();
+        }
+        //プレイヤーＩＤの同期
+        for (int i = 0; i < MAXIMUM_PLAYER_NUM; i++)
+        {
+            PlayerDataArray[i].ID = i;
+        }
+    }
+
+
+
     /// <summary>
     /// 敵情報のアウェイク
     /// </summary>
     void SendEnemyDataAwake()
     {
-        view.RPC("SyncAwakeEnemyData", PhotonTargets.All);
+        view.RPC("SyncEnemyDataAwake", PhotonTargets.All);
     }
 
     /// <summary>
-    /// アウェイクで同期させるエネミーデータ関数
+    /// アウェイクで同期させるエネミーデータ
     /// </summary>
-    /// <param name="_index"></param>
-    /// <param name="_id"></param>
+    /// <param name="_info"></param>
     [PunRPC]
-    void SyncAwakeEnemyData(PhotonMessageInfo _info)
+    void SyncEnemyDataAwake(PhotonMessageInfo _info)
     {
         for(int i = 0; i< MAXIMUM_ENEMY_NUM;i++)
         {
@@ -79,6 +111,36 @@ public class GameManager : Singleton<GameManager>
             EnemyDataArray[i].ID = i;
         }
     }
+
+
+    /// <summary>
+    /// 敵情報のアウェイク
+    /// </summary>
+    void SendAttackDataAwake()
+    {
+        view.RPC("SyncAttackDataAwake", PhotonTargets.All);
+    }
+
+    /// <summary>
+    /// アウェイクで同期させる攻撃データ
+    /// </summary>
+    /// <param name="_info"></param>
+    [PunRPC]
+    void SyncAttackDataAwake(PhotonMessageInfo _info)
+    {
+        for (int i = 0; i < MAXIMUM_ATTACK_NUM; i++)
+        {
+            AttackDataArray[i] = new AttackMasterData();
+        }
+        //エネミーＩＤの同期
+        for (int i = 0; i < MAXIMUM_ATTACK_NUM; i++)
+        {
+            AttackDataArray[i].ID = i;
+        }
+    }
+
+
+
 
     /// <summary>
     /// プレイヤーの情報を取得したい場合、この関数を呼んでください。
@@ -118,18 +180,19 @@ public class GameManager : Singleton<GameManager>
     
 
     /// <summary>
-    /// エネミーを生成します。
+    /// エネミーの生存フラグを変更します。
     /// </summary>
     /// <param name="_id"></param>
-    public void SendSpawnEnemy(int _id)
+    /// <param name="_islife"></param>
+    public void SendEnemyIsLife(int _id,bool _islife)
     {
-        view.RPC("SyncSpawnEnemy", PhotonTargets.All,new object[] { _id});
+        view.RPC("SyncEnemyIsLife", PhotonTargets.All,new object[] { _id,_islife});
     }
 
     [PunRPC]
-    void SyncSpawnEnemy(int _id, PhotonMessageInfo _info)
+    void SyncEnemyIsLife(int _id,bool _islife, PhotonMessageInfo _info)
     {//エネミースポーン情報送信
-        EnemyDataArray[_id].IsLife = true;
+        EnemyDataArray[_id].IsLife = _islife;
     }
 
 
