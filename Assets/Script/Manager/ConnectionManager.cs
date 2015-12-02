@@ -126,8 +126,8 @@ public class ConnectionManager : Singleton<ConnectionManager>
 
         if(PhotonNetwork.isMasterClient)
         {
-            // 2人なら、もう一つの要素もnullチェックをする。
-            if (smartPhoneID >= 1)
+            // 2人なら、もう一つの要素も2にする。
+            if (watchID >= 1)
             {
                 // すべての接続が完了したら処理する。
                 view.RPC("AllCompletion", PhotonTargets.All);
@@ -343,13 +343,12 @@ public class ConnectionManager : Singleton<ConnectionManager>
         {
             case TerminalType.Phone:
                 view.RPC("SetSmartPhoneID", PhotonTargets.All, new object[] { PhotonNetwork.playerList[index] });
-                view.RPC("ActiveRoomState", PhotonTargets.All);
                 break;
 
             case TerminalType.Watch:
 
                 view.RPC("SetWatchID", PhotonTargets.All, new object[] { PhotonNetwork.playerList[index] });
-                //view.RPC("ActiveRoomState", PhotonTargets.All);
+                view.RPC("ActiveRoomState", PhotonTargets.All);
                 break;
 
             case TerminalType.Owner:
