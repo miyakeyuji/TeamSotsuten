@@ -10,12 +10,6 @@ using System.Collections;
 public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
 {
     /// <summary>
-    /// エフェクトを呼び出すためのクラスを情報
-    /// </summary>
-    [SerializeField]
-    GameObject effect;
-
-    /// <summary>
     /// モーションスキルタイプ
     /// </summary>
     public enum MotionSkillType
@@ -58,7 +52,6 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
 
     bool isStart = false;
     int clearIndex = 0;
-    private readonly object effectMover;
 
     public override void Awake()
     {
@@ -95,7 +88,7 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
     void StartMotion()
     {
         for (int i = 0; i < motionData.Length; i++)
-        {   
+        {
             float dist = Vector3.Distance(GetAccValue(motionData[i],0), WatchManager.Instance.Acc);
             if (dist >= accRange)
             {
@@ -144,19 +137,19 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
         switch (MotionSkill)
         { 
             case MotionSkillType.VERTICAL_DOWN_UP:
-                effect.SendMessage("OnObject",(int)MotionSkillType.VERTICAL_DOWN_UP);
+
                 break;
 
             case MotionSkillType.VERTICAL_UP_DOWN:
-                effect.SendMessage("OnObject", (int)MotionSkillType.VERTICAL_UP_DOWN);
-                break;  
+
+                break;
 
             case MotionSkillType.HORIZONTAL_LEFT_RIGHT:
-                effect.SendMessage("OnObject", (int)MotionSkillType.HORIZONTAL_LEFT_RIGHT);
+
                 break;
 
             case MotionSkillType.HORIZONTAL_RIGHT_LEFT:
-                effect.SendMessage("OnObject", (int)MotionSkillType.HORIZONTAL_RIGHT_LEFT);
+
                 break;
         }
     }
