@@ -44,6 +44,7 @@ public class SequenceManager : Singleton<SequenceManager>
     /// <summary>
     /// 今のシーン情報
     /// </summary>
+    [SerializeField]
     SceneID nowScene = SceneID.CONNECTION;
 
     public override void Awake() 

@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------
-//  攻撃モーションスキル管理クラス
+//  モーション管理クラス
 // 
 //  code by m_yamada
 //-------------------------------------------------------------
@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
+public class MotionManager : Singleton<MotionManager>
 {
     /// <summary>
     /// モーションスキルタイプ
@@ -25,12 +25,6 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
     /// 今のモーションスキルタイプ
     /// </summary>
     public MotionSkillType MotionSkill { get; private set; }
-
-    /// <summary>
-    /// 判別した攻撃タイプの送信先
-    /// </summary>
-    [SerializeField]
-    GameObject attackEffect;
 
     /// <summary>
     /// 計算するモーションの種類、
@@ -56,6 +50,12 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
     [SerializeField]
     MotionWatchData[] motionData = new MotionWatchData[2];
 
+    [SerializeField]
+    AttackSkillCreator attackSkill = null;
+
+    [SerializeField]
+    JobRotater jobRotater = null;
+
     bool isStart = false;
     int clearIndex = 0;
 
@@ -69,6 +69,7 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
     public override void Start()
     {
         base.Start();
+
 
     }
 
@@ -132,32 +133,16 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
 
 
     /// <summary>
-    /// 攻撃スキルを生成
-    /// Effectなどの攻撃ゲームオブジェクトをここで生成(アクティブ)してください。
+    /// モーションが成功した時に呼ばれる。
     /// </summary>
-    void CreateAttackSkill()
+    void OnComplated()
     {
         if (isStart) return;
         if (MotionSkill == MotionSkillType.NONE) return;
 
-        switch (MotionSkill)
-        { 
-            case MotionSkillType.VERTICAL_DOWN_UP:
-                attackEffect.SendMessage("OnObject", MotionSkill);
-                break;
+        attackSkill.OnMotionComplated();
+        jobRotater.OnMotionComplated();
 
-            case MotionSkillType.VERTICAL_UP_DOWN:
-                attackEffect.SendMessage("OnObject", MotionSkill);
-                break;
-
-            case MotionSkillType.HORIZONTAL_LEFT_RIGHT:
-                attackEffect.SendMessage("OnObject", MotionSkill);
-                break;
-
-            case MotionSkillType.HORIZONTAL_RIGHT_LEFT:
-                attackEffect.SendMessage("OnObject", MotionSkill);
-                break;
-        }
     }
 
     public override void Update()
@@ -172,7 +157,7 @@ public class AttackMotionSkilManager : Singleton<AttackMotionSkilManager>
         {
             CalcMotion();
 
-            CreateAttackSkill();
+            OnComplated();
         }
     }
 }

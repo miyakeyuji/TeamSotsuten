@@ -54,13 +54,13 @@ public class EffectMover : MonoBehaviour {
     /// <summary>
     /// 動作から取得したIDを取得
     /// </summary>
-    AttackMotionSkilManager.MotionSkillType type;
+    MotionManager.MotionSkillType type;
 
     /// <summary>
     /// プレイヤーの挙動を受け取り攻撃タイプを判別
     /// </summary>
     /// <param name="attackType">動作から受け取った行動ID</param>
-    public void OnObject(AttackMotionSkilManager.MotionSkillType attackType)
+    public void OnObject(MotionManager.MotionSkillType attackType)
     {
         //　エフェクトオブジェクトをアクティブ化
         gameObject.SetActive(true);
@@ -74,22 +74,22 @@ public class EffectMover : MonoBehaviour {
         //　動きから受け取ったタイプからテクスチャなどをオブジェクトに張り付ける
         switch (attackType)
         {
-            case AttackMotionSkilManager.MotionSkillType.VERTICAL_UP_DOWN:
+            case MotionManager.MotionSkillType.VERTICAL_UP_DOWN:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = upDownAttackSprite;
                 Move();
                 break;
-            case AttackMotionSkilManager.MotionSkillType.VERTICAL_DOWN_UP:
+            case MotionManager.MotionSkillType.VERTICAL_DOWN_UP:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = downUpAttackSprite;
                 Move();
                 break;
-            case AttackMotionSkilManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
+            case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = leftRightAttackSprite;
                 Move();
                 break;
-            case AttackMotionSkilManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
+            case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = rightLeftAttackSprite;
                 Move();
@@ -169,7 +169,7 @@ public class EffectMover : MonoBehaviour {
         itweenCheck = false;
 
         // 攻撃タイプの初期化
-        type = AttackMotionSkilManager.MotionSkillType.NONE;
+        type = MotionManager.MotionSkillType.NONE;
     }
 
     /// <summary>

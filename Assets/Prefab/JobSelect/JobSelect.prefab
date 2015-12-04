@@ -61,7 +61,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 452856}
@@ -98,7 +98,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 184752}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
@@ -122,7 +122,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155390}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
@@ -162,7 +162,7 @@ BoxCollider:
   m_GameObject: {fileID: 155390}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -174,7 +174,7 @@ BoxCollider:
   m_GameObject: {fileID: 184752}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -204,18 +204,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JobDataBase:
-  - job: {fileID: 187536, guid: c083e418ada2da24f9cca4e8c26f2299, type: 2}
-    jobType: 0
-  - job: {fileID: 172904, guid: 152c1f65f07ef56448fe710f076236a3, type: 2}
-    jobType: 0
-  - job: {fileID: 125754, guid: b21adc271010ca3429e937c7f67e59bf, type: 2}
-    jobType: 0
   - job: {fileID: 183170, guid: 47eaa1691cd53ae488c935aa38c00a1f, type: 2}
-    jobType: 0
+    jobType: 1
   - job: {fileID: 156416, guid: 1ed3482ac12017343aa561d994b3b79c, type: 2}
-    jobType: 0
-  - job: {fileID: 138808, guid: d19e24e181dbe1745b97a6373aafc8de, type: 2}
-    jobType: 0
+    jobType: 2
+  - job: {fileID: 172904, guid: 152c1f65f07ef56448fe710f076236a3, type: 2}
+    jobType: 3
 --- !u!114 &11478460
 MonoBehaviour:
   m_ObjectHideFlags: 1
