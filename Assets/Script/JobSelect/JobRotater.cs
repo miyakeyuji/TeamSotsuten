@@ -84,9 +84,8 @@ public class JobRotater : MonoBehaviour {
     }
 
     /// <summary>
-    /// スキルを生成
-    /// 生成できるようになると、この関数が呼ばれます。
-    /// ここに発生するエフェクト等を記述してください。
+    /// モーションが成功すると、この関数が呼ばれます。
+    /// ここに処理等を記述してください。
     /// </summary>
     public void OnMotionComplated()
     {
