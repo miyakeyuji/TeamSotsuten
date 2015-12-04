@@ -106,6 +106,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
 
         view = GetComponent(typeof(PhotonView)) as PhotonView;
 
+        MotionManager.Instance.gameObject.SetActive(false);
     }
 
     public override void Start()
@@ -118,6 +119,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
         hostButton.onClick.AddListener(OnOwnerConnection);
         smartPhoneButton.onClick.AddListener(OnPhoneConnection);
         watchButton.onClick.AddListener(OnWatchConnection);
+
     }
 
     public override void Update()
@@ -308,6 +310,8 @@ public class ConnectionManager : Singleton<ConnectionManager>
         Debugger.Log(">> ゲームシーンを変更します。");
 
         SequenceManager.Instance.ChangeScene(SceneID.GAME);
+        MotionManager.Instance.gameObject.SetActive(true);
+
     }
     
     /// <summary>

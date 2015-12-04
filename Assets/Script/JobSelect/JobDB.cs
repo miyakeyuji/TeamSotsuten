@@ -34,7 +34,8 @@ public class JobDB : MonoBehaviour {
     {
         NEAT,       //  エラーコード
         FENCER,     //  剣士
-        MAGICIAN    //  魔法使い
+        MAGICIAN,   //  魔法使い
+        WANPANMAN   //  ワンパンマン
     }
 
     /// <summary>
@@ -68,12 +69,49 @@ public class JobDB : MonoBehaviour {
     [SerializeField]
     private List<JobData> JobDataBase = new List<JobData>();
 
+
+    /// <summary>
+    /// 選択中の職業
+    /// @changed m_yamada
+    /// </summary>
+    public JobType SelectedJobType { get; private set; }
+
+    /// <summary>
+    /// 職業を設定する。
+    /// @changed m_yamada
+    /// </summary>
+    /// <param name="nextIndex"></param>
+    public void SetSelectJobType(ref int selectedNum)
+    {
+        if (selectedNum < 0)
+        {
+            selectedNum = JobTypeCount - 1;
+        }
+        else if (selectedNum >= JobTypeCount)
+        {
+            selectedNum = 0;
+        }
+
+        SelectedJobType = GetJobDataFindArray(selectedNum).jobType;
+    }
+
+    /// <summary>
+    /// 職業を設定する。
+    /// @changed m_yamada
+    /// </summary>
+    /// <param name="nextIndex"></param>
+    public void SetSelectJobType(int selectedNum)
+    {
+        SetSelectJobType(ref selectedNum);
+    }
+
     // Use this for initialization
     void Start()
     {
         JobOffer();
 
         IsNEAT();
+
     }
 
     /// <summary>
@@ -127,7 +165,7 @@ public class JobDB : MonoBehaviour {
     /// 職業の数を返す
     /// </summary>
     /// <returns>職業の数</returns>
-    public int jobTypeCount
+    public int JobTypeCount
     {
         get
         {

@@ -63,7 +63,7 @@ public class JobGeneration : MonoBehaviour {
     /// 生成角度θの計算
     void Awake()
     {
-        angle = 360/JobData.jobTypeCount;
+        angle = 360/JobData.JobTypeCount;
     }
 
     // Use this for initialization
@@ -79,7 +79,7 @@ public class JobGeneration : MonoBehaviour {
     private void Generation()
     {
         /// 職業の数だけぶん回し
-        for (int i = 0; i < JobData.jobTypeCount; i++)
+        for (int i = 0; i < JobData.JobTypeCount; i++)
         {
             GameObject clone = (GameObject)Instantiate(JobData.GetJobDataFindArray(i).job);     /// 生成
             clone.name = JobData.GetJobDataFindArray(i).job.name;                               /// 名前変更
@@ -87,6 +87,8 @@ public class JobGeneration : MonoBehaviour {
             clone.transform.position = GeneratedPosition(i);                                    /// 座標変更
             clone.transform.SetParent(gameObject.transform);                                    /// 親変更
         }
+
+        JobData.SetSelectJobType(0);
     }
 
 

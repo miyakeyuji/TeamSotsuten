@@ -48,4 +48,8 @@ MonoBehaviour:
   - SyncTerminalInfo
   - SyncData
   - SyncCreateAttack
+  - SyncAttackDataAwake
+  - SyncEnemyDataAwake
+  - SyncEnemyIsLife
+  - SyncPlayerDataAwake
   DisableAutoOpenWizard: 1

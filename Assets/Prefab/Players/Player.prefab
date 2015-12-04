@@ -26,7 +26,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 410664}
   - 114: {fileID: 11475662}
-  - 114: {fileID: 11428776}
+  - 114: {fileID: 11407298}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -59,7 +59,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 410664}
   m_RootOrder: 0
---- !u!114 &11428776
+--- !u!114 &11407298
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -67,26 +67,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 157266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa2f7149a40038e41bdee7c849f2789d, type: 3}
+  m_Script: {fileID: 11500000, guid: 054b1e6a10ddaeb45a204ba8483b3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackEffect: {fileID: 150378}
-  accRange: .100000001
-  motionData:
-  - isCalcX: 0
-    isCalcY: 0
-    isCalcZ: 0
-    skillType: 0
-    acc:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-  - isCalcX: 0
-    isCalcY: 0
-    isCalcZ: 0
-    skillType: 0
-    acc:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  player: {fileID: 0}
+  speed: 5
+  upDownAttackSprite: {fileID: 0}
+  downUpAttackSprite: {fileID: 0}
+  leftRightAttackSprite: {fileID: 0}
+  rightLeftAttackSprite: {fileID: 0}
 --- !u!114 &11429152
 MonoBehaviour:
   m_ObjectHideFlags: 1

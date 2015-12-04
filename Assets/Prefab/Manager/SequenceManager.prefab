@@ -50,6 +50,7 @@ MonoBehaviour:
     behaviour: {fileID: 0}
   - scene: 4
     behaviour: {fileID: 0}
+  nowScene: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

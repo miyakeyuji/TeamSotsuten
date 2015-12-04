@@ -65,6 +65,12 @@ public class JobRotater : MonoBehaviour {
     /// </summary>
     private bool isRotate = false;
 
+    /// <summary>
+    /// 選択中のID
+    /// @changed m_yamada
+    /// </summary>
+    private int selectedID = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -76,6 +82,33 @@ public class JobRotater : MonoBehaviour {
     {
         Rotate();
     }
+
+    /// <summary>
+    /// モーションが成功すると、この関数が呼ばれます。
+    /// ここに処理等を記述してください。
+    /// </summary>
+    public void OnMotionComplated()
+    {
+        switch (MotionManager.Instance.MotionSkill)
+        {
+            case MotionManager.MotionSkillType.VERTICAL_DOWN_UP:
+
+                break;
+
+            case MotionManager.MotionSkillType.VERTICAL_UP_DOWN:
+
+                break;
+
+            case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
+
+                break;
+
+            case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
+
+                break;
+        }
+    }
+
     /// <summary>
     /// 初期化
     /// </summary>
@@ -83,8 +116,9 @@ public class JobRotater : MonoBehaviour {
     /// 360°から職業分割るだけ
     private void Initialization()
     {
-        revolutionAngle = 360 / JobData.jobTypeCount;
+        revolutionAngle = 360 / JobData.JobTypeCount;
     }
+
 
     /// <summary>
     /// 回転
@@ -101,17 +135,27 @@ public class JobRotater : MonoBehaviour {
         }
 
         /// 回転取得
-        float rotateValue = Input.GetAxis("Horizontal");
+        float rotateValue = Input.GetAxisRaw("Horizontal");
 
         if (rotateValue == 0) return;   //  入力していなかったら抜ける
 
         if (isRotate) return;           //  回転していたら抜ける
+
+        // @changed m_yamada
+        //  iTween の onupdate で呼ばれている NowRotate() が次のフレームに呼ばれていたため、
+        //  この処理が2回呼ばれていた。
+        //  isRotateをここにtrueにして回避しました。
+        isRotate = true;    
+        selectedID += (int)rotateValue;
+        JobData.SetSelectJobType(ref selectedID);
+
 
         StartRotate(rotateValue);       //  回転方向を決める
 
         /// 回転
         iTween.RotateTo(gameObject, iTween.Hash("y", angle, "time", RotationVelocityForSeconds, "easetype", easeType, "onupdate", "NowRotate", "oncomplete","EndRotate"));
     }
+
     /// <summary>
     /// 回転中
     /// </summary>
@@ -120,6 +164,7 @@ public class JobRotater : MonoBehaviour {
     {
         isRotate = true;
     }
+
     /// <summary>
     /// 回転終了
     /// </summary>
@@ -149,4 +194,5 @@ public class JobRotater : MonoBehaviour {
         }
         angle = Mathf.RoundToInt(angle);
     }
+
 }
