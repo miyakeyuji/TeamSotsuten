@@ -26,7 +26,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 410664}
   - 114: {fileID: 11475662}
-  - 114: {fileID: 11407298}
+  - 114: {fileID: 11443212}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -59,24 +59,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 410664}
   m_RootOrder: 0
---- !u!114 &11407298
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 157266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 054b1e6a10ddaeb45a204ba8483b3f13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPosition: {x: 0, y: 0, z: 0}
-  player: {fileID: 0}
-  speed: 5
-  upDownAttackSprite: {fileID: 0}
-  downUpAttackSprite: {fileID: 0}
-  leftRightAttackSprite: {fileID: 0}
-  rightLeftAttackSprite: {fileID: 0}
 --- !u!114 &11429152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,6 +79,18 @@ MonoBehaviour:
     type: 3}
   rightLeftAttackSprite: {fileID: 21300000, guid: 7b9c0b18ef45e1243908f9f214309fed,
     type: 3}
+--- !u!114 &11443212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c17cfda217907a4081856ef88120197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackEffect: {fileID: 150378}
 --- !u!114 &11475662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc98d14e902bf44fb0c573e4e8e89ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  device: {fileID: 0}
+  device: {fileID: 100000, guid: bf30d577eead1ef40bcf2b404289daf4, type: 2}
 --- !u!212 &21244904
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -141,7 +135,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: attackEffect
+      value: 
+      objectReference: {fileID: 150378}
+    - target: {fileID: 0}
+      propertyPath: device
+      value: 
+      objectReference: {fileID: 100000, guid: bf30d577eead1ef40bcf2b404289daf4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 157266}
