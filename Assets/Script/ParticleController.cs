@@ -4,9 +4,6 @@ using System.Collections;
 public class ParticleController : MonoBehaviour {
 
     public ParticleSystem particle = null;
-
-	// Use this for initialization
-	//void Start () {}
 	
 	// Update is called once per frame
 	void Update ()
@@ -27,6 +24,12 @@ public class ParticleController : MonoBehaviour {
     /// </summary>
     void ParticleEmit()
     {
+        if (particle == null)
+        {
+            Debug.Log("パーティクルがありません");
+            return;
+        }
+
         // 時間を初期状態に設定
         particle.time = 0f;
 
@@ -42,6 +45,11 @@ public class ParticleController : MonoBehaviour {
     /// </summary>
     void ParticlePlay()
     {
+        if (particle == null)
+        {
+            Debug.Log("パーティクルがありません");
+            return;
+        }
         particle.Play();
     }
 
@@ -50,6 +58,11 @@ public class ParticleController : MonoBehaviour {
     /// </summary>
     void ParticleStop()
     {
+        if (particle == null)
+        {
+            Debug.Log("パーティクルがありません");
+            return;
+        }
         particle.Stop();
     }
 
@@ -58,6 +71,11 @@ public class ParticleController : MonoBehaviour {
     /// </summary>
     void ParticlePause()
     {
+        if (particle == null)
+        {
+            Debug.Log("パーティクルがありません");
+            return;
+        }
         particle.Pause();
     }
 }
