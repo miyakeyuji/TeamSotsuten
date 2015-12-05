@@ -22,24 +22,22 @@ public class AttackSkillCreator : MonoBehaviour {
     /// </summary>
     public void OnMotionComplated()
     {
-        attackEffect.SendMessage("OnObject", MotionManager.Instance.MotionSkill);
-
         switch (MotionManager.Instance.MotionSkill)
         {
             case MotionManager.MotionSkillType.VERTICAL_DOWN_UP:
-
+                attackEffect.SendMessage("OnObject", MotionManager.Instance.MotionSkill);
                 break;
 
             case MotionManager.MotionSkillType.VERTICAL_UP_DOWN:
-
+                attackEffect.SendMessage("OnObject", MotionManager.Instance.MotionSkill);
                 break;
 
             case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
-
+                attackEffect.SendMessage("OnObject", MotionManager.Instance.MotionSkill);
                 break;
 
             case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
-
+                attackEffect.SendMessage("OnObject", MotionManager.Instance.MotionSkill);
                 break;
         }
     }
