@@ -58,6 +58,21 @@ public class JobGeneration : MonoBehaviour {
     private GameObject fixingPosition = null;
 
     /// <summary>
+    /// 2Dモードかどう？
+    /// 
+    /// 2d == true
+    /// 3d == false
+    /// </summary>
+    [SerializeField]
+    private bool is2D = true;
+
+    /// <summary>
+    /// キャンパスの情報
+    /// </summary>
+    [SerializeField]
+    private RectTransform uiCanvas = null;
+
+    /// <summary>
     /// Startより先呼ばれる奴
     /// </summary>
     /// 生成角度θの計算
@@ -83,9 +98,11 @@ public class JobGeneration : MonoBehaviour {
         {
             GameObject clone = (GameObject)Instantiate(JobData.GetJobDataFindArray(i).job);     /// 生成
             clone.name = JobData.GetJobDataFindArray(i).job.name;                               /// 名前変更
-            clone.transform.Rotate(GeneratedAngle(i));                                          /// 回転変更
-            clone.transform.position = GeneratedPosition(i);                                    /// 座標変更
             clone.transform.SetParent(gameObject.transform);                                    /// 親変更
+            clone.transform.position = GeneratedPosition(i);                                    /// 座標変更
+            clone.transform.Rotate(GeneratedAngle(i));                                          /// 回転変更
+            clone.transform.localScale = JobData.GetJobDataFindArray(i).job.transform.lossyScale;
+
         }
 
         JobData.SetSelectJobType(0);
@@ -106,11 +123,23 @@ public class JobGeneration : MonoBehaviour {
 
         ang = (Mathf.PI * angle * array) / 180;     /// 角度求めて
 
-        pos.x = -radius * Mathf.Sin(ang);           /// 座標入れて
-        pos.y = gameObject.transform.position.y;
-        pos.z = -radius * Mathf.Cos(ang);
+        if (!is2D)
+        {
+            pos.x = -radius * Mathf.Sin(ang);           /// 座標入れて
+            pos.y = gameObject.transform.position.y;
+            pos.z = -radius * Mathf.Cos(ang);
 
-        return pos;
+            return pos;
+        }
+        else
+        {
+            pos.x = -radius * Mathf.Sin(ang) + (uiCanvas.sizeDelta.x / 8 + uiCanvas.sizeDelta.x / 32);           /// 謎の位置調整
+            Debug.Log(uiCanvas.sizeDelta.x / 2);
+            pos.y = gameObject.transform.position.y;
+            pos.z = -radius * Mathf.Cos(ang);
+
+            return pos;
+        }
     }
     /// <summary>
     /// 生成した時に目指すべき方向を見据える
