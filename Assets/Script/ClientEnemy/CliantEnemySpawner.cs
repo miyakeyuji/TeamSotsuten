@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CliantEnemySpawner : MonoBehaviour {
     // 生成したオブジェクトの親に設定するゲームオブジェクト
+    [SerializeField]
     GameObject parentObject = null;
 
 	// Update is called once per frame
