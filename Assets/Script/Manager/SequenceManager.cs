@@ -111,6 +111,7 @@ public class SequenceManager : Singleton<SequenceManager>
 
         if (Input.touchCount >= 3)
         {
+            PhotonNetwork.LeaveRoom();
             Application.LoadLevel(0);
         }
 

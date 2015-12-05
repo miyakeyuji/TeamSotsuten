@@ -14,7 +14,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &155390
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,6 +225,7 @@ MonoBehaviour:
   JobData: {fileID: 11470842}
   fixingPosition: {fileID: 184752}
   is2D: 0
+  uiCanvas: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
