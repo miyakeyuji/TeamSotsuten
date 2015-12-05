@@ -49,6 +49,9 @@ public class SequenceManager : Singleton<SequenceManager>
 
     public override void Awake() 
     {
+        Application.targetFrameRate = 60;
+        Application.runInBackground = true;
+
         base.Awake();
         
         for (int i = 0; i < sceneList.Length; i++)

@@ -11,6 +11,8 @@ using UnityEngine.UI;
 public class Debugger : MonoBehaviour 
 {
     static Text debugText = null;
+    static int messageNum = 0;
+
 
     void Awake()
     {
@@ -36,7 +38,10 @@ public class Debugger : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log(message);
 #endif
+        OverLineTextReset();
+
         debugText.text += message + "\n";
+        messageNum++;
     }
 
     /// <summary>
@@ -48,6 +53,7 @@ public class Debugger : MonoBehaviour
 #if UNITY_EDITOR
         Debug.LogError(message);
 #endif
+        OverLineTextReset();
 
         debugText.text += "<color=red>" + message + "</color>" + "\n";
     }
@@ -61,8 +67,20 @@ public class Debugger : MonoBehaviour
 #if UNITY_EDITOR
         Debug.LogWarning(message);
 #endif
-
+        OverLineTextReset();
         debugText.text += "<color=yellow>" + message + "</color>" + "\n";
 
+    }
+
+
+    private static void OverLineTextReset()
+    {
+        const int MaxLineNum = 25;
+
+        if (messageNum >= MaxLineNum)
+        {
+            messageNum = 0;
+            debugText.text = "";
+        }
     }
 }

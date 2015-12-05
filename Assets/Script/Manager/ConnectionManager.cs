@@ -309,7 +309,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
     {
         Debugger.Log(">> ゲームシーンを変更します。");
 
-        SequenceManager.Instance.ChangeScene(SceneID.GAME);
+        SequenceManager.Instance.ChangeScene(SceneID.CHARACTER_SELECT);
         MotionManager.Instance.gameObject.SetActive(true);
 
     }
