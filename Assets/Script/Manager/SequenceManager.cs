@@ -109,5 +109,10 @@ public class SequenceManager : Singleton<SequenceManager>
     {
         base.Update();
 
+        if (Input.touchCount >= 3)
+        {
+            Application.LoadLevel(0);
+        }
+
     }
 }

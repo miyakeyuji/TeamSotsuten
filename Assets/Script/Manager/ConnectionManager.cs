@@ -19,6 +19,9 @@ public class ConnectionManager : Singleton<ConnectionManager>
     }
 
     [SerializeField]
+    string roomName = "Room";
+
+    [SerializeField]
     Button hostButton = null;
 
     [SerializeField]
@@ -225,7 +228,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
         roomOptions.maxPlayers = roomMaxPlayerNum;
 
         // 部屋に参加、存在しない時作成して参加
-        bool isJoin = PhotonNetwork.JoinOrCreateRoom("Room", roomOptions, new TypedLobby());
+        bool isJoin = PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, new TypedLobby());
 
         Debugger.Log("部屋に参加 : " + isJoin);
     }
