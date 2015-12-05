@@ -134,39 +134,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 129718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 586fcac0b61fe8841a0bca20b3ea5471, type: 3}
+  m_Script: {fileID: 11500000, guid: aa2f7149a40038e41bdee7c849f2789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accRange: .100000001
+  accRange: .300000012
+  calcTime: 1
   motionData:
   - isCalcX: 0
-    isCalcY: 1
-    isCalcZ: 0
+    isCalcY: 0
+    isCalcZ: 1
     skillType: 1
     acc:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: .5}
+    - {x: 0, y: 0, z: -1.5}
   - isCalcX: 0
-    isCalcY: 1
-    isCalcZ: 0
+    isCalcY: 0
+    isCalcZ: 1
     skillType: 2
     acc:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: -.5}
+    - {x: 0, y: 0, z: 1.5}
   - isCalcX: 1
     isCalcY: 0
     isCalcZ: 0
     skillType: 3
     acc:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
+    - {x: -.5, y: 0, z: 0}
+    - {x: -1.5, y: 0, z: 0}
   - isCalcX: 1
     isCalcY: 0
     isCalcZ: 0
     skillType: 4
     acc:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
+    - {x: .5, y: 0, z: 0}
+    - {x: 1.5, y: 0, z: 0}
   attackSkill: {fileID: 0}
   jobRotater: {fileID: 0}
 --- !u!114 &11454408

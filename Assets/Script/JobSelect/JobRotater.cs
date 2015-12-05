@@ -80,7 +80,17 @@ public class JobRotater : MonoBehaviour {
     // Update is called once per frame
     private void Update()
     {
-        Rotate();
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            Rotate(-1.0f);
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            Rotate(1.0f);
+        }
+#endif
+
     }
 
     /// <summary>
@@ -100,11 +110,12 @@ public class JobRotater : MonoBehaviour {
                 break;
 
             case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
+                Rotate(1.0f);
 
                 break;
 
             case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
-
+                Rotate(-1.0f);
                 break;
         }
     }
@@ -125,7 +136,7 @@ public class JobRotater : MonoBehaviour {
     /// </summary>
     /// オイラー角　0～360度
     /// ラジアン　　0～2π
-    private void Rotate()
+    private void Rotate(float dirValue)
     {
         /// もし角度が0だったらStart()の時点で呼ばれてない可能性があるので
         /// いちを呼んでおく
@@ -134,23 +145,18 @@ public class JobRotater : MonoBehaviour {
             Initialization();
         }
 
-        /// 回転取得
-        float rotateValue = Input.GetAxisRaw("Horizontal");
-
-        if (rotateValue == 0) return;   //  入力していなかったら抜ける
-
         if (isRotate) return;           //  回転していたら抜ける
 
         // @changed m_yamada
         //  iTween の onupdate で呼ばれている NowRotate() が次のフレームに呼ばれていたため、
         //  この処理が2回呼ばれていた。
         //  isRotateをここにtrueにして回避しました。
-        isRotate = true;    
-        selectedID += (int)rotateValue;
+        isRotate = true;
+        selectedID += (int)dirValue;
         JobData.SetSelectJobType(ref selectedID);
 
 
-        StartRotate(rotateValue);       //  回転方向を決める
+        StartRotate(dirValue);       //  回転方向を決める
 
         /// 回転
         iTween.RotateTo(gameObject, iTween.Hash("y", angle, "time", RotationVelocityForSeconds, "easetype", easeType, "onupdate", "NowRotate", "oncomplete","EndRotate"));

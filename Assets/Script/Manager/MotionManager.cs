@@ -47,6 +47,12 @@ public class MotionManager : Singleton<MotionManager>
     [SerializeField]
     float accRange = 0.1f;
 
+    /// <summary>
+    /// 計算時間
+    /// </summary>
+    [SerializeField]
+    float calcTime = 1.0f;
+
     [SerializeField]
     MotionWatchData[] motionData = new MotionWatchData[2];
 
@@ -58,19 +64,24 @@ public class MotionManager : Singleton<MotionManager>
 
     bool isStart = false;
     int clearIndex = 0;
+    float stopValue = 0;
 
     public override void Awake()
     {
         base.Awake();
 
         MotionSkill = MotionSkillType.NONE;
+
     }
 
     public override void Start()
     {
         base.Start();
 
-
+        if (!ConnectionManager.IsSmartPhone)
+        {
+            enabled = false;
+        }
     }
 
     /// <summary>
@@ -79,14 +90,19 @@ public class MotionManager : Singleton<MotionManager>
     /// <param name="data"></param>
     /// <param name="index"></param>
     /// <returns></returns>
-    Vector3 GetAccValue(MotionWatchData data,int index)
+    bool IsMotion(MotionWatchData data,int index)
     {
         float x = data.isCalcX ? data.acc[index].x : WatchManager.Instance.Acc.x;
         float y = data.isCalcY ? data.acc[index].y : WatchManager.Instance.Acc.y;
         float z = data.isCalcZ ? data.acc[index].z : WatchManager.Instance.Acc.z;
 
-        return new Vector3(x, y, z);
+        if (data.isCalcX && Mathf.Abs(x - WatchManager.Instance.Acc.x) > accRange) return false;
+        if (data.isCalcY && Mathf.Abs(y - WatchManager.Instance.Acc.y) > accRange) return false;
+        if (data.isCalcZ && Mathf.Abs(z - WatchManager.Instance.Acc.z) > accRange) return false;
+
+        return true;
     }
+
 
     /// <summary>
     /// モーションを開始する
@@ -96,13 +112,17 @@ public class MotionManager : Singleton<MotionManager>
     {
         for (int i = 0; i < motionData.Length; i++)
         {
-            float dist = Vector3.Distance(GetAccValue(motionData[i],0), WatchManager.Instance.Acc);
-            if (dist >= accRange)
-            {
-                calcMotionSkill = motionData[i].skillType;
-                isStart = true;
-                clearIndex = 1;
-            }
+            if (!IsMotion(motionData[i], 0)) continue;
+
+            calcMotionSkill = motionData[i].skillType;
+            isStart = true;
+            clearIndex = 1;
+            stopValue = calcTime;
+
+            Debugger.Log(">> StartMotion");
+            Debugger.Log(calcMotionSkill.ToString());
+
+            return;
         }
     }
 
@@ -115,19 +135,40 @@ public class MotionManager : Singleton<MotionManager>
         for (int i = 0; i < motionData.Length; i++)
         {
             if (calcMotionSkill != motionData[i].skillType) continue;
+            if (!IsMotion(motionData[i], clearIndex)) continue;
 
-            float dist = Vector3.Distance(GetAccValue(motionData[i], clearIndex), WatchManager.Instance.Acc);
-            if (dist <= accRange)
-            {
-                clearIndex++;
-            }
+            clearIndex++;
 
             if (motionData[i].acc.Length <= clearIndex)
             {
                 MotionSkill = motionData[i].skillType;
                 calcMotionSkill = MotionSkillType.NONE;
                 isStart = false;
+
+                Debugger.Log("【モーション成功】");
+                Debugger.Log(MotionSkill.ToString());
+
+                return;
             }
+        }
+    }
+
+
+    /// <summary>
+    /// 時間内にモーション成功しなかったら、
+    /// 計算を中止する
+    /// </summary>
+    /// <returns></returns>
+    void StopCalc()
+    {
+        stopValue -= Time.deltaTime;
+        if (stopValue <= 0)
+        {
+            MotionSkill = MotionSkillType.NONE;
+            calcMotionSkill = MotionSkillType.NONE;
+            isStart = false;
+
+            Debugger.Log(">> StopCalc  失敗！！。");
         }
     }
 
@@ -140,7 +181,10 @@ public class MotionManager : Singleton<MotionManager>
         if (isStart) return;
         if (MotionSkill == MotionSkillType.NONE) return;
 
-        attackSkill.OnMotionComplated();
+        Debugger.Log(">> OnComplated");
+        Debugger.Log(MotionSkill.ToString());
+
+        //attackSkill.OnMotionComplated();
         jobRotater.OnMotionComplated();
 
     }
@@ -155,8 +199,8 @@ public class MotionManager : Singleton<MotionManager>
         }
         else
         {
+            StopCalc();
             CalcMotion();
-
             OnComplated();
         }
     }
