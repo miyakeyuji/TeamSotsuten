@@ -25,6 +25,12 @@ public class ClientEnemyOperator : MonoBehaviour {
     }
     EnemyMasterData data = null;
 
+    void FixedUpdate()
+    {
+        UpdateDatas();
+        DataSet();
+    }
+
     /// <summary>
     /// ポジションなどの更新
     /// </summary>
