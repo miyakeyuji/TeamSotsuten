@@ -17,10 +17,7 @@ public class CliantEnemySpawner : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-	    if(Input.GetMouseButtonDown(0))
-        {
-            
-        }
+	    
 	}
 
     /// <summary>
@@ -30,7 +27,8 @@ public class CliantEnemySpawner : MonoBehaviour {
     void SpawnEnemy(int _id)
     {
         var data = GameManager.Instance.GetEnemyData(_id);
-        var createEnemy = (GameObject)Instantiate(enemy, data.Position, Quaternion.Euler(data.Rotation));
-        if(parentObject != null) createEnemy.transform.parent = parentObject.transform;   
+        var createdEnemy = (GameObject)Instantiate(enemy, data.Position, Quaternion.Euler(data.Rotation));
+        createdEnemy.GetComponent<ClientEnemyOperator>().ID = _id;
+        if(parentObject != null) createdEnemy.transform.parent = parentObject.transform;   
     }
 }

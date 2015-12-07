@@ -11,7 +11,7 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// <summary>
     /// エネミーのID
     /// </summary>
-    private int id = 0;
+    private int id = -1;
     public int ID
     {
         get
@@ -20,7 +20,7 @@ public class ClientEnemyOperator : MonoBehaviour {
         }
         set
         {
-            if (id == 0) id = value;
+            if (id == -1) id = value;
         }
     }
     EnemyMasterData data = null;
