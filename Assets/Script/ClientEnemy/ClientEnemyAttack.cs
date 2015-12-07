@@ -8,6 +8,8 @@ using System.Collections;
 
 public class ClientEnemyAttack : MonoBehaviour {
 
+    float lifeTime = 60f;   // テスト用ライフタイム
+
     // ターゲット(プレイヤー)
     [SerializeField]
     private GameObject targetCamera = null;
@@ -39,6 +41,14 @@ public class ClientEnemyAttack : MonoBehaviour {
             this.transform.position += targetVector.normalized * 3; // 暫定速度 3
         }
 
-        if(GameManager.Instance.GetAttackData(ID).IsLife) Debug.Log("攻撃は既に当たっています");
+        if (GameManager.Instance.GetAttackData(ID).IsLife)
+        {
+            Destroy(this.gameObject);
+            Debug.Log("攻撃は既に当たっています");
+        }
+            
+
+        lifeTime -= Time.deltaTime;
+        if (lifeTime <= 0f) Destroy(this.gameObject);
     }
 }

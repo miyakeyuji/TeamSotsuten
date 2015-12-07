@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3398394}
   - 135: {fileID: 13575512}
   - 23: {fileID: 2378728}
+  - 114: {fileID: 11410366}
   m_Layer: 0
   m_Name: ClientAttack
   m_TagString: Untagged
@@ -61,6 +62,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190514}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &11410366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc9b436dea57e40b9df0bc0b6df2c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefav: {fileID: 0}
 --- !u!135 &13575512
 SphereCollider:
   m_ObjectHideFlags: 1

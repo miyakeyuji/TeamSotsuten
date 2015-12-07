@@ -9,6 +9,13 @@ using System.Collections;
 // サーバーとの通信を行う
 public class ClientEnemyOperator : MonoBehaviour {
     /// <summary>
+    /// 生成する攻撃
+    /// </summary>
+    [SerializeField]
+    GameObject prefav = null;
+    GameObject createdAttack = null;
+
+    /// <summary>
     /// エネミーのID
     /// </summary>
     private int id = -1;
@@ -24,6 +31,16 @@ public class ClientEnemyOperator : MonoBehaviour {
         }
     }
     EnemyMasterData data = null;
+
+    void Update()
+    {
+        // 弾瀬性
+        if(createdAttack == null)
+        {
+            //createdAttack = (GameObject)Instantiate(prefav, this.transform.position, Quaternion.identity);
+            //createdAttack.GetComponent<ClientEnemyAttack>().ID = ...;
+        }
+    }
 
     void FixedUpdate()
     {
