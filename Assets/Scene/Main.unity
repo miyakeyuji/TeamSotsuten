@@ -1449,7 +1449,8 @@ Prefab:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11490740, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1825324468 stripped
