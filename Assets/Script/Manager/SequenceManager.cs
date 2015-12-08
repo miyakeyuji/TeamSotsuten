@@ -70,7 +70,9 @@ public class SequenceManager : Singleton<SequenceManager>
     {
         base.Start();
 
-	}
+        //緒方追記、スリープに入らないように？（テスト成功）
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
 
     /// <summary>
     /// 次のシーンに行かせる処理です。
