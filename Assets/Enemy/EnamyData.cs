@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnamyData: MonoBehaviour 
 {
+
     [SerializeField]
     int id;      //ID
 
@@ -14,6 +15,18 @@ public class EnamyData: MonoBehaviour
 
     [SerializeField]
     Vector3 Rotation;    //方向
+    
+    enum STATE
+    {
+        NONE,
+        STAY,
+        ACTIVE,
+        DEAD,
+    }
+
+    [SerializeField]
+    STATE State = STATE.NONE;
+
 
     public void SetMyData()
     {
@@ -23,9 +36,4 @@ public class EnamyData: MonoBehaviour
         GameManager.Instance.SendEnemyIsLife(id, true);
     }
 	
-	// Update is called once per frame
-	void Update () 
-    {
-	
-	}
 }

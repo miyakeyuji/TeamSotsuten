@@ -31,7 +31,6 @@ public class EnamySpawner : MonoBehaviour
            State = SpawnerState.Update;
        }
 	}
-	
     void Spawn()
     {
         // サバ―にエネミーを登録をさせます
@@ -42,6 +41,7 @@ public class EnamySpawner : MonoBehaviour
         }
 
     }
+
 
 	// Update is called once per frame
 	void Update () 
