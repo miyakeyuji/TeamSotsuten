@@ -68,6 +68,8 @@ namespace Vuforia
 
         private void OnTrackingFound()
         {
+            Debugger.Log("OnTrackingFound Œ©‚¦‚Ä‚¢‚é");
+
             Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
@@ -89,6 +91,8 @@ namespace Vuforia
 
         private void OnTrackingLost()
         {
+            Debugger.Log("OnTrackingLost Œ©‚¦‚È‚¢");
+
             Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
