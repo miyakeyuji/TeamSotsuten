@@ -13,7 +13,8 @@ public class UIRootCreator : MonoBehaviour {
     Canvas canvas = null;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         canvas = GetComponent<Canvas>();
 
         if (SequenceManager.Instance.IsBuildWatch)
@@ -36,8 +37,5 @@ public class UIRootCreator : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
