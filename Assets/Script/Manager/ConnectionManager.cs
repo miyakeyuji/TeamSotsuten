@@ -19,6 +19,9 @@ public class ConnectionManager : Singleton<ConnectionManager>
     }
 
     [SerializeField]
+    SceneID nextSceneID = SceneID.CHARACTER_SELECT; 
+
+    [SerializeField]
     string roomName = "Room";
 
     [SerializeField]
@@ -312,7 +315,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
     {
         Debugger.Log(">> ゲームシーンを変更します。");
 
-        SequenceManager.Instance.ChangeScene(SceneID.CHARACTER_SELECT);
+        SequenceManager.Instance.ChangeScene(nextSceneID);
         MotionManager.Instance.gameObject.SetActive(true);
 
     }

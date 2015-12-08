@@ -47,6 +47,17 @@ public class SequenceManager : Singleton<SequenceManager>
     [SerializeField]
     SceneID nowScene = SceneID.CONNECTION;
 
+    [SerializeField]
+    bool isBuildWatch = false;
+
+    [SerializeField]
+    GameObject singleCamera = null;
+
+    [SerializeField]
+    GameObject vrCamera = null;
+
+    public bool IsBuildWatch { get { return isBuildWatch; } }
+
     public override void Awake() 
     {
         Application.targetFrameRate = 60;
@@ -63,6 +74,19 @@ public class SequenceManager : Singleton<SequenceManager>
                 sceneList[i].behaviour.gameObject.SetActive(true);
             }
         }
+
+        if (isBuildWatch)
+        {
+            singleCamera.SetActive(true);
+            vrCamera.SetActive(false);
+        }
+        else
+        {
+            singleCamera.SetActive(false);
+            vrCamera.SetActive(true);
+        }
+
+        
 
     }
 
