@@ -8,14 +8,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class EffectMover : MonoBehaviour {
+public class EffectMover : MonoBehaviour
+{
 
     /// <summary>
     /// 目的地となる座標を登録
     /// </summary>
     [SerializeField]
-    Vector3 targetPosition;
-
+    GameObject target;
     /// <summary>
     /// プレイヤーオブジェクトを登録
     /// </summary>
@@ -44,7 +44,7 @@ public class EffectMover : MonoBehaviour {
     /// ITweenの再生中の管理
     /// </summary>
     bool itweenCheck;
-    
+
     /// <summary>
     /// 攻撃用のエフェクトの貼り付け先
     /// </summary>
@@ -69,7 +69,8 @@ public class EffectMover : MonoBehaviour {
         type = attackType;
 
         //　エフェクトのターゲットを設定
-        targetPosition = new Vector3( player.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        Vector3 targetPosition;
+        targetPosition = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
 
         //　動きから受け取ったタイプからテクスチャなどをオブジェクトに張り付ける
         switch (attackType)
@@ -77,22 +78,22 @@ public class EffectMover : MonoBehaviour {
             case MotionManager.MotionSkillType.VERTICAL_UP_DOWN:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = upDownAttackSprite;
-                Move();
+                Move(targetPosition);
                 break;
             case MotionManager.MotionSkillType.VERTICAL_DOWN_UP:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = downUpAttackSprite;
-                Move();
+                Move(targetPosition);
                 break;
             case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = leftRightAttackSprite;
-                Move();
+                Move(targetPosition);
                 break;
             case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = rightLeftAttackSprite;
-                Move();
+                Move(targetPosition);
                 break;
         }
 
@@ -134,16 +135,16 @@ public class EffectMover : MonoBehaviour {
     /// <summary>
     /// エフェクトの動きに関する挙動(ITween使用)
     /// </summary>
-    void Move()
+    void Move(Vector3 targetPosition)
     {
         //　targetPositionに向かって等速で移動
-        iTween.MoveTo(gameObject, 
+        iTween.MoveTo(gameObject,
             iTween.Hash(
-            "position", targetPosition, 
+            "position", targetPosition,
             "speed", speed,
             "easetype", iTween.EaseType.linear,
-            "onstart","ItweenOnStart",
-            "oncomplete","ItweenOnComplete"
+            "onstart", "ItweenOnStart",
+            "oncomplete", "ItweenOnComplete"
             ));
     }
 
@@ -157,10 +158,6 @@ public class EffectMover : MonoBehaviour {
 
         // プレイヤーの位置までいったん移動
         gameObject.transform.position = player.transform.position;
-
-        //　プレイヤーとエフェクトのX、Y座標を同期
-        targetPosition.x = player.transform.position.x;
-        targetPosition.y = player.transform.position.y;
 
         // オブジェクトの非アクティブ化
         gameObject.SetActive(false);

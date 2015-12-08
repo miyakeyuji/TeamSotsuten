@@ -8,7 +8,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class GetDevicePosition : MonoBehaviour {
+public class GetDevicePosition : MonoBehaviour
+{
     /// <summary>
     /// デバイスの情報を保持するオブジェクトを登録する
     /// </summary>
