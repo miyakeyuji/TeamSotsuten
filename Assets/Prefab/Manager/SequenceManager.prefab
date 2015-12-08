@@ -51,6 +51,9 @@ MonoBehaviour:
   - scene: 4
     behaviour: {fileID: 0}
   nowScene: 0
+  isBuildWatch: 0
+  singleCamera: {fileID: 0}
+  vrCamera: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
