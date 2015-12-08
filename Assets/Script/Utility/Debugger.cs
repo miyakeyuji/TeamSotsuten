@@ -56,6 +56,9 @@ public class Debugger : MonoBehaviour
         OverLineTextReset();
 
         debugText.text += "<color=red>" + message + "</color>" + "\n";
+
+        messageNum++;
+
     }
 
     /// <summary>
@@ -68,7 +71,10 @@ public class Debugger : MonoBehaviour
         Debug.LogWarning(message);
 #endif
         OverLineTextReset();
+
         debugText.text += "<color=yellow>" + message + "</color>" + "\n";
+        
+        messageNum++;
 
     }
 

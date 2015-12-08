@@ -29,6 +29,7 @@ GameObject:
   - 223: {fileID: 22386468}
   - 114: {fileID: 11485792}
   - 114: {fileID: 11482990}
+  - 114: {fileID: 11477562}
   m_Layer: 5
   m_Name: DebugRoot
   m_TagString: Untagged
@@ -184,6 +185,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 0
   m_Text: "\u8A18\u9332\u958B\u59CB"
+--- !u!114 &11477562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ab746dfcfec964d9e462545158b12f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightCamera: {fileID: 0}
+  leftCamera: {fileID: 0}
 --- !u!114 &11482990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -321,7 +335,7 @@ Canvas:
   serializedVersion: 2
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

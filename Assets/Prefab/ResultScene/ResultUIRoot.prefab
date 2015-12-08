@@ -28,6 +28,7 @@ GameObject:
   - 223: {fileID: 22341500}
   - 114: {fileID: 11487818}
   - 114: {fileID: 11448062}
+  - 114: {fileID: 11486874}
   m_Layer: 5
   m_Name: ResultUIRoot
   m_TagString: Untagged
@@ -83,6 +84,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u30EA\u30B6\u30EB\u30C8\u30B7\u30FC\u30F3"
+--- !u!114 &11486874
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ab746dfcfec964d9e462545158b12f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightCamera: {fileID: 0}
+  leftCamera: {fileID: 0}
 --- !u!114 &11487818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,7 +134,7 @@ Canvas:
   serializedVersion: 2
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

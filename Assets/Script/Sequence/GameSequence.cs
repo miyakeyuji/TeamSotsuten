@@ -9,9 +9,6 @@ using System.Collections;
 
 public class GameSequence : SequenceBehaviour
 {
-    [SerializeField]
-    Camera mainCamera = null;
-    
     /// <summary>
     /// ウォッチ端末の場合、隠すべきオブジェクト集
     /// </summary>
@@ -45,8 +42,6 @@ public class GameSequence : SequenceBehaviour
             watchHidenObj.SetActive(false);
             return;
         }
-
-        mainCamera.enabled = false;
 
         if (!ConnectionManager.IsSmartPhone) return;
 
