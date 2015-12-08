@@ -39,7 +39,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &126526
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: .360294104, b: .360294104, a: 1}
+  m_BackGroundColor: {r: 1, g: .558823526, b: .558823526, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: .5
@@ -174,7 +174,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: .360294104, b: .360294104, a: 1}
+  m_BackGroundColor: {r: 1, g: .558823526, b: .558823526, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -376,7 +376,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mDataSetsToLoad:
   - Enemy
-  mDataSetsToActivate: []
+  mDataSetsToActivate:
+  - Enemy
   mExternalDatasetRoots: []
 --- !u!114 &11469266
 MonoBehaviour:
