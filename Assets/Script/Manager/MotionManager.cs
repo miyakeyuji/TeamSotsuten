@@ -96,9 +96,13 @@ public class MotionManager : Singleton<MotionManager>
         float y = data.isCalcY ? data.acc[index].y : WatchManager.Instance.Acc.y;
         float z = data.isCalcZ ? data.acc[index].z : WatchManager.Instance.Acc.z;
 
-        if (data.isCalcX && Mathf.Abs(x - WatchManager.Instance.Acc.x) > accRange) return false;
-        if (data.isCalcY && Mathf.Abs(y - WatchManager.Instance.Acc.y) > accRange) return false;
-        if (data.isCalcZ && Mathf.Abs(z - WatchManager.Instance.Acc.z) > accRange) return false;
+        bool isRangeX = Mathf.Abs(x - WatchManager.Instance.Acc.x) > accRange;
+        bool isRangeY = Mathf.Abs(y - WatchManager.Instance.Acc.y) > accRange;
+        bool isRangeZ = Mathf.Abs(z - WatchManager.Instance.Acc.z) > accRange;
+
+        if (data.isCalcX && isRangeX) return false;
+        if (data.isCalcY && isRangeY) return false;
+        if (data.isCalcZ && isRangeZ) return false;
 
         return true;
     }

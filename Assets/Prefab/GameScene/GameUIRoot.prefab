@@ -28,6 +28,7 @@ GameObject:
   - 223: {fileID: 22337214}
   - 114: {fileID: 11421764}
   - 114: {fileID: 11404932}
+  - 114: {fileID: 11429470}
   m_Layer: 5
   m_Name: GameUIRoot
   m_TagString: Untagged
@@ -72,6 +73,19 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &11429470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ab746dfcfec964d9e462545158b12f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightCamera: {fileID: 0}
+  leftCamera: {fileID: 0}
 --- !u!114 &11454748
 MonoBehaviour:
   m_ObjectHideFlags: 1
