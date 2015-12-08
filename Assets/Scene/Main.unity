@@ -956,14 +956,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 11428564, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
-      propertyPath: rightCamera
-      value: 
-      objectReference: {fileID: 65521094}
-    - target: {fileID: 11428564, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
-      propertyPath: leftCamera
-      value: 
-      objectReference: {fileID: 1635457181}
     - target: {fileID: 11447594, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
       propertyPath: attackSkill
       value: 
@@ -972,6 +964,14 @@ Prefab:
       propertyPath: jobRotater
       value: 
       objectReference: {fileID: 1104337207}
+    - target: {fileID: 11428564, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
+      propertyPath: rightCamera
+      value: 
+      objectReference: {fileID: 65521094}
+    - target: {fileID: 11428564, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
+      propertyPath: leftCamera
+      value: 
+      objectReference: {fileID: 1635457181}
     - target: {fileID: 11463552, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
       propertyPath: viewIdField
       value: 5
