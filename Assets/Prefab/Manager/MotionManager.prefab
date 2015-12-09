@@ -46,7 +46,6 @@ GameObject:
   - 223: {fileID: 22355496}
   - 114: {fileID: 11454408}
   - 114: {fileID: 11405926}
-  - 114: {fileID: 11428564}
   m_Layer: 5
   m_Name: MotionUIRoot
   m_TagString: Untagged
@@ -94,20 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5eaa1e165e0a449b1cd3be26156c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugText: {fileID: 11429998}
---- !u!114 &11428564
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 154824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05ab746dfcfec964d9e462545158b12f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rightCamera: {fileID: 0}
-  leftCamera: {fileID: 0}
+  debugTextList: []
 --- !u!114 &11429998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,7 +115,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 36
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -267,7 +253,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 327.600006, y: -420.899994}
+  m_AnchoredPosition: {x: 244.5, y: -406.280273}
   m_SizeDelta: {x: 489, y: 267}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22478038
