@@ -62,9 +62,6 @@ public class EffectMover : MonoBehaviour
     /// <param name="attackType">動作から受け取った行動ID</param>
     public void OnObject(MotionManager.MotionSkillType attackType)
     {
-        //　エフェクトオブジェクトをアクティブ化
-        gameObject.SetActive(true);
-
         //　エフェクトがどの攻撃タイプか情報を保存
         type = attackType;
 
