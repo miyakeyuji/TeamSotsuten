@@ -277,7 +277,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     /// <param name="_id"></param>
     /// <returns></returns>
-    public PlayerAttackMasterData GetAttackData(int _arrayNumber)
+    public PlayerAttackMasterData GetPlayerAttackData(int _arrayNumber)
     {
         if (CheckOutRangeArrayNumberPlayerAttack(_arrayNumber, "GetPlayerAttackData"))        
             return null;
