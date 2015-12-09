@@ -42,17 +42,6 @@ public class ClientEnemyOperator : MonoBehaviour {
             //createdAttack = (GameObject)Instantiate(prefav, this.transform.position, Quaternion.identity);
             //createdAttack.GetComponent<ClientEnemyAttack>().ID = ...;
         }
-
-        if(data.IsLife == true)
-        {
-            //   表示します
-            if(!this.gameObject.activeInHierarchy) this.gameObject.SetActive(true);
-        }
-        else
-        {
-            //　　消します
-            if (this.gameObject.activeInHierarchy) this.gameObject.SetActive(false);
-        }
     }
 
     void FixedUpdate()
@@ -88,5 +77,46 @@ public class ClientEnemyOperator : MonoBehaviour {
         {
             //GameManager.Instance.SendEnemyDeath(ID);
         }
+    }
+
+    /// <summary>
+    /// 発生
+    /// </summary>
+    public void Spawn()
+    {
+        var hash = new Hashtable();
+        {
+            hash.Add("scale", new Vector3(1f, 1f, 1f)); // 設定するサイズ
+            hash.Add("time", 1f);                       // 1秒で行う
+            hash.Add("easetype", "easeOutQuad");        // イージングタイプを設定
+            hash.Add("onstart", "ChangeActive");        // 初めにメソッドを呼ぶ
+        }
+        iTween.ScaleTo (this.gameObject, hash);
+    }
+
+    /// <summary>
+    /// 死亡
+    /// </summary>
+    public void Dead()
+    {
+        var hash = new Hashtable();
+        {
+            hash.Add("scale", new Vector3(0f, 0f, 0f)); // 設定するサイズ
+            hash.Add("time", 1f);                       // 1秒で行う
+            hash.Add("easetype", "easeOutQuad");        // イージングタイプを設定
+            hash.Add("oncomplete", "ChangeActive");     // 初めにメソッドを呼ぶ
+        }
+        iTween.ScaleTo(this.gameObject, hash);
+    }
+
+    /// <summary>
+    /// アクティブ状態を変更する
+    /// </summary>
+    void ChangeActive()
+    {
+        if (!this.gameObject.activeInHierarchy)
+            this.gameObject.SetActive(true);
+        else
+            this.gameObject.SetActive(false);
     }
 }
