@@ -37,11 +37,43 @@ public class EnemyMasterData
 }
 
 
+/// <summary>
+/// プレイヤーの攻撃用データ
+/// </summary>
+public class PlayerAttackMasterData
+{
+    public bool IsActive; //有効フラグ
+
+    //攻撃の種類の列挙型
+    public enum PlayerAttackEffectType
+    {
+        NONE,
+        ATTACK1,
+    };
+
+
+    // 攻撃対象
+    public int EnemyTargetIndex;
+
+}
+
+
 
 /// <summary>
-/// 攻撃のマスターデータ
+/// エネミー攻撃のマスターデータ
 /// </summary>
-public class AttackMasterData
+public class EnemyAttackMasterData
 {
-    public bool IsLife; //生存（有効）フラグ
+    public bool IsActive; //有効フラグ
+
+    //攻撃の種類の列挙型
+    public enum EnemyAttackEffectType
+    {
+        NONE,
+        ATTACK1,
+    };
+
+    // 攻撃対象
+    public int PlayerTargetIndex;
+
 }
