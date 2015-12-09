@@ -7,16 +7,23 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Debugger : MonoBehaviour 
 {
-    static Text debugText = null;
+    static List<Text> debugTextList = new List<Text>();
     static int messageNum = 0;
-
+    
 
     void Awake()
     {
-        debugText = GetComponent<Text>();
+        var child = transform.GetComponentsInChildren<Canvas>();
+
+        for (int i = 0; i < child.Length; i++)
+        {
+            debugTextList.Add(child[i].GetComponentInChildren<Text>());
+        }
+
         Reset();
     }
 
@@ -25,7 +32,10 @@ public class Debugger : MonoBehaviour
     /// </summary>
     public static void Reset()
     {
-        debugText.text = "";
+        for (int i = 0; i < debugTextList.Count; i++)
+        {
+            debugTextList[i].text = "";
+        }
     }
 
 
@@ -40,7 +50,10 @@ public class Debugger : MonoBehaviour
 #endif
         OverLineTextReset();
 
-        debugText.text += message + "\n";
+        for (int i = 0; i < debugTextList.Count; i++)
+        {
+            debugTextList[i].text += message + "\n";
+        }
         messageNum++;
     }
 
@@ -55,8 +68,10 @@ public class Debugger : MonoBehaviour
 #endif
         OverLineTextReset();
 
-        debugText.text += "<color=red>" + message + "</color>" + "\n";
-
+        for (int i = 0; i < debugTextList.Count; i++)
+        {
+            debugTextList[i].text += "<color=red>" + message + "</color>" + "\n";
+        }
         messageNum++;
 
     }
@@ -72,8 +87,11 @@ public class Debugger : MonoBehaviour
 #endif
         OverLineTextReset();
 
-        debugText.text += "<color=yellow>" + message + "</color>" + "\n";
-        
+        for (int i = 0; i < debugTextList.Count; i++)
+        {
+            debugTextList[i].text += "<color=yellow>" + message + "</color>" + "\n";
+        }
+
         messageNum++;
 
     }
@@ -86,7 +104,11 @@ public class Debugger : MonoBehaviour
         if (messageNum >= MaxLineNum)
         {
             messageNum = 0;
-            debugText.text = "";
+
+            for (int i = 0; i < debugTextList.Count; i++)
+            {
+                debugTextList[i].text = "";
+            }
         }
     }
 }

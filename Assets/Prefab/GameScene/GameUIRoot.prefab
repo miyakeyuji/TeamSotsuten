@@ -28,7 +28,6 @@ GameObject:
   - 223: {fileID: 22337214}
   - 114: {fileID: 11421764}
   - 114: {fileID: 11404932}
-  - 114: {fileID: 11429470}
   m_Layer: 5
   m_Name: GameUIRoot
   m_TagString: Untagged
@@ -73,19 +72,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &11429470
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05ab746dfcfec964d9e462545158b12f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rightCamera: {fileID: 0}
-  leftCamera: {fileID: 0}
 --- !u!114 &11454748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,7 +93,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -173,7 +159,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 290}
+  m_AnchoredPosition: {x: 0, y: 428.109985}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000

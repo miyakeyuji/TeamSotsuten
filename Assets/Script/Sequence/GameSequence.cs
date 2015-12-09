@@ -37,7 +37,7 @@ public class GameSequence : SequenceBehaviour
     {
         // ウォッチの場合の処理。
         // いらないゲームオブジェクトをアクティブにしない。
-        if (ConnectionManager.IsWacth)
+        if (SequenceManager.Instance.IsBuildWatch)
         {
             watchHidenObj.SetActive(false);
             return;
