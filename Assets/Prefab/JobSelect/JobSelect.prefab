@@ -210,6 +210,8 @@ MonoBehaviour:
     jobType: 2
   - job: {fileID: 172904, guid: 152c1f65f07ef56448fe710f076236a3, type: 2}
     jobType: 3
+  jobSelectType: {fileID: 0}
+  characterSelectSequence: {fileID: 0}
 --- !u!114 &11478460
 MonoBehaviour:
   m_ObjectHideFlags: 1

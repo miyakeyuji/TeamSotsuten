@@ -58,6 +58,12 @@ public class SequenceManager : Singleton<SequenceManager>
 
     public bool IsBuildWatch { get { return isBuildWatch; } }
 
+    public bool IsNowCharacterSelectScene { get { return nowScene == SceneID.CHARACTER_SELECT; } }
+    public bool IsNowGameScene { get { return nowScene == SceneID.GAME; } }
+    public bool IsNowConnnectionScene { get { return nowScene == SceneID.CONNECTION; } }
+    public bool IsNowResultScene { get { return nowScene == SceneID.RESULT; } }
+    public bool IsNowTitleScene { get { return nowScene == SceneID.TITLE; } }
+
     public override void Awake() 
     {
         Application.targetFrameRate = 60;
@@ -129,6 +135,9 @@ public class SequenceManager : Singleton<SequenceManager>
         sceneList[(int)nowScene].behaviour.Finish();
 
         nowScene = nextScene;
+
+        Debugger.Log(">> ChangeScene");
+        Debugger.Log(nowScene.ToString());
     }
 
     public override void Update()

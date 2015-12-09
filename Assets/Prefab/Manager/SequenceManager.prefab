@@ -52,7 +52,7 @@ MonoBehaviour:
   - scene: 4
     behaviour: {fileID: 0}
   nowScene: 0
-  isBuildWatch: 0
+  isBuildWatch: 1
   singleCamera: {fileID: 0}
   vrCamera: {fileID: 0}
 --- !u!114 &11483596
