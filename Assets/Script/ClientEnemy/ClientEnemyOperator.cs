@@ -18,6 +18,7 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// <summary>
     /// エネミーのID
     /// </summary>
+    [SerializeField]
     private int id = -1;
     public int ID
     {
@@ -30,6 +31,7 @@ public class ClientEnemyOperator : MonoBehaviour {
             if (id == -1) id = value;
         }
     }
+
     EnemyMasterData data = null;
 
     void Update()
@@ -39,6 +41,17 @@ public class ClientEnemyOperator : MonoBehaviour {
         {
             //createdAttack = (GameObject)Instantiate(prefav, this.transform.position, Quaternion.identity);
             //createdAttack.GetComponent<ClientEnemyAttack>().ID = ...;
+        }
+
+        if(data.IsLife == true)
+        {
+            //   表示します
+            if(!this.gameObject.activeInHierarchy) this.gameObject.SetActive(true);
+        }
+        else
+        {
+            //　　消します
+            if (this.gameObject.activeInHierarchy) this.gameObject.SetActive(false);
         }
     }
 
