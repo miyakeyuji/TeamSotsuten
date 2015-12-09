@@ -46,6 +46,6 @@ public class EnemyData: MonoBehaviour
         GameManager.Instance.SendEnemyHP(0, life);
         GameManager.Instance.SendEnemyPosition(0, Position);
         GameManager.Instance.SendEnemyRotation(0, Rotation);
-        GameManager.Instance.SendEnemyIsLife(id, true);
+        GameManager.Instance.SendEnemyIsActive(id, true);
     }
 }
