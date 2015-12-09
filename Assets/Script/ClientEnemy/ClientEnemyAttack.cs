@@ -41,7 +41,7 @@ public class ClientEnemyAttack : MonoBehaviour {
             this.transform.position += targetVector.normalized * 3; // 暫定速度 3
         }
 
-        if (GameManager.Instance.GetAttackData(ID).IsLife)
+        if (GameManager.Instance.GetEnemyAttackData(ID).IsActive)
         {
             Destroy(this.gameObject);
             Debug.Log("攻撃は既に当たっています");
