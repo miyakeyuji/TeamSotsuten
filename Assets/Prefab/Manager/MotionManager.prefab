@@ -146,28 +146,32 @@ MonoBehaviour:
     skillType: 1
     acc:
     - {x: 0, y: 0, z: .5}
-    - {x: 0, y: 0, z: -1.5}
+    - {x: 0, y: 0, z: 0}
+    clearIndex: 0
   - isCalcX: 0
     isCalcY: 0
     isCalcZ: 1
     skillType: 2
     acc:
     - {x: 0, y: 0, z: -.5}
-    - {x: 0, y: 0, z: 1.5}
+    - {x: 0, y: 0, z: 0}
+    clearIndex: 0
   - isCalcX: 1
     isCalcY: 0
     isCalcZ: 0
     skillType: 3
     acc:
     - {x: -.5, y: 0, z: 0}
-    - {x: -1.5, y: 0, z: 0}
+    - {x: -1, y: 0, z: 0}
+    clearIndex: 0
   - isCalcX: 1
     isCalcY: 0
     isCalcZ: 0
     skillType: 4
     acc:
     - {x: .5, y: 0, z: 0}
-    - {x: 1.5, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    clearIndex: 0
   attackSkill: {fileID: 0}
   jobRotater: {fileID: 0}
 --- !u!114 &11454408
