@@ -104,7 +104,7 @@ public class ClientEnemyOperator : MonoBehaviour {
             hash.Add("scale", new Vector3(0f, 0f, 0f)); // 設定するサイズ
             hash.Add("time", 1f);                       // 1秒で行う
             hash.Add("easetype", "easeOutQuad");        // イージングタイプを設定
-            hash.Add("oncomplete", "ChangeActive");     // 初めにメソッドを呼ぶ
+            hash.Add("oncomplete", "ChangeActive");     // 最後にメソッドを呼ぶ
         }
         iTween.ScaleTo(this.gameObject, hash);
     }
