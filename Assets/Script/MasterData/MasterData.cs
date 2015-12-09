@@ -31,7 +31,7 @@ public class EnemyMasterData
 
     public Vector3 Rotation;    //方向
 
-    public bool IsLife; // 生存フラグ
+    public bool IsActive; // 有効化フラグ
 
     
 }

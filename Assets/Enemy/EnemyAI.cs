@@ -23,7 +23,7 @@ public class EnemyAI : MonoBehaviour
     //サーバーのエネミーに死んだことをお知らせする
     void IsDead()
     {
-        GameManager.Instance.SendEnemyIsLife(data.Id, false);
+        GameManager.Instance.SendEnemyIsActive(data.Id, false);
     }
 
 	// Update is called once per frame

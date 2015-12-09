@@ -67,6 +67,25 @@ public class GameManager : Singleton<GameManager>
     public override void Update()
     {
         base.Update();
+        
+        
+    }
+
+
+    /// <summary>
+    /// スマートフォンの位置情報を更新します。
+    /// </summary>
+    private void UpdateClientPosition()
+    {
+        for (int i = 0; i<MaxPlayerNum;i++) { 
+            
+            view.RPC("SyncClientPosition", PhotonTargets.All, new object[] {i });
+        }
+    }
+
+    [PunRPC]
+    private void SyncClientPosition(int _arrayNum,Vector3 _pos,PhotonMessageInfo _info)
+    {//  スマートフォンのポジションの同期
 
     }
 
@@ -306,19 +325,19 @@ public class GameManager : Singleton<GameManager>
     /// エネミーの生存フラグを変更します。
     /// </summary>
     /// <param name="_id"></param>
-    /// <param name="_islife"></param>
-    public void SendEnemyIsLife(int _arrayNumber,bool _islife)
+    /// <param name="_isActive"></param>
+    public void SendEnemyIsActive(int _arrayNumber,bool _isActive)
     {
-        if (CheckOutRangeArrayNumberEnemy(_arrayNumber, "SendEnemyIsLife"))
+        if (CheckOutRangeArrayNumberEnemy(_arrayNumber, "SendEnemyIsActive"))
             return;
         
-        view.RPC("SyncEnemyIsLife", PhotonTargets.All,new object[] { _arrayNumber,_islife});
+        view.RPC("SyncEnemyIsActive", PhotonTargets.All,new object[] { _arrayNumber,_isActive});
     }
 
     [PunRPC]
-    void SyncEnemyIsLife(int _arrayNumber, bool _islife, PhotonMessageInfo _info)
+    void SyncEnemyIsActive(int _arrayNumber, bool _isActive, PhotonMessageInfo _info)
     {//エネミースポーン情報送信
-        EnemyDataArray[_arrayNumber].IsLife = _islife;
+        EnemyDataArray[_arrayNumber].IsActive = _isActive;
     }
 
 

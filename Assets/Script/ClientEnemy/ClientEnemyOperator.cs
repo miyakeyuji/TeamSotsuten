@@ -84,7 +84,7 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// </summary>
     void OnTriggerEnter(Collider other)
     {
-        if (!data.IsLife || data.HP <= 0)
+        if (!data.IsActive || data.HP <= 0)
         {
             //GameManager.Instance.SendEnemyDeath(ID);
         }
