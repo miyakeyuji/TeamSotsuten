@@ -285,6 +285,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &209651108 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11454072, guid: 49d1e01eda1b6f24b85da0d46a41e452,
+    type: 2}
+  m_PrefabInternal: {fileID: 209651107}
+  m_Script: {fileID: 11500000, guid: 4c17cfda217907a4081856ef88120197, type: 3}
 --- !u!1001 &239256200
 Prefab:
   m_ObjectHideFlags: 0
@@ -990,6 +996,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11417714, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
+      propertyPath: debugTextList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 445990, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1038,6 +1048,10 @@ Prefab:
       propertyPath: instantiationId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11447594, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
+      propertyPath: attackSkill
+      value: 
+      objectReference: {fileID: 209651108}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
   m_IsPrefabParent: 0

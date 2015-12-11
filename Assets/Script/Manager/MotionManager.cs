@@ -170,6 +170,7 @@ public class MotionManager : Singleton<MotionManager>
         if (stopValue <= 0)
         {
             MotionSkill = MotionSkillType.NONE;
+            calcMotionList.Clear();
         }
     }
 
