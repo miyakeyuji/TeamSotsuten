@@ -144,8 +144,8 @@ MonoBehaviour:
     isCalcZ: 1
     skillType: 1
     acc:
-    - {x: 0, y: 0, z: -.5}
     - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: .5}
     clearIndex: 0
   - isCalcX: 0
     isCalcY: 0
