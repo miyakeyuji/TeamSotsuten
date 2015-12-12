@@ -270,15 +270,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 11471146, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1047300131}
     - target: {fileID: 11441802, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1047300131}
-    - target: {fileID: 11419874, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 1047300131}
@@ -287,6 +279,14 @@ Prefab:
       value: 
       objectReference: {fileID: 1047300131}
     - target: {fileID: 11411090, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1047300131}
+    - target: {fileID: 11471146, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1047300131}
+    - target: {fileID: 11419874, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 1047300131}
@@ -1008,10 +1008,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11417714, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
-      propertyPath: debugTextList.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 445990, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1045,6 +1041,10 @@ Prefab:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 11447594, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
+      propertyPath: attackSkill
+      value: 
+      objectReference: {fileID: 209651108}
+    - target: {fileID: 11447594, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
       propertyPath: jobRotater
       value: 
       objectReference: {fileID: 1104337207}
@@ -1060,10 +1060,6 @@ Prefab:
       propertyPath: instantiationId
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 11447594, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
-      propertyPath: attackSkill
-      value: 
-      objectReference: {fileID: 209651108}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 853febe54fb72484a9981f57d7084bf6, type: 2}
   m_IsPrefabParent: 0
@@ -1308,7 +1304,7 @@ Prefab:
       objectReference: {fileID: 620755137}
     - target: {fileID: 11452642, guid: 55ea8bc1ca70ae84e8cabdc18506fa17, type: 2}
       propertyPath: isBuildWatch
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55ea8bc1ca70ae84e8cabdc18506fa17, type: 2}
@@ -1355,11 +1351,11 @@ Prefab:
     - target: {fileID: 11427092, guid: 76517d1003c89d6488836411e5358015, type: 2}
       propertyPath: hidenGameObject.Array.data[0]
       value: 
-      objectReference: {fileID: 111734999}
+      objectReference: {fileID: 1962682728}
     - target: {fileID: 11427092, guid: 76517d1003c89d6488836411e5358015, type: 2}
       propertyPath: hidenGameObject.Array.data[1]
       value: 
-      objectReference: {fileID: 1962682728}
+      objectReference: {fileID: 111734999}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76517d1003c89d6488836411e5358015, type: 2}
   m_IsPrefabParent: 0

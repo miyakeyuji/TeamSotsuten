@@ -93,7 +93,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5eaa1e165e0a449b1cd3be26156c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugTextList: []
 --- !u!114 &11429998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,7 +145,7 @@ MonoBehaviour:
     skillType: 1
     acc:
     - {x: 0, y: 0, z: -.5}
-    - {x: 0, y: 0, z: .5}
+    - {x: 0, y: 0, z: 0}
     clearIndex: 0
   - isCalcX: 0
     isCalcY: 0
