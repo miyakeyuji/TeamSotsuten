@@ -15,6 +15,10 @@ public class GameManager : Singleton<GameManager>
     //フォトン用view
     PhotonView view = null;
 
+    //位置更新用ARカメラのトランスフォーム
+    [SerializeField]
+    Transform ARCamera = null;
+
     // プレイヤーデータ
     [SerializeField]
     const int MAXIMUM_PLAYER_NUM = 1;   // 最大プレイヤー数
@@ -38,6 +42,7 @@ public class GameManager : Singleton<GameManager>
     const int MAXIMUM_ENEMY_ATTACK_NUM = 1;
     public int MaxEnemyAttackNum { get { return MAXIMUM_ENEMY_ATTACK_NUM;} }       // 外から最大数を取得したい場合、アタック
     EnemyAttackMasterData[] EnemyAttackDataArray = new EnemyAttackMasterData[MAXIMUM_ENEMY_ATTACK_NUM];
+
 
 
     
@@ -67,8 +72,36 @@ public class GameManager : Singleton<GameManager>
     public override void Update()
     {
         base.Update();
-        
-        
+
+        UpdateOwner();
+
+        UpdateClient();
+    }
+
+
+    //オーナー(ホスト)のみ行うアップデートです。
+    private void UpdateOwner()
+    {
+        //オーナー確認
+        if (true)
+        {
+            return;
+        }
+
+    }
+
+
+    //クライアントのみ行うアップデートです。
+    private void UpdateClient()
+    {
+        //クライアント確認
+        if(true)
+        {
+            return;
+        }
+
+        //スマフォ位置更新
+        UpdateClientPosition();
     }
 
 
@@ -77,16 +110,20 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     private void UpdateClientPosition()
     {
-        for (int i = 0; i<MaxPlayerNum;i++) { 
-            
-            view.RPC("SyncClientPosition", PhotonTargets.All, new object[] {i });
+        if (ARCamera == null)
+        {
+            Debug.LogError("UpdateClientPosition() ARCameraがnullです。");
+            return;
         }
+        int index = ConnectionManager.ID;
+
+        view.RPC("SyncClientPosition", PhotonTargets.All, new object[] {index,ARCamera.position });
     }
 
     [PunRPC]
     private void SyncClientPosition(int _arrayNum,Vector3 _pos,PhotonMessageInfo _info)
     {//  スマートフォンのポジションの同期
-
+        PlayerDataArray[_arrayNum].Position = _pos;
     }
 
 
