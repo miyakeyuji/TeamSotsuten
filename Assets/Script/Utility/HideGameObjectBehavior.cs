@@ -17,6 +17,7 @@ public class HideGameObjectBehavior : MonoBehaviour {
 
 	void Start ()
     {
+
 #if !UNITY_EDITOR
         if (!SequenceManager.Instance.IsBuildWatch) return;
 

@@ -70,7 +70,11 @@ public class SequenceManager : Singleton<SequenceManager>
         Application.runInBackground = true;
 
         base.Awake();
-        
+
+#if UNITY_EDITOR
+        isBuildWatch = true;
+#endif
+
         for (int i = 0; i < sceneList.Length; i++)
         {
             sceneList[i].behaviour.Reset();
