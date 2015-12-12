@@ -86,6 +86,8 @@ namespace Vuforia
             }
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+
+            VuforiaBehaviour.IsMarkerLookAt = true;
         }
 
 
@@ -109,6 +111,9 @@ namespace Vuforia
             }
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
+
+            VuforiaBehaviour.IsMarkerLookAt = false;
+
         }
 
         #endregion // PRIVATE_METHODS

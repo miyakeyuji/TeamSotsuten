@@ -31,7 +31,10 @@ public class HideGameObjectBehavior : MonoBehaviour {
         {
             hidenBehaviour[i].enabled = false;
         }
+
+        Debugger.Log(">> HideGameObjectBehavior");
 #endif
-	}
+
+    }
 	
 }

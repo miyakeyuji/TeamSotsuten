@@ -148,12 +148,19 @@ public class SequenceManager : Singleton<SequenceManager>
     {
         base.Update();
 
-        if (Input.touchCount >= 3)
+        if (Input.touchCount == 3)
         {
             Debugger.Reset();
             PhotonNetwork.LeaveRoom();
             Application.LoadLevel(0);
         }
+
+        if (Input.touchCount >= 4)
+        {
+            Application.Quit();
+        }
+
+
 
     }
 }
