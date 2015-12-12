@@ -71,13 +71,13 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// <summary>
     /// 衝突判定
     /// </summary>
-    void OnTriggerEnter(Collider other)
+    /*void OnTriggerEnter(Collider other)
     {
         if (!data.IsActive || data.HP <= 0)
         {
             //GameManager.Instance.SendEnemyDeath(ID);
         }
-    }
+    }//*/
 
     /// <summary>
     /// 発生
