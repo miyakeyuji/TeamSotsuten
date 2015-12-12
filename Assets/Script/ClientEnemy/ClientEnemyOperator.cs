@@ -67,18 +67,6 @@ public class ClientEnemyOperator : MonoBehaviour {
         this.gameObject.transform.rotation = Quaternion.Euler(data.Rotation);   // 角度
     }
 
-
-    /// <summary>
-    /// 衝突判定
-    /// </summary>
-    /*void OnTriggerEnter(Collider other)
-    {
-        if (!data.IsActive || data.HP <= 0)
-        {
-            //GameManager.Instance.SendEnemyDeath(ID);
-        }
-    }//*/
-
     /// <summary>
     /// 発生
     /// </summary>
