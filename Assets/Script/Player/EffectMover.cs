@@ -62,6 +62,8 @@ public class EffectMover : MonoBehaviour
     /// <param name="attackType">動作から受け取った行動ID</param>
     public void OnObject(MotionManager.MotionSkillType attackType)
     {
+        iTween.Stop(gameObject);
+
         //　エフェクトがどの攻撃タイプか情報を保存
         type = attackType;
 
@@ -104,11 +106,7 @@ public class EffectMover : MonoBehaviour
     /// </summary>
     void ItweenOnStart()
     {
-        gameObject.transform.position = new Vector3(
-            player.transform.position.x,
-            gameObject.transform.position.y,
-            player.transform.position.z
-            );
+        gameObject.transform.position = player.transform.position;
     }
 
     /// <summary>
@@ -117,10 +115,7 @@ public class EffectMover : MonoBehaviour
     void ItweenOnComplete()
     {
         //プレイヤーの位置まで戻す
-        gameObject.transform.position = new Vector3(
-            gameObject.transform.position.x,
-            gameObject.transform.position.y,
-            player.transform.position.z);
+        gameObject.transform.position = player.transform.position;
 
         // ITweenが無効になっているフラグたて
         itweenCheck = false;

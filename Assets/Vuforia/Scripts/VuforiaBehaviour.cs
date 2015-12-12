@@ -29,6 +29,8 @@ namespace Vuforia
             SetUnityPlayerImplementation(unityPlayer);
 
             gameObject.AddComponent<ComponentFactoryStarterBehaviour>();
+
+            IsMarkerLookAt = false;
         }
 
         private static VuforiaBehaviour mVuforiaBehaviour= null;
@@ -47,5 +49,12 @@ namespace Vuforia
                 return mVuforiaBehaviour;
             }
         }
+
+
+        /// <summary>
+        /// ç°å©ÇƒÇ¢ÇÈÇ©Ç«Ç§Ç©
+        /// </summary>
+        public static bool IsMarkerLookAt = false;
+
     }
 }
