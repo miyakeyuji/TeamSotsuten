@@ -94,6 +94,8 @@ public class MotionManager : Singleton<MotionManager>
     /// <returns></returns>
     bool IsMotion(MotionWatchData data,int index)
     {
+        if (data.acc.Length < index) return false;
+
         float x = data.isCalcX ? data.acc[index].x : WatchManager.Instance.Acc.x;
         float y = data.isCalcY ? data.acc[index].y : WatchManager.Instance.Acc.y;
         float z = data.isCalcZ ? data.acc[index].z : WatchManager.Instance.Acc.z;
@@ -168,6 +170,7 @@ public class MotionManager : Singleton<MotionManager>
         if (stopValue <= 0)
         {
             MotionSkill = MotionSkillType.NONE;
+            calcMotionList.Clear();
         }
     }
 

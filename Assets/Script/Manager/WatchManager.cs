@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public class WatchManager : Singleton<WatchManager>
 {
-    public List<Text> debugTextList = new List<Text>();
+    List<Text> debugTextList = new List<Text>();
 
     PhotonView view = null;
 
