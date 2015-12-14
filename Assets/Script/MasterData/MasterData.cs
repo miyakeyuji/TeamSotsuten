@@ -33,7 +33,9 @@ public class EnemyMasterData
 
     public bool IsActive; // 有効化フラグ
 
-    
+    public EnemyData.EnamyState State;  // 状態
+
+    public MotionManager.MotionSkillType HitAttackType; // どの攻撃が当たったか
 }
 
 
@@ -42,19 +44,21 @@ public class EnemyMasterData
 /// </summary>
 public class PlayerAttackMasterData
 {
-    public bool IsActive; //有効フラグ
+    //有効フラグ
+    public bool IsActive;
 
-    //攻撃の種類の列挙型
-    public enum PlayerAttackEffectType
-    {
-        NONE,
-        ATTACK1,
-    };
+    //Hit時にtrueになる変数
+    public bool IsHit;
 
+    //攻撃のモーション種類
+    public MotionManager.MotionSkillType AttackType;
+
+    //攻撃のエフェクト種類
+    //public int EffectType;
 
     // 攻撃対象
     public int EnemyTargetIndex;
-
+    
 }
 
 
