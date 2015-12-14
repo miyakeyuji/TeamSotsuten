@@ -6,16 +6,18 @@ public class EnemySpawner : MonoBehaviour
 {
     enum SpawnerState
     {
+        None,
         Standby,
+        Start,
         Update,
 
     }
     SpawnerState State = SpawnerState.Standby;
 
     [SerializeField]
-    List<EnemyData> EnemyList = new List<EnemyData>();
+    List<GameObject> EnemyList = new List<GameObject>();
 
-    bool isOwner = false;
+
     int enemyMaxId;
 
 
@@ -24,36 +26,37 @@ public class EnemySpawner : MonoBehaviour
     {
        if (ConnectionManager.IsOwner)
        {
-           enemyMaxId = GameManager.Instance.MaxPlayerNum;
-           isOwner = true;
-
-           State = SpawnerState.Update;
+           State = SpawnerState.Start;
        }
+       else State = SpawnerState.None;
 	}
+
     void Spawn()
     {
-        // サバ―にエネミーを登録をさせます
+        //EnemyList[0].GetComponent<EnemyData>().SetMyDate();
+        // サバ―にエネミーを登録,初期化を行う
         foreach (var _Enemies in EnemyList)
         {
-            _Enemies.SetMyData();
-            Debug.Log(_Enemies+"が登録されました");
+            _Enemies.GetComponent<EnemyData>().SetMyDate();
         }
 
+        Debug.Log("登録終了");
     }
+
 
 
 	// Update is called once per frame
 	void Update () 
     {
-        if (isOwner)
+        if (State == SpawnerState.None) return;
+
+        if (State == SpawnerState.Start)
         {
-            if (State == SpawnerState.Update)
-            {
-                Spawn();
+            Spawn();
 
-                State = SpawnerState.Standby;
-            }
+            State = SpawnerState.Standby;
+        }
 
-        }	    
+
 	}
 }

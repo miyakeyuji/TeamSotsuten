@@ -3,38 +3,48 @@ using System.Collections;
 
 public class EnemyAI : MonoBehaviour 
 {
+    EnemyData Enemy = null;
 
-    EnemyData data = null;
+    bool DodSpawn = false;
 
-    bool isOwner = false;
-
-	void Start () 
+    public bool NowStateMatcingc(EnemyData.EnamyState _statNnum)
     {
-        if (ConnectionManager.IsOwner)
-        {
-            isOwner = true;
-        }
+        return (Enemy.State == _statNnum);
+    }
 
-        data.GetComponent<EnemyData>();
+
+    void Start()
+    {
+        Enemy = gameObject.GetComponent<EnemyData>();
+    }
+
+    //エネミーデータのStateを変更します。
+    void StateChanger()
+    {
+        if (Enemy.IsActive() && !DodSpawn) 
+        {
+            Enemy.StateChange(EnemyData.EnamyState.SPAWN);
+            DodSpawn = true;
+        }
+        else if (!Enemy.IsActive() && DodSpawn)
+        {
+            Enemy.StateChange(EnemyData.EnamyState.DEAD);
+        }
+        else 
+        {
+            Enemy.StateChange(EnemyData.EnamyState.NONE); 
+        }
         
     }
 
 
-    //サーバーのエネミーに死んだことをお知らせする
-    void IsDead()
+    void Update()
     {
-        GameManager.Instance.SendEnemyIsActive(data.Id, false);
+        //Stateを変更します
+        StateChanger();
+
+        //HPの更新
+        Enemy.LifeUpDate(); 
+
     }
-
-	// Update is called once per frame
-	void Update () 
-   {
-        if (!isOwner) return;
-
-       //死ぬ判定
-       if (data.Life <= 0) IsDead();
-        //他の判定追記
-
-	}
-
 }
