@@ -20,32 +20,47 @@ public class EnemyData: MonoBehaviour
     public int Life
     {
         get { return life; }
-        set { if (life == -1) Life = value; }
+        private set { if (life == -1) Life = value; }
     }
 
     public int Id
     {
         get { return id; }
-        set { if (life == -1) id = value; }
+        private set { if (id == -1) id = value; }
     }
 
-
-    enum STATE
+    public enum EnamyState
     {
         NONE,
+        SPAWN,
         STAY,
         ACTIVE,
         DEAD,
     }
 
     [SerializeField]
-    STATE State = STATE.NONE;
+    EnamyState state = EnamyState.NONE;
+    public EnamyState State{  get { return state; }}
 
-    public void SetMyData()
+    public void StateChange(EnamyState _statNnum) { state = _statNnum; }
+
+    public bool IsActive() { return GameManager.Instance.GetEnemyData(id).IsActive; }
+
+    //GameManager用のエネミーデータ
+    public void SetMyDate()
     {
         GameManager.Instance.SendEnemyHP(0, life);
         GameManager.Instance.SendEnemyPosition(0, Position);
         GameManager.Instance.SendEnemyRotation(0, Rotation);
         GameManager.Instance.SendEnemyIsActive(id, true);
     }
+
+    /// <summary>
+    /// GameManager側で保持しているHPに更新
+    /// </summary>
+    public void LifeUpDate()
+    {
+        Life = GameManager.Instance.GetEnemyData(id).HP;
+    }
+
 }
