@@ -8,14 +8,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CliantEnemySpawner : MonoBehaviour {
-    // 生成したオブジェクトの親に設定するゲームオブジェクト
-    [SerializeField]
-    GameObject parentObject = null;
-
-    [SerializeField]
-    GameObject enemy = null;
-
+    // エネミーとなるオブジェクト
     public List<GameObject> enemies = new List<GameObject>();
+
+    private int useNumber;
 
     void Start()
     {
@@ -24,18 +20,6 @@ public class CliantEnemySpawner : MonoBehaviour {
         {
             enemies.Add(child.gameObject);
         }
-    }
-
-    /// <summary>
-    /// エネミーを生成する
-    /// </summary>
-    /// <param name="_id">設定するID(配列のindex)</param>
-    void SpawnEnemy(int _id)
-    {
-        var data = GameManager.Instance.GetEnemyData(_id);
-        var createdEnemy = (GameObject)Instantiate(enemy, data.Position, Quaternion.Euler(data.Rotation));
-        createdEnemy.GetComponent<ClientEnemyOperator>().ID = _id;
-        if(parentObject != null) createdEnemy.transform.parent = parentObject.transform;   
     }
 
     /// <summary>
@@ -49,6 +33,8 @@ public class CliantEnemySpawner : MonoBehaviour {
             return;
         }
 
+        useNumber = num;
+
         var hash = new Hashtable();
         {
             hash.Add("scale", new Vector3(1f, 1f, 1f)); // 設定するサイズ
@@ -56,7 +42,7 @@ public class CliantEnemySpawner : MonoBehaviour {
             hash.Add("easetype", "easeOutQuad");        // イージングタイプを設定
             hash.Add("onstart", "ChangeActive");        // 初めにメソッドを呼ぶ
         }
-        iTween.ScaleTo(enemies[num], hash);
+        iTween.ScaleTo(enemies[useNumber], hash);
     }
 
     /// <summary>
@@ -70,6 +56,8 @@ public class CliantEnemySpawner : MonoBehaviour {
             return;
         }
 
+        useNumber = num;
+
         var hash = new Hashtable();
         {
             hash.Add("scale", new Vector3(0f, 0f, 0f)); // 設定するサイズ
@@ -77,7 +65,7 @@ public class CliantEnemySpawner : MonoBehaviour {
             hash.Add("easetype", "easeOutQuad");        // イージングタイプを設定
             hash.Add("oncomplete", "ChangeActive");     // 最後にメソッドを呼ぶ
         }
-        iTween.ScaleTo(enemies[num], hash);
+        iTween.ScaleTo(enemies[useNumber], hash);
     }
 
     /// <summary>
@@ -85,9 +73,9 @@ public class CliantEnemySpawner : MonoBehaviour {
     /// </summary>
     void ChangeActive()
     {
-        if (!this.gameObject.activeInHierarchy)
-            this.gameObject.SetActive(true);
+        if (!enemies[useNumber].activeInHierarchy)
+            enemies[useNumber].SetActive(true);
         else
-            this.gameObject.SetActive(false);
+            enemies[useNumber].SetActive(false);
     }
 }
