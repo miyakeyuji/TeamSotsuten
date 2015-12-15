@@ -39,19 +39,7 @@ public class GameManager : Singleton<GameManager>
     const int MAXIMUM_ENEMY_NUM = 1;    // 最大数　エネミー
     public int MaxEnemyNum { get { return MAXIMUM_ENEMY_NUM; } }        // 外から最大数を取得したい場合、エネミー
     EnemyMasterData[] EnemyDataArray = new EnemyMasterData[MAXIMUM_ENEMY_NUM];
-
-    // プレイヤーアタックデータ
-    [SerializeField]
-    const int MAXIMUM_PLAYER_ATTACK_NUM = 1;    // 最大数　プレイヤー攻撃
-    public int MaxPlayerAttackNum { get { return MAXIMUM_PLAYER_ATTACK_NUM; } }
-    PlayerAttackMasterData[] PlayerAttackDataArray = new PlayerAttackMasterData[MAXIMUM_PLAYER_ATTACK_NUM];
-
-    // エネミーアタックデータ
-    [SerializeField]
-    const int MAXIMUM_ENEMY_ATTACK_NUM = 1;     // 最大数　エネミー攻撃
-    public int MaxEnemyAttackNum { get { return MAXIMUM_ENEMY_ATTACK_NUM;} }       // 外から最大数を取得したい場合、アタック
-    EnemyAttackMasterData[] EnemyAttackDataArray = new EnemyAttackMasterData[MAXIMUM_ENEMY_ATTACK_NUM];
-
+    
 
 
     
@@ -66,8 +54,6 @@ public class GameManager : Singleton<GameManager>
 
         SendPlayerDataAwake();
         SendEnemyDataAwake();
-        SendPlayerAttackDataAwake();
-        SendEnemyAttackDataAwake();
     }
 
     //毎回の初期化処理
@@ -95,9 +81,7 @@ public class GameManager : Singleton<GameManager>
         if (ConnectionManager.IsOwner){
             return;
         }
-
-        //エネミーが攻撃に当たっているかを確認
-        EnemyHitCheck();
+        
     }
 
 
@@ -191,51 +175,9 @@ public class GameManager : Singleton<GameManager>
     }
 
 
+    
 
-    /// <summary>
-    /// 攻撃情報の初回初期化
-    /// </summary>
-    void SendPlayerAttackDataAwake()
-    {
-        view.RPC("SyncPlayerAttackDataAwake", PhotonTargets.All);
-    }
-
-    /// <summary>
-    /// アウェイクで同期させる攻撃データ
-    /// </summary>
-    /// <param name="_info"></param>
-    [PunRPC]
-    void SyncPlayerAttackDataAwake(PhotonMessageInfo _info)
-    {
-        for (int i = 0; i < MaxPlayerAttackNum; i++)
-        {
-            PlayerAttackDataArray[i] = new PlayerAttackMasterData();
-        }
-    }
-
-
-
-    /// <summary>
-    /// 攻撃情報の初回初期化
-    /// </summary>
-    void SendEnemyAttackDataAwake()
-    {
-        view.RPC("SyncEnemyAttackDataAwake", PhotonTargets.All);
-    }
-
-    /// <summary>
-    /// アウェイクで同期させる攻撃データ
-    /// </summary>
-    /// <param name="_info"></param>
-    [PunRPC]
-    void SyncEnemyAttackDataAwake(PhotonMessageInfo _info)
-    {
-        for (int i = 0; i < MaxEnemyAttackNum; i++)
-        {
-            EnemyAttackDataArray[i] = new EnemyAttackMasterData();
-        }
-    }
-
+    
 
 
     /// <summary>
@@ -274,45 +216,9 @@ public class GameManager : Singleton<GameManager>
         }
         return false;
     }
+    
 
-
-    /// <summary>
-    /// プレイヤーアタック
-    /// 配列インデクスの範囲外チェック
-    /// 範囲外(Error) = true , 範囲内(ok) = false
-    /// </summary>
-    /// <param name="_arrayNumber"></param>
-    /// <param name="_funcName"></param>
-    /// <returns></returns>
-    bool CheckOutRangeArrayNumberPlayerAttack(int _arrayNumber, string _funcName)
-    {
-        if (_arrayNumber < 0 || _arrayNumber >= MaxPlayerAttackNum)
-        {
-            Debug.LogError(_funcName + " 配列の範囲外です!!" + "Index = " + _arrayNumber);
-            return true;
-        }
-        return false;
-    }
-
-
-    /// <summary>
-    /// エネミーアタック
-    /// 配列インデクスの範囲外チェック
-    /// 範囲外(Error) = true , 範囲内(ok) = false
-    /// </summary>
-    /// <param name="_arrayNumber"></param>
-    /// <param name="_funcName"></param>
-    /// <returns></returns>
-    bool CheckOutRangeArrayNumberEnemyAttack(int _arrayNumber, string _funcName)
-    {
-        if (_arrayNumber < 0 || _arrayNumber >= MaxEnemyAttackNum)
-        {
-            Debug.LogError(_funcName + " 配列の範囲外です!!" + "Index = " + _arrayNumber);
-            return true;
-        }
-        return false;
-    }
-
+    
 
 
 
@@ -344,36 +250,7 @@ public class GameManager : Singleton<GameManager>
         return EnemyDataArray[_arrayNumber];
     }
 
-
-
-    /// <summary>
-    /// プレイヤー攻撃の情報を取得したい場合、この関数を読んでください、
-    /// ※取得したデータを直接書き換えないでください。
-    /// </summary>
-    /// <param name="_id"></param>
-    /// <returns></returns>
-    public PlayerAttackMasterData GetPlayerAttackData(int _arrayNumber)
-    {
-        if (CheckOutRangeArrayNumberPlayerAttack(_arrayNumber, "GetPlayerAttackData"))        
-            return null;
-
-        return PlayerAttackDataArray[_arrayNumber];
-    }
-
-
-    /// <summary>
-    /// エネミー攻撃の情報を取得したい場合、この関数を読んでください、
-    /// ※取得したデータを直接書き換えないでください。
-    /// </summary>
-    /// <param name="_id"></param>
-    /// <returns></returns>
-    public EnemyAttackMasterData GetEnemyAttackData(int _arrayNumber)
-    {
-        if (CheckOutRangeArrayNumberEnemyAttack(_arrayNumber, "GetEnemyAttackData"))
-            return null;
-
-        return EnemyAttackDataArray[_arrayNumber];
-    }
+    
 
 
 
@@ -477,45 +354,8 @@ public class GameManager : Singleton<GameManager>
     {//プレイヤー座標同期
         PlayerDataArray[_arrayNumber].Position = _pos;
     }
-
     
-    /// <summary>
-    /// プレイヤーの攻撃のActiveフラグを変更します。
-    /// </summary>
-    /// <param name="_arrayNumber"></param>
-    /// <param name="_isActive"></param>
-    public void SendPlayerAttackIsActive(int _arrayNumber,bool _isActive)
-    {
-        if (CheckOutRangeArrayNumberPlayerAttack(_arrayNumber, "SendPlayerAttackIsActive"))
-            return;
-        view.RPC("SyncPlayerAttackIsLife", PhotonTargets.All, new object[] { _arrayNumber ,_isActive});
-    }
-
-    [PunRPC]
-    void SyncPlayerAttackIsLife(int _arrayNumber,bool _isActive, PhotonMessageInfo _info)
-    {//攻撃IsLife送信
-        PlayerAttackDataArray[_arrayNumber].IsActive = _isActive;
-    }
-
-
-    /// <summary>
-    /// プレイヤーの攻撃のIsHitフラグを変更します。
-    /// </summary>
-    /// <param name="_arrayNumber"></param>
-    /// <param name="_isHit"></param>
-    public void SendPlayerAttackIsHit(int _arrayNumber, bool _isHit)
-    {
-        if (CheckOutRangeArrayNumberPlayerAttack(_arrayNumber, "SendPlayerAttackIsHit"))
-            return;
-        view.RPC("SyncPlayerAttackIsHit", PhotonTargets.All, new object[] { _arrayNumber, _isHit });
-    }
-
-    [PunRPC]
-    void SyncPlayerAttackIsHit(int _arrayNumber, bool _isHit, PhotonMessageInfo _info)
-    {//攻撃IsHit送信
-        PlayerAttackDataArray[_arrayNumber].IsHit = _isHit;
-    }
-
+    
 
 
     /// <summary>
@@ -526,8 +366,6 @@ public class GameManager : Singleton<GameManager>
     /// <param name="_enemyTargetIndex"></param>
     public void CreatePlayerAttack(int _arrayNumber, MotionManager.MotionSkillType _attackType, int _enemyTargetIndex)
     {
-        if (CheckOutRangeArrayNumberPlayerAttack(_arrayNumber, "CreatePlayerAttack"))
-            return;
         if (CheckOutRangeArrayNumberEnemy(_enemyTargetIndex, "CreatePlayerAttack _enemyTargetIndex"))
             return;
         view.RPC("SyncCreatePlayerAttack",PhotonTargets.All,new object[] { _arrayNumber,_attackType,_enemyTargetIndex});
@@ -536,53 +374,14 @@ public class GameManager : Singleton<GameManager>
     [PunRPC]
     void SyncCreatePlayerAttack(int _arrayNumber, MotionManager.MotionSkillType _attackType, int _enemyTargetIndex,PhotonMessageInfo _info)
     {
-        PlayerAttackDataArray[_arrayNumber].IsActive = true;
-        PlayerAttackDataArray[_arrayNumber].AttackType = _attackType;
-        PlayerAttackDataArray[_arrayNumber].EnemyTargetIndex = _enemyTargetIndex;
+        //とりあえず空白,今後処理を記述、もしくは関数ごと削除します。
     }
 
 
-
-    /// <summary>
-    /// エネミーの攻撃の有効化を変更します。（同期）
-    /// </summary>
-    public void SendEnemyAttackIsActive(int _arrayNumber, bool _isActive)
-    {
-        if (CheckOutRangeArrayNumberEnemyAttack(_arrayNumber, "SendEnemyAttackIsActive"))
-            return;
-        view.RPC("SyncEnemyAttackIsLife", PhotonTargets.All, new object[] { _arrayNumber, _isActive });
-    }
-
-    [PunRPC]
-    void SyncEnemyAttackIsLife(int _arrayNumber, bool _isActive, PhotonMessageInfo _info)
-    {//攻撃IsLife送信
-        EnemyAttackDataArray[_arrayNumber].IsActive = _isActive;
-    }
+    
 
 
-
-
-
-    /// <summary>
-    /// エネミーが攻撃に当たっているかをチェックします(オーナーのみ行います。)
-    /// </summary>
-    private void EnemyHitCheck()
-    {
-        //プレイヤーの攻撃エフェクト分回します。
-        for (int i = 0;i < MaxPlayerAttackNum; i++)
-        {
-            if (PlayerAttackDataArray[i].IsActive == true)
-            {//アクティブ確認
-                //距離確認
-                if (false)
-                {
-                    //当たったら
-                    int damage = 10;
-                    SendEnemyHit(PlayerAttackDataArray[i].EnemyTargetIndex,i,damage);
-                }
-            }
-        }
-    }
+    
 
     
     /// <summary>
@@ -591,23 +390,20 @@ public class GameManager : Singleton<GameManager>
     /// <param name="_enemyArrayNumber"></param>
     /// <param name="_playerAttackArrayNumber"></param>
     /// <param name="_damage"></param>
-    private void SendEnemyHit(int _enemyArrayNumber,int _playerAttackArrayNumber,int _damage)
+    public void SendEnemyHit(int _enemyArrayNumber, MotionManager.MotionSkillType _playerAttackType,int _damage)
     {
         if (CheckOutRangeArrayNumberEnemy(_enemyArrayNumber, "SendEnemyHit"))
             return;
-        if (CheckOutRangeArrayNumberPlayerAttack(_playerAttackArrayNumber, "SendEnemyHit"))
-            return;
 
-        view.RPC("SyncEnemyHit", PhotonTargets.All, new object[] { _enemyArrayNumber, _playerAttackArrayNumber,_damage });
+        view.RPC("SyncEnemyHit", PhotonTargets.All, new object[] { _enemyArrayNumber, _playerAttackType, _damage });
     }
 
     [PunRPC]
-    private void SyncEnemyHit(int _enemyArrayNumber, int _playerAttackArrayNumber, int _damage, PhotonMessageInfo _info)
+    private void SyncEnemyHit(int _enemyArrayNumber, MotionManager.MotionSkillType _playerAttackType, int _damage, PhotonMessageInfo _info)
     {//エネミーが攻撃に当たった時の同期
         EnemyDataArray[_enemyArrayNumber].HP -= _damage;
-        EnemyDataArray[_enemyArrayNumber].HitAttackType = PlayerAttackDataArray[_playerAttackArrayNumber].AttackType;
-
-        PlayerAttackDataArray[_playerAttackArrayNumber].IsHit = true;
+        EnemyDataArray[_enemyArrayNumber].HitAttackType = _playerAttackType;
+        
     }
 
 
