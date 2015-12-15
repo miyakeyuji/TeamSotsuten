@@ -21,13 +21,6 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     Transform ARCameraDevice = null;
 
-    /// <summary>
-    /// シングルカメラ？用トランスフォーム、登録してください。
-    /// </summary>
-    [SerializeField]
-    Transform SingleCameraDevice = null;
-
-
     // プレイヤーデータ
     [SerializeField]
     const int MAXIMUM_PLAYER_NUM = 1;   // 最大数　プレイヤー
@@ -51,6 +44,14 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         view = GetComponent<PhotonView>();
+
+
+        // ARCameraを削除
+        if (ARCameraDevice == null)
+        {
+            Debugger.LogError("GameManagerのARCameraがnullです！！");
+            return;
+        }
 
         SendPlayerDataAwake();
         SendEnemyDataAwake();
@@ -78,7 +79,7 @@ public class GameManager : Singleton<GameManager>
     private void UpdateOwner()
     {
         //オーナー確認
-        if (ConnectionManager.IsOwner){
+        if (!ConnectionManager.IsOwner){
             return;
         }
         
@@ -89,7 +90,7 @@ public class GameManager : Singleton<GameManager>
     private void UpdateClient()
     {
         //クライアント確認
-        if(ConnectionManager.IsSmartPhone){
+        if(!ConnectionManager.IsSmartPhone){
             return;
         }
 
@@ -103,30 +104,27 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     private void UpdateClientPosition()
     {
-        Transform deviceTransform = null;
-
-        /// デバイスの座標を取得
-        if (SequenceManager.Instance.IsBuildWatch)
-        {
-            deviceTransform.position = SingleCameraDevice.position;
-            Debugger.Log("GM UCP() IBW = true " + deviceTransform.position);
-        }
-        else
-        {
-            deviceTransform.position = ARCameraDevice.position;
-            Debugger.Log("GM UCP() IBW = false " + deviceTransform.position);
-        }
-
         //プレイヤー(スマートフォンＩＤ)を取得
         int index = ConnectionManager.ID;
 
-        view.RPC("SyncClientPosition", PhotonTargets.All, new object[] {index, deviceTransform.position });
+        // ターゲット画像が読み込まれていないなら処理しない。
+        // ちゃんと機能していないので、一時コメントアウトしています
+        //if (!Vuforia.VuforiaBehaviour.IsMarkerLookAt)
+        if (PlayerDataArray[index].Position == ARCameraDevice.position)
+        {
+            Debugger.Log("ターゲットロスト");
+            return;
+        }
+
+        view.RPC("SyncClientPosition", PhotonTargets.All, new object[] {index, ARCameraDevice.position });
     }
 
     [PunRPC]
     private void SyncClientPosition(int _arrayNum,Vector3 _pos,PhotonMessageInfo _info)
     {//  スマートフォンのポジションの同期
         PlayerDataArray[_arrayNum].Position = _pos;
+
+        Debugger.Log("PlayerDataArray index = " + _arrayNum + "Position x = " + _pos.x + " y = " +_pos.y + " z = " + _pos.z);
     }
 
 
