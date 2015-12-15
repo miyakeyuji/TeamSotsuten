@@ -65,32 +65,28 @@ public class EffectMover : MonoBehaviour
         //　エフェクトがどの攻撃タイプか情報を保存
         type = attackType;
 
-        //　エフェクトのターゲットを設定
-        Vector3 targetPosition;
-        targetPosition = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
-
         //　動きから受け取ったタイプからテクスチャなどをオブジェクトに張り付ける
         switch (attackType)
         {
             case MotionManager.MotionSkillType.VERTICAL_UP_DOWN:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = upDownAttackSprite;
-                Move(targetPosition);
+                Move(target.transform.position);
                 break;
             case MotionManager.MotionSkillType.VERTICAL_DOWN_UP:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = downUpAttackSprite;
-                Move(targetPosition);
+                Move(target.transform.position);
                 break;
             case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = leftRightAttackSprite;
-                Move(targetPosition);
+                Move(target.transform.position);
                 break;
             case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
                 if (itweenCheck != false) break;
                 attackSpriteRenderer.sprite = rightLeftAttackSprite;
-                Move(targetPosition);
+                Move(target.transform.position);
                 break;
         }
 
