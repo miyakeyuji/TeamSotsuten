@@ -34,6 +34,8 @@ public class ClientEnemyOperator : MonoBehaviour {
 
     EnemyMasterData data = null;
 
+    bool isLive = false;
+
     void Update()
     {
         // 弾瀬性
@@ -72,6 +74,8 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// </summary>
     public void Spawn()
     {
+        isLive = true;
+
         var hash = new Hashtable();
         {
             hash.Add("scale", new Vector3(1f, 1f, 1f)); // 設定するサイズ
@@ -87,6 +91,8 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// </summary>
     public void Dead()
     {
+        isLive = false;
+
         var hash = new Hashtable();
         {
             hash.Add("scale", new Vector3(0f, 0f, 0f)); // 設定するサイズ
@@ -102,9 +108,6 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// </summary>
     void ChangeActive()
     {
-        if (!this.gameObject.activeInHierarchy)
-            this.gameObject.SetActive(true);
-        else
-            this.gameObject.SetActive(false);
+        this.gameObject.SetActive(isLive);
     }
 }
