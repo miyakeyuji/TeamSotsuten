@@ -49,7 +49,6 @@ public class EffectMover : MonoBehaviour
     /// 攻撃用のエフェクトの貼り付け先
     /// </summary>
     SpriteRenderer attackSpriteRenderer;
-    private Sprite strongAttackSprite;
 
     /// <summary>
     /// 動作から取得したIDを取得
