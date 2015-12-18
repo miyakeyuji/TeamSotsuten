@@ -26,6 +26,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class JobDB : MonoBehaviour {
 
@@ -69,6 +70,11 @@ public class JobDB : MonoBehaviour {
     [SerializeField]
     private List<JobData> JobDataBase = new List<JobData>();
 
+    [SerializeField]
+    Text jobSelectType = null;
+
+    [SerializeField]
+    CharacterSelectSequence characterSelectSequence = null; 
 
     /// <summary>
     /// 選択中の職業
@@ -93,6 +99,7 @@ public class JobDB : MonoBehaviour {
         }
 
         SelectedJobType = GetJobDataFindArray(selectedNum).jobType;
+        jobSelectType.text = SelectedJobType.ToString();
     }
 
     /// <summary>
@@ -103,6 +110,16 @@ public class JobDB : MonoBehaviour {
     public void SetSelectJobType(int selectedNum)
     {
         SetSelectJobType(ref selectedNum);
+    }
+
+    /// <summary>
+    /// 決定処理
+    /// </summary>
+    public void Decision()
+    {
+        characterSelectSequence.ChangeScene();
+        jobSelectType.text = SelectedJobType.ToString() + "\n";
+        jobSelectType.text += "決定！！";
     }
 
     // Use this for initialization

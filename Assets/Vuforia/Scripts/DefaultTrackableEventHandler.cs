@@ -20,7 +20,8 @@ namespace Vuforia
     
         #endregion // PRIVATE_MEMBER_VARIABLES
 
-
+        [SerializeField]
+        SequenceBehaviour scene = null;
 
         #region UNTIY_MONOBEHAVIOUR_METHODS
     
@@ -31,6 +32,8 @@ namespace Vuforia
             {
                 mTrackableBehaviour.RegisterTrackableEventHandler(this);
             }
+
+            transform.SetParent(scene.transform);
         }
 
         #endregion // UNTIY_MONOBEHAVIOUR_METHODS
@@ -57,6 +60,7 @@ namespace Vuforia
             {
                 OnTrackingLost();
             }
+
         }
 
         #endregion // PUBLIC_METHODS
@@ -83,7 +87,9 @@ namespace Vuforia
                 component.enabled = true;
             }
 
-            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+            Debugger.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+
+            VuforiaBehaviour.IsMarkerLookAt = true;
         }
 
 
@@ -104,7 +110,10 @@ namespace Vuforia
                 component.enabled = false;
             }
 
-            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
+            Debugger.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
+
+            VuforiaBehaviour.IsMarkerLookAt = false;
+
         }
 
         #endregion // PRIVATE_METHODS

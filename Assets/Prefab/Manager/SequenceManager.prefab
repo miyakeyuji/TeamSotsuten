@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 454326}
   - 114: {fileID: 11452642}
+  - 114: {fileID: 11483596}
   m_Layer: 0
   m_Name: SequenceManager
   m_TagString: Untagged
@@ -51,6 +52,30 @@ MonoBehaviour:
   - scene: 4
     behaviour: {fileID: 0}
   nowScene: 0
+  isBuildWatch: 0
+  singleCamera: {fileID: 0}
+  vrCamera: {fileID: 0}
+--- !u!114 &11483596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ab746dfcfec964d9e462545158b12f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiRoot:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rightCamera: {fileID: 0}
+  leftCamera: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

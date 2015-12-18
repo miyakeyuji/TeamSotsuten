@@ -13,6 +13,7 @@ public class CharacterSelectSequence : SequenceBehaviour
     [SerializeField]
     WatchDeviceInfoRecorder watchRecorder = null;
 
+    PhotonView view = null;
 
     public override void Reset()
     {
@@ -32,18 +33,64 @@ public class CharacterSelectSequence : SequenceBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        view = GetComponent(typeof(PhotonView)) as PhotonView;
+
         if (!ConnectionManager.IsSmartPhone) return;
 
         watchRecorder.StartDebugShow();
 	}
+
+
+    /// <summary>
+    /// シーンを切り替える。
+    /// </summary>
+    public void ChangeScene()
+    {
+        if (ConnectionManager.IsSmartPhone)
+        {
+            view.RPC("SyncDecision", ConnectionManager.OwnerPlayer);
+        }
+    }
+
+    int decisionPlayerNum = 0;
+
+    /// <summary>
+    /// 同期用の決定処理
+    /// </summary>
+    /// <param name="info"></param>
+    [PunRPC]
+    void SyncDecision(PhotonMessageInfo info)
+    {
+        decisionPlayerNum++;
+    }
+
+    /// <summary>
+    /// 同期用のシーン切り替え処理
+    /// </summary>
+    /// <param name="info"></param>
+    [PunRPC]
+    void SyncChangeScene(PhotonMessageInfo info)
+    {
+        SequenceManager.Instance.ChangeScene(SceneID.GAME);
+    }
 	
-	// Update is called once per frame
-	void Update ()
+    void Update ()
+    {
+        if (ConnectionManager.IsOwner && decisionPlayerNum >= 1)
+        {
+            view.RPC("SyncChangeScene", PhotonTargets.All);
+        }
+	}
+
+
+    /// <summary>
+    /// 書かないといけない関数
+    /// </summary>
+    /// <param name="stream"></param>
+    /// <param name="info"></param>
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
 
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    SequenceManager.Instance.ChangeScene(SceneID.GAME);
-        //}
-	}
+    }
+
 }

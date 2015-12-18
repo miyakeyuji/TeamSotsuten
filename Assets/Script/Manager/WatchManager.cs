@@ -8,11 +8,11 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class WatchManager : Singleton<WatchManager>
 {
-    [SerializeField]
-    Text debugText = null;
+    List<Text> debugTextList = new List<Text>();
 
     PhotonView view = null;
 
@@ -39,11 +39,19 @@ public class WatchManager : Singleton<WatchManager>
             enabled = false;
         }
 
+        var child = transform.GetComponentsInChildren<Canvas>();
+
+        for (int i = 0; i < child.Length; i++)
+        {
+            debugTextList.Add(child[i].GetComponentInChildren<Text>());
+        }
+
     }
 
     public override void Start()
     {
         base.Start();
+
     }
 
     public override void Update()
@@ -74,8 +82,11 @@ public class WatchManager : Singleton<WatchManager>
 
     void DebugTextShow(Vector3 acc, Vector3 gyroAngle)
     {
-        debugText.text = "Acc : " + acc.ToString() + "\n";
-        debugText.text += "GyroAngle : " + gyroAngle.ToString();
+        for (int i = 0; i < debugTextList.Count; i++)
+        {
+            debugTextList[i].text = "Acc : " + acc.ToString() + "\n";
+            debugTextList[i].text += "GyroAngle : " + gyroAngle.ToString();
+        }
     }
 
     /// <summary>

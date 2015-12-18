@@ -9,14 +9,6 @@ using System.Collections;
 
 public class GameSequence : SequenceBehaviour
 {
-    [SerializeField]
-    Camera mainCamera = null;
-    
-    /// <summary>
-    /// ウォッチ端末の場合、隠すべきオブジェクト集
-    /// </summary>
-    [SerializeField]
-    GameObject watchHidenObj = null;
 
     [SerializeField]
     WatchDeviceInfoRecorder watchRecorder = null;
@@ -38,16 +30,6 @@ public class GameSequence : SequenceBehaviour
 
 	void Start () 
     {
-        // ウォッチの場合の処理。
-        // いらないゲームオブジェクトをアクティブにしない。
-        if (ConnectionManager.IsWacth)
-        {
-            watchHidenObj.SetActive(false);
-            return;
-        }
-
-        mainCamera.enabled = false;
-
         if (!ConnectionManager.IsSmartPhone) return;
 
         watchRecorder.StartDebugShow();

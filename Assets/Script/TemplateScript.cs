@@ -12,7 +12,7 @@ public class TemplateScript : MonoBehaviour
 {
 
     /// <summary>
-    /// Editorのみ変更可能にする。
+    /// Editorのみ変更可能にする。 
     /// </summary>
     [SerializeField]
     int value = 0;

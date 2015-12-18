@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 496176}
   - 114: {fileID: 11458880}
   - 114: {fileID: 11464672}
+  - 114: {fileID: 11497856}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -35,11 +36,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183956}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de6120923f88d884c9f21b2b2f010bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ARCameraDevice: {fileID: 0}
 --- !u!114 &11464672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,6 +67,23 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &11497856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0a075bd7d11fb429afe7b767dbd9a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hidenGameObject:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hidenBehaviour:
+  - {fileID: 11458880}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

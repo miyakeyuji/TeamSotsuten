@@ -18,6 +18,7 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// <summary>
     /// エネミーのID
     /// </summary>
+    [SerializeField]
     private int id = -1;
     public int ID
     {
@@ -30,6 +31,7 @@ public class ClientEnemyOperator : MonoBehaviour {
             if (id == -1) id = value;
         }
     }
+
     EnemyMasterData data = null;
 
     void Update()
@@ -65,15 +67,44 @@ public class ClientEnemyOperator : MonoBehaviour {
         this.gameObject.transform.rotation = Quaternion.Euler(data.Rotation);   // 角度
     }
 
+    /// <summary>
+    /// 発生
+    /// </summary>
+    public void Spawn()
+    {
+        var hash = new Hashtable();
+        {
+            hash.Add("scale", new Vector3(1f, 1f, 1f)); // 設定するサイズ
+            hash.Add("time", 1f);                       // 1秒で行う
+            hash.Add("easetype", "easeOutQuad");        // イージングタイプを設定
+            hash.Add("onstart", "ChangeActive");        // 初めにメソッドを呼ぶ
+        }
+        iTween.ScaleTo (this.gameObject, hash);
+    }
 
     /// <summary>
-    /// 衝突判定
+    /// 死亡
     /// </summary>
-    void OnTriggerEnter(Collider other)
+    public void Dead()
     {
-        if (!data.IsLife || data.HP <= 0)
+        var hash = new Hashtable();
         {
-            //GameManager.Instance.SendEnemyDeath(ID);
+            hash.Add("scale", new Vector3(0f, 0f, 0f)); // 設定するサイズ
+            hash.Add("time", 1f);                       // 1秒で行う
+            hash.Add("easetype", "easeOutQuad");        // イージングタイプを設定
+            hash.Add("oncomplete", "ChangeActive");     // 最後にメソッドを呼ぶ
         }
+        iTween.ScaleTo(this.gameObject, hash);
+    }
+
+    /// <summary>
+    /// アクティブ状態を変更する
+    /// </summary>
+    void ChangeActive()
+    {
+        if (!this.gameObject.activeInHierarchy)
+            this.gameObject.SetActive(true);
+        else
+            this.gameObject.SetActive(false);
     }
 }

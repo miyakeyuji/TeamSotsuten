@@ -54,4 +54,14 @@ MonoBehaviour:
   - SyncPlayerDataAwake
   - SyncAttackIsLife
   - SyncPlayerPosition
+  - SyncClientPosition
+  - SyncEnemyAttackDataAwake
+  - SyncEnemyAttackIsLife
+  - SyncEnemyIsActive
+  - SyncPlayerAttackDataAwake
+  - SyncPlayerAttackIsLife
+  - SyncDecision
+  - SyncCreatePlayerAttack
+  - SyncEnemyHit
+  - SyncPlayerAttackIsHit
   DisableAutoOpenWizard: 1

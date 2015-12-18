@@ -6,6 +6,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MotionManager : Singleton<MotionManager>
 {
@@ -26,11 +27,6 @@ public class MotionManager : Singleton<MotionManager>
     /// </summary>
     public MotionSkillType MotionSkill { get; private set; }
 
-    /// <summary>
-    /// 計算するモーションの種類、
-    /// </summary>
-    MotionSkillType calcMotionSkill = MotionSkillType.NONE;
-
     [System.Serializable]
     public class MotionWatchData
     {
@@ -39,7 +35,15 @@ public class MotionManager : Singleton<MotionManager>
         public bool isCalcZ = false;
         public MotionSkillType skillType = MotionSkillType.NONE;
         public Vector3[] acc = new Vector3[2];
+
+        [HideInInspector]
+        public int clearIndex = 0;
     }
+
+    /// <summary>
+    /// 計算するモーションデータ
+    /// </summary>
+    List<MotionWatchData> calcMotionList = new List<MotionWatchData>();
 
     /// <summary>
     /// 加速度の誤差を許す範囲
@@ -62,8 +66,6 @@ public class MotionManager : Singleton<MotionManager>
     [SerializeField]
     JobRotater jobRotater = null;
 
-    bool isStart = false;
-    int clearIndex = 0;
     float stopValue = 0;
 
     public override void Awake()
@@ -92,16 +94,23 @@ public class MotionManager : Singleton<MotionManager>
     /// <returns></returns>
     bool IsMotion(MotionWatchData data,int index)
     {
+        if (data.acc.Length < index) return false;
+
         float x = data.isCalcX ? data.acc[index].x : WatchManager.Instance.Acc.x;
         float y = data.isCalcY ? data.acc[index].y : WatchManager.Instance.Acc.y;
         float z = data.isCalcZ ? data.acc[index].z : WatchManager.Instance.Acc.z;
 
-        if (data.isCalcX && Mathf.Abs(x - WatchManager.Instance.Acc.x) > accRange) return false;
-        if (data.isCalcY && Mathf.Abs(y - WatchManager.Instance.Acc.y) > accRange) return false;
-        if (data.isCalcZ && Mathf.Abs(z - WatchManager.Instance.Acc.z) > accRange) return false;
+        bool isRangeX = Mathf.Abs(x - WatchManager.Instance.Acc.x) > accRange;
+        bool isRangeY = Mathf.Abs(y - WatchManager.Instance.Acc.y) > accRange;
+        bool isRangeZ = Mathf.Abs(z - WatchManager.Instance.Acc.z) > accRange;
+
+        if (data.isCalcX && isRangeX) return false;
+        if (data.isCalcY && isRangeY) return false;
+        if (data.isCalcZ && isRangeZ) return false;
 
         return true;
     }
+
 
 
     /// <summary>
@@ -114,13 +123,11 @@ public class MotionManager : Singleton<MotionManager>
         {
             if (!IsMotion(motionData[i], 0)) continue;
 
-            calcMotionSkill = motionData[i].skillType;
-            isStart = true;
-            clearIndex = 1;
+            motionData[i].clearIndex = 1;
+
             stopValue = calcTime;
 
-            Debugger.Log(">> StartMotion");
-            Debugger.Log(calcMotionSkill.ToString());
+            calcMotionList.Add(motionData[i]);
 
             return;
         }
@@ -132,21 +139,19 @@ public class MotionManager : Singleton<MotionManager>
     /// <param name="data"></param>
     void CalcMotion()
     {
-        for (int i = 0; i < motionData.Length; i++)
+        for (int i = 0; i < calcMotionList.Count; i++)
         {
-            if (calcMotionSkill != motionData[i].skillType) continue;
-            if (!IsMotion(motionData[i], clearIndex)) continue;
+            if (!IsMotion(calcMotionList[i], calcMotionList[i].clearIndex)) continue;
 
-            clearIndex++;
+            calcMotionList[i].clearIndex++;
 
-            if (motionData[i].acc.Length <= clearIndex)
+            if (calcMotionList[i].acc.Length <= calcMotionList[i].clearIndex)
             {
-                MotionSkill = motionData[i].skillType;
-                calcMotionSkill = MotionSkillType.NONE;
-                isStart = false;
+                MotionSkill = calcMotionList[i].skillType;
 
-                Debugger.Log("【モーション成功】");
-                Debugger.Log(MotionSkill.ToString());
+                OnComplated();
+
+                calcMotionList.Clear();
 
                 return;
             }
@@ -165,10 +170,7 @@ public class MotionManager : Singleton<MotionManager>
         if (stopValue <= 0)
         {
             MotionSkill = MotionSkillType.NONE;
-            calcMotionSkill = MotionSkillType.NONE;
-            isStart = false;
-
-            Debugger.Log(">> StopCalc  失敗！！。");
+            calcMotionList.Clear();
         }
     }
 
@@ -178,14 +180,21 @@ public class MotionManager : Singleton<MotionManager>
     /// </summary>
     void OnComplated()
     {
-        if (isStart) return;
         if (MotionSkill == MotionSkillType.NONE) return;
 
-        Debugger.Log(">> OnComplated");
+        if (SequenceManager.Instance.IsNowCharacterSelectScene)
+        {
+            jobRotater.OnMotionComplated();
+        }
+
+        if (SequenceManager.Instance.IsNowGameScene)
+        {
+            attackSkill.OnMotionComplated();
+        }
+
+        Debugger.Log("【モーション成功】");
         Debugger.Log(MotionSkill.ToString());
 
-        //attackSkill.OnMotionComplated();
-        jobRotater.OnMotionComplated();
 
     }
 
@@ -193,15 +202,10 @@ public class MotionManager : Singleton<MotionManager>
     {
         base.Update();
 
-        if (!isStart)
-        {
-            StartMotion();
-        }
-        else
-        {
-            StopCalc();
-            CalcMotion();
-            OnComplated();
-        }
+        StartMotion();
+
+        StopCalc();
+
+        CalcMotion();
     }
 }

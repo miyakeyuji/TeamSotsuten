@@ -17,6 +17,8 @@ public class PlayerMasterData
     public Vector3 Position; //座標
 
     public JobDB.JobType Job;   //職業
+
+    
 }
 
 
@@ -31,17 +33,16 @@ public class EnemyMasterData
 
     public Vector3 Rotation;    //方向
 
-    public bool IsLife; // 生存フラグ
+    public bool IsActive; // 有効化フラグ
 
-    
+    public EnemyData.EnamyState State;  // 状態
+
+    public bool IsHit;  // 攻撃に当たった場合、有効化します。
+
+    public MotionManager.MotionSkillType HitAttackType; // どの攻撃が当たったか
+
 }
 
 
 
-/// <summary>
-/// 攻撃のマスターデータ
-/// </summary>
-public class AttackMasterData
-{
-    public bool IsLife; //生存（有効）フラグ
-}
+

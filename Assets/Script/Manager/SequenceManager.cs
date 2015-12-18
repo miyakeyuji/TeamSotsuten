@@ -47,13 +47,34 @@ public class SequenceManager : Singleton<SequenceManager>
     [SerializeField]
     SceneID nowScene = SceneID.CONNECTION;
 
+    [SerializeField]
+    bool isBuildWatch = false;
+
+    [SerializeField]
+    GameObject singleCamera = null;
+
+    [SerializeField]
+    GameObject vrCamera = null;
+
+    public bool IsBuildWatch { get { return isBuildWatch; } }
+
+    public bool IsNowCharacterSelectScene { get { return nowScene == SceneID.CHARACTER_SELECT; } }
+    public bool IsNowGameScene { get { return nowScene == SceneID.GAME; } }
+    public bool IsNowConnnectionScene { get { return nowScene == SceneID.CONNECTION; } }
+    public bool IsNowResultScene { get { return nowScene == SceneID.RESULT; } }
+    public bool IsNowTitleScene { get { return nowScene == SceneID.TITLE; } }
+
     public override void Awake() 
     {
         Application.targetFrameRate = 60;
         Application.runInBackground = true;
 
         base.Awake();
-        
+
+#if UNITY_EDITOR
+        isBuildWatch = true;
+#endif
+
         for (int i = 0; i < sceneList.Length; i++)
         {
             sceneList[i].behaviour.Reset();
@@ -64,13 +85,28 @@ public class SequenceManager : Singleton<SequenceManager>
             }
         }
 
+        if (isBuildWatch)
+        {
+            singleCamera.SetActive(true);
+            vrCamera.SetActive(false);
+        }
+        else
+        {
+            singleCamera.SetActive(false);
+            vrCamera.SetActive(true);
+        }
+
+        
+
     }
 
     public override void Start() 
     {
         base.Start();
 
-	}
+        //緒方追記、スリープに入らないように？（テスト成功）
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
 
     /// <summary>
     /// 次のシーンに行かせる処理です。
@@ -103,17 +139,28 @@ public class SequenceManager : Singleton<SequenceManager>
         sceneList[(int)nowScene].behaviour.Finish();
 
         nowScene = nextScene;
+
+        Debugger.Log(">> ChangeScene");
+        Debugger.Log(nowScene.ToString());
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (Input.touchCount >= 3)
+        if (Input.touchCount == 3 || Input.GetKeyDown(KeyCode.R))
         {
+            Debugger.Reset();
             PhotonNetwork.LeaveRoom();
             Application.LoadLevel(0);
         }
+
+        if (Input.touchCount >= 4 || Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+
 
     }
 }

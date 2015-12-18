@@ -102,16 +102,17 @@ public class JobRotater : MonoBehaviour {
         switch (MotionManager.Instance.MotionSkill)
         {
             case MotionManager.MotionSkillType.VERTICAL_DOWN_UP:
-
+                JobData.Decision();
+                Destroy(this);
                 break;
 
             case MotionManager.MotionSkillType.VERTICAL_UP_DOWN:
-
+                JobData.Decision();
+                Destroy(this);
                 break;
 
             case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
-                Rotate(1.0f);
-
+                Rotate(-1.0f);
                 break;
 
             case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
