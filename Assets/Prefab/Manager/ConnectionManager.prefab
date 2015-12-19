@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneID: 2
-  roomName: 001
+  roomName: Room
   hostButton: {fileID: 0}
   smartPhoneButton: {fileID: 0}
   watchButton: {fileID: 0}
