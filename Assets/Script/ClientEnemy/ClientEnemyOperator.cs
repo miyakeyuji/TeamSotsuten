@@ -34,15 +34,7 @@ public class ClientEnemyOperator : MonoBehaviour {
 
     bool isLive = false;
 
-    void Update()
-    {
-        // 弾瀬性
-        if(createdAttack == null)
-        {
-            //createdAttack = (GameObject)Instantiate(prefav, this.transform.position, Quaternion.identity);
-            //createdAttack.GetComponent<ClientEnemyAttack>().ID = ...;
-        }
-    }
+    //void Update(){}
 
     /// <summary>
     /// 発生
