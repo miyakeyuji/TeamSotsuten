@@ -71,6 +71,14 @@ public class ClientEnemyOperator : MonoBehaviour {
     }
 
     /// <summary>
+    /// 衝突時の処理
+    /// </summary>
+    public void Hit()
+    {
+
+    }
+
+    /// <summary>
     /// アクティブ状態を変更する
     /// </summary>
     void ChangeActive()
