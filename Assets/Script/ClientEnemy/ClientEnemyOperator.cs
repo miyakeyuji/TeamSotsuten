@@ -32,8 +32,6 @@ public class ClientEnemyOperator : MonoBehaviour {
         }
     }
 
-    EnemyMasterData data = null;
-
     bool isLive = false;
 
     void Update()
@@ -44,29 +42,6 @@ public class ClientEnemyOperator : MonoBehaviour {
             //createdAttack = (GameObject)Instantiate(prefav, this.transform.position, Quaternion.identity);
             //createdAttack.GetComponent<ClientEnemyAttack>().ID = ...;
         }
-    }
-
-    void FixedUpdate()
-    {
-        UpdateDatas();
-        DataSet();
-    }
-
-    /// <summary>
-    /// ポジションなどの更新
-    /// </summary>
-    void UpdateDatas()
-    {
-        data = GameManager.Instance.GetEnemyData(ID);
-    }
-
-    /// <summary>
-    /// ポジションなどの更新
-    /// </summary>
-    void DataSet()
-    {
-        this.gameObject.transform.position = data.Position;                     // ポジション
-        this.gameObject.transform.rotation = Quaternion.Euler(data.Rotation);   // 角度
     }
 
     /// <summary>
