@@ -18,17 +18,14 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// ARカメラ用トランスフォーム、登録してください。
     /// </summary>
-    [SerializeField]
     Transform ARCameraDevice = null;
 
     // プレイヤーデータ
-    [SerializeField]
     const int MAXIMUM_PLAYER_NUM = 1;   // 最大数　プレイヤー
     public int MaxPlayerNum { get { return MAXIMUM_PLAYER_NUM; } }      // 外から最大数を取得したい場合、プレイヤー
     PlayerMasterData[] PlayerDataArray = new PlayerMasterData[MAXIMUM_PLAYER_NUM];
 
     // エネミーデータ
-    [SerializeField]
     const int MAXIMUM_ENEMY_NUM = 1;    // 最大数　エネミー
     public int MaxEnemyNum { get { return MAXIMUM_ENEMY_NUM; } }        // 外から最大数を取得したい場合、エネミー
     EnemyMasterData[] EnemyDataArray = new EnemyMasterData[MAXIMUM_ENEMY_NUM];
@@ -109,8 +106,8 @@ public class GameManager : Singleton<GameManager>
 
         // ターゲット画像が読み込まれていないなら処理しない。
         // ちゃんと機能していないので、一時コメントアウトしています
-        //if (!Vuforia.VuforiaBehaviour.IsMarkerLookAt)
-        if (PlayerDataArray[index].Position == ARCameraDevice.position)
+        if (!Vuforia.VuforiaBehaviour.IsMarkerLookAt)
+        //if (PlayerDataArray[index].Position == ARCameraDevice.position)
         {
             Debugger.Log("ターゲットロスト");
             return;
@@ -385,15 +382,21 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// エネミーが攻撃に当たった時用の関数
     /// </summary>
-    /// <param name="_enemyArrayNumber"></param>
     /// <param name="_playerAttackArrayNumber"></param>
     /// <param name="_damage"></param>
-    public void SendEnemyHit(int _enemyArrayNumber, MotionManager.MotionSkillType _playerAttackType,int _damage)
+    public void SendEnemyHit(MotionManager.MotionSkillType _playerAttackType,int _damage)
     {
-        if (CheckOutRangeArrayNumberEnemy(_enemyArrayNumber, "SendEnemyHit"))
+        int enemyIndex = -1;
+        for (int i = 0; i<MaxEnemyNum;i++)
+        {//現在アクティブなエネミーを検索
+            if (EnemyDataArray[i].IsActive == true)
+                enemyIndex = i;
+        }
+
+        if (CheckOutRangeArrayNumberEnemy(enemyIndex, "SendEnemyHit"))
             return;
 
-        view.RPC("SyncEnemyHit", PhotonTargets.All, new object[] { _enemyArrayNumber, _playerAttackType, _damage });
+        view.RPC("SyncEnemyHit", PhotonTargets.All, new object[] { enemyIndex, _playerAttackType, _damage });
     }
 
     [PunRPC]
@@ -401,7 +404,8 @@ public class GameManager : Singleton<GameManager>
     {//エネミーが攻撃に当たった時の同期
         EnemyDataArray[_enemyArrayNumber].HP -= _damage;
         EnemyDataArray[_enemyArrayNumber].HitAttackType = _playerAttackType;
-        
+        EnemyDataArray[_enemyArrayNumber].IsHit = true;
+
     }
 
 
