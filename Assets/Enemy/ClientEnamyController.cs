@@ -22,7 +22,7 @@ public class ClientEnamyController : MonoBehaviour
     {
         if (EnamyAI.NowStateMatcingc(EnemyData.EnamyState.SPAWN))
         {
-            EnamyGraph.GetComponent<SpriteRenderer>().enabled = true;
+            EnamyGraph.GetComponent<ClientEnemyOperator>().Spawn();
         }
 
     }

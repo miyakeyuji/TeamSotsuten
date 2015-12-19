@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 484940}
   - 212: {fileID: 21293844}
+  - 114: {fileID: 11421650}
   m_Layer: 0
   m_Name: ClientEnemySprite
   m_TagString: Untagged
@@ -23,11 +24,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131878}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: .550000012, z: .389999986}
+  m_LocalScale: {x: .325715244, y: .325715184, z: .325715184}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11421650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc9b436dea57e40b9df0bc0b6df2c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefav: {fileID: 190514, guid: 2de0fd618887bde4683cc111c3ecd904, type: 2}
+  id: 0
 --- !u!212 &21293844
 SpriteRenderer:
   m_ObjectHideFlags: 1
