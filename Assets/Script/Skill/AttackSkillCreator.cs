@@ -9,16 +9,13 @@ using System.Collections;
 
 public class AttackSkillCreator : MonoBehaviour
 {
-    private GameObject[] effectArray = new GameObject[5];
+    [SerializeField]
+    GameObject effectCreator;
+
 
     // Use this for initialization
     void Start()
     {
-        effectArray[0] = transform.FindChild("Attact Effect0").gameObject;
-        effectArray[1] = transform.FindChild("Attact Effect1").gameObject;
-        effectArray[2] = transform.FindChild("Attact Effect2").gameObject;
-        effectArray[3] = transform.FindChild("Attact Effect3").gameObject;
-        effectArray[4] = transform.FindChild("Attact Effect4").gameObject;
     }
 
     /// <summary>
@@ -35,13 +32,7 @@ public class AttackSkillCreator : MonoBehaviour
     {
         if (MotionManager.Instance.MotionSkill != MotionManager.MotionSkillType.NONE)
         {
-            foreach (var effect in effectArray)
-            {
-                if (effect.GetActive() != false) continue;
-                effect.SetActive(true);
-                effect.SendMessage("OnObject",MotionManager.Instance.MotionSkill);
-                break;
-            }
+            effectCreator.SendMessage("CheckType", MotionManager.Instance.MotionSkill);
         }
     }
 }
