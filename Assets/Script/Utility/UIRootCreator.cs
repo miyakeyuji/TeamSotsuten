@@ -36,6 +36,7 @@ public class UIRootCreator : MonoBehaviour {
             }
         }
 	}
-	
+
+    void Start() { }
 
 }

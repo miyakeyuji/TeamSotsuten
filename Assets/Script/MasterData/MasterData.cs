@@ -17,6 +17,8 @@ public class PlayerMasterData
     public Vector3 Position; //座標
 
     public JobDB.JobType Job;   //職業
+
+    
 }
 
 
@@ -35,49 +37,12 @@ public class EnemyMasterData
 
     public EnemyData.EnamyState State;  // 状態
 
+    public bool IsHit;  // 攻撃に当たった場合、有効化します。
+
     public MotionManager.MotionSkillType HitAttackType; // どの攻撃が当たったか
-}
-
-
-/// <summary>
-/// プレイヤーの攻撃用データ
-/// </summary>
-public class PlayerAttackMasterData
-{
-    //有効フラグ
-    public bool IsActive;
-
-    //Hit時にtrueになる変数
-    public bool IsHit;
-
-    //攻撃のモーション種類
-    public MotionManager.MotionSkillType AttackType;
-
-    //攻撃のエフェクト種類
-    //public int EffectType;
-
-    // 攻撃対象
-    public int EnemyTargetIndex;
-    
-}
-
-
-
-/// <summary>
-/// エネミー攻撃のマスターデータ
-/// </summary>
-public class EnemyAttackMasterData
-{
-    public bool IsActive; //有効フラグ
-
-    //攻撃の種類の列挙型
-    public enum EnemyAttackEffectType
-    {
-        NONE,
-        ATTACK1,
-    };
-
-    // 攻撃対象
-    public int PlayerTargetIndex;
 
 }
+
+
+
+
