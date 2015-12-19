@@ -15,11 +15,15 @@ public class MotionManager : Singleton<MotionManager>
     /// </summary>
     public enum MotionSkillType
     {
-        NONE,                   //< 未定義
-        VERTICAL_UP_DOWN,       //< 上から下 縦振り
-        VERTICAL_DOWN_UP,       //< 下から上 縦振り
-        HORIZONTAL_RIGHT_LEFT,  //< 右から左 横振り
-        HORIZONTAL_LEFT_RIGHT,  //< 左から右 横振り 
+        NONE,      //< 未定義
+
+        WEAK,     //< 弱
+        STRENGTH, //< 強
+        
+        //VERTICAL_UP_DOWN,       //< 上から下 縦振り
+        //VERTICAL_DOWN_UP,       //< 下から上 縦振り
+        //HORIZONTAL_RIGHT_LEFT,  //< 右から左 横振り
+        //HORIZONTAL_LEFT_RIGHT,  //< 左から右 横振り 
     };
 
     /// <summary>
@@ -30,32 +34,16 @@ public class MotionManager : Singleton<MotionManager>
     [System.Serializable]
     public class MotionWatchData
     {
-        public bool isCalcX = false;
-        public bool isCalcY = false;
-        public bool isCalcZ = false;
         public MotionSkillType skillType = MotionSkillType.NONE;
-        public Vector3[] acc = new Vector3[2];
+        public float accMin = 0;
+        public float accMax = 0;
 
         [HideInInspector]
         public int clearIndex = 0;
     }
 
-    /// <summary>
-    /// 計算するモーションデータ
-    /// </summary>
-    List<MotionWatchData> calcMotionList = new List<MotionWatchData>();
-
-    /// <summary>
-    /// 加速度の誤差を許す範囲
-    /// </summary>
     [SerializeField]
-    float accRange = 0.1f;
-
-    /// <summary>
-    /// 計算時間
-    /// </summary>
-    [SerializeField]
-    float calcTime = 1.0f;
+    float calcTime = 0.5f;
 
     [SerializeField]
     MotionWatchData[] motionData = new MotionWatchData[2];
@@ -66,7 +54,18 @@ public class MotionManager : Singleton<MotionManager>
     [SerializeField]
     JobRotater jobRotater = null;
 
-    float stopValue = 0;
+    float countTime = 0;
+    bool isCalc = false;
+
+    /// <summary>
+    /// 加速度の一時保存データ
+    /// </summary>
+    Vector3 saveAcc = Vector3.zero;
+
+    /// <summary>
+    /// 常に取得する加速度データ
+    /// </summary>
+    Vector3 updateAcc = Vector3.zero;
 
     public override void Awake()
     {
@@ -86,101 +85,56 @@ public class MotionManager : Singleton<MotionManager>
         }
     }
 
+
     /// <summary>
-    /// 加速度量を取得
+    /// モーションの種類を計算し、設定する。
     /// </summary>
     /// <param name="data"></param>
     /// <param name="index"></param>
     /// <returns></returns>
-    bool IsMotion(MotionWatchData data,int index)
+    void CalcWithSetMotion(MotionWatchData data)
     {
-        if (data.acc.Length < index) return false;
-
-        float x = data.isCalcX ? data.acc[index].x : WatchManager.Instance.Acc.x;
-        float y = data.isCalcY ? data.acc[index].y : WatchManager.Instance.Acc.y;
-        float z = data.isCalcZ ? data.acc[index].z : WatchManager.Instance.Acc.z;
-
-        bool isRangeX = Mathf.Abs(x - WatchManager.Instance.Acc.x) > accRange;
-        bool isRangeY = Mathf.Abs(y - WatchManager.Instance.Acc.y) > accRange;
-        bool isRangeZ = Mathf.Abs(z - WatchManager.Instance.Acc.z) > accRange;
-
-        if (data.isCalcX && isRangeX) return false;
-        if (data.isCalcY && isRangeY) return false;
-        if (data.isCalcZ && isRangeZ) return false;
-
-        return true;
-    }
-
-
-
-    /// <summary>
-    /// モーションを開始する
-    /// </summary>
-    /// <param name="data"></param>
-    void StartMotion()
-    {
-        for (int i = 0; i < motionData.Length; i++)
+        if (isCalc)
         {
-            if (!IsMotion(motionData[i], 0)) continue;
-
-            motionData[i].clearIndex = 1;
-
-            stopValue = calcTime;
-
-            calcMotionList.Add(motionData[i]);
-
-            return;
-        }
-    }
-
-    /// <summary>
-    /// モーションを分析
-    /// </summary>
-    /// <param name="data"></param>
-    void CalcMotion()
-    {
-        for (int i = 0; i < calcMotionList.Count; i++)
-        {
-            if (!IsMotion(calcMotionList[i], calcMotionList[i].clearIndex)) continue;
-
-            calcMotionList[i].clearIndex++;
-
-            if (calcMotionList[i].acc.Length <= calcMotionList[i].clearIndex)
+            countTime += Time.deltaTime;
+            if (countTime >= calcTime)
             {
-                MotionSkill = calcMotionList[i].skillType;
+                float x = Mathf.Abs(updateAcc.x - saveAcc.x);
+                float y = Mathf.Abs(updateAcc.y - saveAcc.y);
+                float z = Mathf.Abs(updateAcc.z - saveAcc.z);
 
-                OnComplated();
+                Debug.Log("速度" + new Vector3(x, y, z));
 
-                calcMotionList.Clear();
+                bool isRangeX = x >= data.accMin && x <= data.accMax;
+                bool isRangeY = y >= data.accMin && y <= data.accMax;
+                bool isRangeZ = z >= data.accMin && z <= data.accMax;
 
-                return;
+                if (isRangeX || isRangeY || isRangeZ)
+                {
+                    OnComplated(data.skillType);
+                }
+
+                isCalc = false;
+                countTime = 0;
             }
         }
-    }
-
-
-    /// <summary>
-    /// 時間内にモーション成功しなかったら、
-    /// 計算を中止する
-    /// </summary>
-    /// <returns></returns>
-    void StopCalc()
-    {
-        stopValue -= Time.deltaTime;
-        if (stopValue <= 0)
+        else
         {
+            saveAcc = updateAcc;
             MotionSkill = MotionSkillType.NONE;
-            calcMotionList.Clear();
+            isCalc = true;
         }
-    }
 
+    }
 
     /// <summary>
     /// モーションが成功した時に呼ばれる。
     /// </summary>
-    void OnComplated()
+    void OnComplated(MotionSkillType type)
     {
-        if (MotionSkill == MotionSkillType.NONE) return;
+        if (type == MotionSkillType.NONE) return;
+
+        MotionSkill = type;
 
         if (SequenceManager.Instance.IsNowCharacterSelectScene)
         {
@@ -194,18 +148,19 @@ public class MotionManager : Singleton<MotionManager>
 
         Debugger.Log("【モーション成功】");
         Debugger.Log(MotionSkill.ToString());
-
-
     }
 
     public override void Update()
     {
         base.Update();
 
-        StartMotion();
+        updateAcc.x = Mathf.Abs(WatchManager.Instance.Acc.x);
+        updateAcc.y = Mathf.Abs(WatchManager.Instance.Acc.y);
+        updateAcc.z = Mathf.Abs(WatchManager.Instance.Acc.z);
 
-        StopCalc();
-
-        CalcMotion();
+        for (int i = 0; i < motionData.Length; i++)
+        {
+            CalcWithSetMotion(motionData[i]);
+        }
     }
 }
