@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿///
+/// 高木へ、コメント書きましょう
+///
+/// code by TKG and ogata 
+
+
+using UnityEngine;
 using System.Collections;
 
 public class ClientEnamyController : MonoBehaviour
@@ -20,9 +26,14 @@ public class ClientEnamyController : MonoBehaviour
 
     void Update()
     {
-        if (EnamyAI.NowStateMatcingc(EnemyData.EnamyState.SPAWN))
+        //現在のステートを確認し、処理
+        switch(EnamyAI.GetNowState())
         {
-            EnamyGraph.GetComponent<ClientEnemyOperator>().Spawn();
+            default:
+                break;
+            case EnemyData.EnamyState.SPAWN:    // 出現
+                EnamyGraph.GetComponent<ClientEnemyOperator>().Spawn();
+                break;
         }
 
     }

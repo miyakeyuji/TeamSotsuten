@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿///
+/// 高木へ、コメント書きましょう
+///
+/// code by TKG and ogata 
+
+
+using UnityEngine;
 using System.Collections;
 
 public class EnemyData: MonoBehaviour 
@@ -35,6 +41,7 @@ public class EnemyData: MonoBehaviour
         SPAWN,
         STAY,
         ACTIVE,
+        HIT,
         DEAD,
     }
 
@@ -45,6 +52,8 @@ public class EnemyData: MonoBehaviour
     public void StateChange(EnamyState _statNnum) { state = _statNnum; }
 
     public bool IsActive() { return GameManager.Instance.GetEnemyData(id).IsActive; }
+
+    public bool IsHit() { return GameManager.Instance.GetEnemyData(id).IsHit; }
 
     //GameManager用のエネミーデータ
     public void SetMyDate()
