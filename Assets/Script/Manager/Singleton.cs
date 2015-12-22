@@ -21,7 +21,7 @@ public class Singleton<T> : Photon.MonoBehaviour where T : Photon.MonoBehaviour
                 instance = FindObjectOfType(typeof(T)) as T;
                 if (instance == null)
                 {
-                    Debugger.LogError(typeof(T) + "is nothing");
+                    Debugger.LogError(typeof(T) + " is nothing");
                 }
             }
 

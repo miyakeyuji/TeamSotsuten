@@ -13,6 +13,7 @@ GameObject:
   - 92: {fileID: 9206398}
   - 124: {fileID: 12423732}
   - 114: {fileID: 11459284}
+  - 114: {fileID: 11465538}
   m_Layer: 0
   m_Name: StereoCameraRight
   m_TagString: MainCamera
@@ -56,6 +57,7 @@ GameObject:
   - 92: {fileID: 9247902}
   - 124: {fileID: 12465424}
   - 114: {fileID: 11432816}
+  - 114: {fileID: 11471566}
   m_Layer: 0
   m_Name: StereoCameraLeft
   m_TagString: MainCamera
@@ -149,7 +151,7 @@ Camera:
     height: 1
   near clip plane: 1
   far clip plane: 5000
-  field of view: 85
+  field of view: 30
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -183,7 +185,7 @@ Camera:
     height: 1
   near clip plane: 1
   far clip plane: 5000
-  field of view: 85
+  field of view: 30
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -383,6 +385,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   matteShader: {fileID: 4800000, guid: 1ce7eb78425fb1540838bc9d5d95857a, type: 3}
   disableMattes: 0
+--- !u!114 &11465538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146504}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464b5eddb4b642f46a148f0ea8807484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11471566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148342}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464b5eddb4b642f46a148f0ea8807484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11478396
 MonoBehaviour:
   m_ObjectHideFlags: 1
