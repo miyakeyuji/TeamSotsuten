@@ -15,7 +15,7 @@ public class HideGameObjectBehavior : MonoBehaviour {
     [SerializeField]
     MonoBehaviour[] hidenBehaviour = new MonoBehaviour[1];
 
-	void Start ()
+	void Awake ()
     {
 
 #if !UNITY_EDITOR
