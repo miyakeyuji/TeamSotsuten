@@ -29,6 +29,7 @@ public class EffectCreate : MonoBehaviour
 
         switch (skillType)
         {
+<<<<<<< HEAD
             case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
                 strong.Check(skillType , player);
                 checkObject = transform.FindChild("LeftRight").gameObject;
@@ -38,10 +39,28 @@ public class EffectCreate : MonoBehaviour
                 break;
             case MotionManager.MotionSkillType.VERTICAL_DOWN_UP:
                 checkObject = transform.FindChild("DownUp").gameObject;
+=======
+            case MotionManager.MotionSkillType.STRENGTH:
+
+>>>>>>> 17602910f3121b1cd20a11061f1a2433f0bc8ebf
                 break;
-            case MotionManager.MotionSkillType.VERTICAL_UP_DOWN:
-                checkObject = transform.FindChild("UpDown").gameObject;
+
+            case MotionManager.MotionSkillType.WEAK:
+
                 break;
+
+            //case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
+            //    checkObject = transform.FindChild("LeftRight").gameObject;
+            //    break;
+            //case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
+            //    checkObject = transform.FindChild("RightLeft").gameObject;
+            //    break;
+            //case MotionManager.MotionSkillType.VERTICAL_DOWN_UP:
+            //    checkObject = transform.FindChild("DownUp").gameObject;
+            //    break;
+            //case MotionManager.MotionSkillType.VERTICAL_UP_DOWN:
+            //    checkObject = transform.FindChild("UpDown").gameObject;
+            //    break;
             default:
                 break;
         }
