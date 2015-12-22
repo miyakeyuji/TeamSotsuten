@@ -15,12 +15,6 @@ public class GameManager : Singleton<GameManager>
     //フォトン用view
     PhotonView view = null;
 
-    /// <summary>
-    /// ARカメラ用トランスフォーム、登録してください。
-    /// </summary>
-    [SerializeField]
-    Transform ARCameraDevice = null;
-
     // プレイヤーデータ
     const int MAXIMUM_PLAYER_NUM = 1;   // 最大数　プレイヤー
     public int MaxPlayerNum { get { return MAXIMUM_PLAYER_NUM; } }      // 外から最大数を取得したい場合、プレイヤー
@@ -46,7 +40,7 @@ public class GameManager : Singleton<GameManager>
 
         // ARCameraが入っているか（クライアントのみの処理）
         if (ConnectionManager.IsSmartPhone) {
-            if (ARCameraDevice == null)
+            if (SequenceManager.Instance.ARCamera == null)
             {
                 Debugger.LogError("GameManagerのARCameraがnullです！！");
             }
@@ -113,7 +107,7 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
-        view.RPC("SyncClientPosition", PhotonTargets.All, new object[] {index, ARCameraDevice.position });
+        view.RPC("SyncClientPosition", PhotonTargets.All, new object[] {index, SequenceManager.Instance.ARCamera.transform.position });
     }
 
     [PunRPC]
