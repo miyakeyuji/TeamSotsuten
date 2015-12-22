@@ -483,40 +483,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 280100411}
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
---- !u!21 &297074706
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Enemy_scaledMaterial
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 2800000, guid: d948084732554fb5a692991d6d58cd7d, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-    m_Floats: {}
-    m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: .820895553, g: .820895553, b: .820895553, a: 1}
 --- !u!224 &305898250 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22420310, guid: 3e7af73e0a5930d44a2b5702959ccc69,
     type: 2}
   m_PrefabInternal: {fileID: 1829265373}
---- !u!43 &306545088
+--- !u!43 &394042648
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1250,7 +1222,7 @@ Prefab:
     - target: {fileID: 11483596, guid: 55ea8bc1ca70ae84e8cabdc18506fa17, type: 2}
       propertyPath: rightCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2075001254}
     - target: {fileID: 11483596, guid: 55ea8bc1ca70ae84e8cabdc18506fa17, type: 2}
       propertyPath: leftCamera
       value: 
@@ -1551,11 +1523,11 @@ Prefab:
     - target: {fileID: 3342830, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 306545088}
+      objectReference: {fileID: 394042648}
     - target: {fileID: 2341564, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 297074706}
+      objectReference: {fileID: 1994705580}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e3e8e149a4e9e14abc19cf0b0759265, type: 2}
   m_IsPrefabParent: 0
@@ -1954,6 +1926,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!21 &1994705580
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Enemy_scaledMaterial
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: d948084732554fb5a692991d6d58cd7d, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats: {}
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .820895553, g: .820895553, b: .820895553, a: 1}
 --- !u!1 &1994869673 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 114268, guid: e2532a334b01be94f9fdc9729ac69af1, type: 2}
@@ -2036,6 +2036,11 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 433116, guid: 338fe672417d83142ba5e2ea5fcf0b31, type: 2}
   m_PrefabInternal: {fileID: 2004783646}
+--- !u!20 &2075001254 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 2091506, guid: c5b97273fbfc1f348a4f73e2d1377604,
+    type: 2}
+  m_PrefabInternal: {fileID: 1443788891}
 --- !u!1 &2114158757 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 142276, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
