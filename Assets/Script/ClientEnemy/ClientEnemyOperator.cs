@@ -15,6 +15,9 @@ public class ClientEnemyOperator : MonoBehaviour {
     GameObject prefav = null;
     GameObject createdAttack = null;
 
+    private float nextTime;
+    public float interval = 1.0f;   // 点滅周期
+
     /// <summary>
     /// エネミーのID
     /// </summary>
@@ -33,8 +36,66 @@ public class ClientEnemyOperator : MonoBehaviour {
     }
 
     bool isLive = false;
+    SpriteRenderer spriteRenderer = null;
+    float flashingTimer = 0f;       // 点滅する時間を管理
+    public float flashTime = 3f;    // 点滅する時間
 
-    //void Update(){}
+    [SerializeField]
+    Color defaultColor = new Color(1f, 1f, 1f, 1f);
+    [SerializeField]
+    Color flashColor = new Color(1f, 0f, 0f, 1f);
+
+    // Use this for initialization
+    void Start()
+    {
+        nextTime = Time.time;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void OnEnable()
+    {
+        //spriteRenderer.color = defaultColor;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // 確認用
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Hit();
+        }
+
+        if(spriteRenderer != null)
+        {
+            if(flashingTimer > 0)
+            {
+                if (Time.time > nextTime)
+                {
+                    if(spriteRenderer.color != defaultColor)
+                    {
+                        spriteRenderer.color = defaultColor;
+                    }
+                    else
+                    {
+                        spriteRenderer.color = flashColor;
+                    }
+                    nextTime += interval;
+                }
+                flashingTimer -= Time.deltaTime;
+                if (flashingTimer <= 0)
+                {
+                    flashingTimer = 0;
+                    spriteRenderer.color = defaultColor;
+                }
+
+            }
+        }
+        else
+        {
+            Debug.Log("SpriteRendererがありません");
+        }
+    }
 
     /// <summary>
     /// 発生
@@ -75,7 +136,8 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// </summary>
     public void Hit()
     {
-
+        nextTime = Time.time;
+        flashingTimer = flashTime;
     }
 
     /// <summary>
