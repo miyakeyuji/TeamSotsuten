@@ -28,20 +28,28 @@ public class EffectDB : MonoBehaviour {
         /// </summary>
         public float speed;
 
+        /// <summary>
+        /// エフェクトのサイズ
+        /// </summary>
         public Vector3 scale;
-
-        public float damage;
+        
+        /// <summary>
+        /// ダメージ量
+        /// </summary>
+        public int damage;
 
         /// <summary>
-        /// 初期化
+        /// 
         /// </summary>
         /// <param name="_type">攻撃タイプ</param>
         /// <param name="_speed">速度</param>
+        /// <param name="_scale">サイズ</param>
+        /// <param name="_damage">ダメージ</param>
         public EffectData(
             MotionManager.MotionSkillType _type , 
             float _speed,
             Vector3 _scale,
-            float _damage
+            int _damage
             )
         {
             skillType = _type;
@@ -56,16 +64,25 @@ public class EffectDB : MonoBehaviour {
     /// 順番は攻撃タイプの列挙型に準拠
     /// 列挙側では0番目がNONEのため協力技の分として仮定
     /// </summary>
-    private float[] speedArray = new float[] {0.0f,1.5f,1.0f, 0.2f, 0.3f, 0.4f };
-
-    private Vector3[] scaleArray = new Vector3[] 
+    private float[] speedArray = new float[] 
     {
-        new Vector3(0.0f,0.0f,0.0f),
-        new Vector3(10.0f,10.0f,10.0f),
-        new Vector3(10.0f,10.0f,10.0f)
+        0.5f,1.5f,1.0f, 0.2f, 0.3f, 0.4f
     };
 
-    private float[] damageArray = new float[] { 0.0f, 10.0f , 15.0f };
+    /// <summary>
+    /// エフェクトのサイズ配列
+    /// </summary>
+    private Vector3[] scaleArray = new Vector3[] 
+    {
+        new Vector3(20.0f,20.0f,20.0f),
+        new Vector3(5.0f,5.0f,5.0f),
+        new Vector3(5.0f,5.0f,5.0f)
+    };
+
+    /// <summary>
+    /// ダメージ配列
+    /// </summary>
+    private int[] damageArray = new int[] { 50, 10 , 15 };
 
     /// <summary>
     /// ゲーム中に参照するエフェクトデータのリスト

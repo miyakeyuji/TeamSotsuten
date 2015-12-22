@@ -20,7 +20,10 @@ public class EffectMover : MonoBehaviour
     /// </summary>
     MotionManager.MotionSkillType type;
 
-    float takeDamage;
+    /// <summary>
+    /// ターゲットへのダメージ量
+    /// </summary>
+    int takeDamage;
 
     /// <summary>
     /// プレイヤーの挙動を受け取り攻撃タイプを判別
@@ -32,7 +35,7 @@ public class EffectMover : MonoBehaviour
         GameObject target,
         GameObject player,
         Vector3 scale,
-        float damage
+        int damage
         )
     {
         //　エフェクトオブジェクトのアクティブ化
@@ -47,8 +50,10 @@ public class EffectMover : MonoBehaviour
         //　エフェクトがどの攻撃タイプか情報を保存
         type = attackType;
 
+        //　ダメージ量をオブジェクトに保存
         takeDamage = damage;
 
+        //　サイズ変更
         gameObject.transform.localScale = scale;
 
         //　ITweenの再生中か確認
@@ -67,10 +72,11 @@ public class EffectMover : MonoBehaviour
         // ITweenが無効になっているフラグたて
         itweenCheck = false;
 
-        //オブジェクトの非アクティブ化
+        // オブジェクトの非アクティブ化
         gameObject.SetActive(false);
 
-        GameManager.Instance.SendEnemyHit(type,(int)takeDamage);
+        // マネージャーへターゲットへのダメージを渡す
+        GameManager.Instance.SendEnemyHit(type,takeDamage);
     }
 
     /// <summary>
@@ -104,13 +110,5 @@ public class EffectMover : MonoBehaviour
 
         // 攻撃タイプの初期化
         type = MotionManager.MotionSkillType.NONE;
-    }
-
-    /// <summary>
-    /// 毎フレーム呼ばれる。
-    /// </summary>
-    void Update()
-    {
-
     }
 }
