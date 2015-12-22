@@ -17,17 +17,14 @@ public class CheckActive : MonoBehaviour {
     EffectDB effctDB;
 
     /// <summary>
-    /// ターゲットとなるオブジェクト
-    /// </summary>
-    [SerializeField]
-    GameObject enemy;
-
-    /// <summary>
     /// 子に置いているオブジェクトで非アクティブのオブジェクトを探し、
     /// 最初に見つけたものを使用する
     /// </summary>
     /// <param name="skillType"></param>
-    public void Check(MotionManager.MotionSkillType sType,GameObject player)
+    public void Check(
+        MotionManager.MotionSkillType sType,
+        GameObject player, 
+        GameObject enemy)
     {
         foreach (Transform child in transform)
         {
@@ -38,7 +35,9 @@ public class CheckActive : MonoBehaviour {
                     effctDB.dataList[(int)sType].skillType,
                     effctDB.dataList[(int)sType].speed,
                     enemy,
-                    player
+                    player,
+                    effctDB.dataList[(int)sType].scale,
+                    effctDB.dataList[(int)sType].damage
                     );
                 break;
             }
