@@ -15,6 +15,9 @@ public class ClientEnemyOperator : MonoBehaviour {
     GameObject prefav = null;
     GameObject createdAttack = null;
 
+    private float nextTime;
+    public float interval = 1.0f;   // 点滅周期
+
     /// <summary>
     /// エネミーのID
     /// </summary>
@@ -32,39 +35,66 @@ public class ClientEnemyOperator : MonoBehaviour {
         }
     }
 
-    EnemyMasterData data = null;
+    bool isLive = false;
+    SpriteRenderer spriteRenderer = null;
+    float flashingTimer = 0f;       // 点滅する時間を管理
+    public float flashTime = 3f;    // 点滅する時間
 
+    [SerializeField]
+    Color defaultColor = new Color(1f, 1f, 1f, 1f);
+    [SerializeField]
+    Color flashColor = new Color(1f, 0f, 0f, 1f);
+
+    // Use this for initialization
+    void Start()
+    {
+        nextTime = Time.time;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void OnEnable()
+    {
+        //spriteRenderer.color = defaultColor;
+    }
+
+    // Update is called once per frame
     void Update()
     {
-        // 弾瀬性
-        if(createdAttack == null)
+        // 確認用
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            //createdAttack = (GameObject)Instantiate(prefav, this.transform.position, Quaternion.identity);
-            //createdAttack.GetComponent<ClientEnemyAttack>().ID = ...;
+            Hit();
         }
-    }
 
-    void FixedUpdate()
-    {
-        UpdateDatas();
-        DataSet();
-    }
+        if(spriteRenderer != null)
+        {
+            if(flashingTimer > 0)
+            {
+                if (Time.time > nextTime)
+                {
+                    if(spriteRenderer.color != defaultColor)
+                    {
+                        spriteRenderer.color = defaultColor;
+                    }
+                    else
+                    {
+                        spriteRenderer.color = flashColor;
+                    }
+                    nextTime += interval;
+                }
+                flashingTimer -= Time.deltaTime;
+                if (flashingTimer <= 0)
+                {
+                    flashingTimer = 0;
+                    spriteRenderer.color = defaultColor;
+                }
 
-    /// <summary>
-    /// ポジションなどの更新
-    /// </summary>
-    void UpdateDatas()
-    {
-        data = GameManager.Instance.GetEnemyData(ID);
-    }
-
-    /// <summary>
-    /// ポジションなどの更新
-    /// </summary>
-    void DataSet()
-    {
-        this.gameObject.transform.position = data.Position;                     // ポジション
-        this.gameObject.transform.rotation = Quaternion.Euler(data.Rotation);   // 角度
+            }
+        }
+        else
+        {
+            Debug.Log("SpriteRendererがありません");
+        }
     }
 
     /// <summary>
@@ -72,6 +102,8 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// </summary>
     public void Spawn()
     {
+        isLive = true;
+
         var hash = new Hashtable();
         {
             hash.Add("scale", new Vector3(1f, 1f, 1f)); // 設定するサイズ
@@ -87,6 +119,8 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// </summary>
     public void Dead()
     {
+        isLive = false;
+
         var hash = new Hashtable();
         {
             hash.Add("scale", new Vector3(0f, 0f, 0f)); // 設定するサイズ
@@ -98,13 +132,19 @@ public class ClientEnemyOperator : MonoBehaviour {
     }
 
     /// <summary>
+    /// 衝突時の処理
+    /// </summary>
+    public void Hit()
+    {
+        nextTime = Time.time;
+        flashingTimer = flashTime;
+    }
+
+    /// <summary>
     /// アクティブ状態を変更する
     /// </summary>
     void ChangeActive()
     {
-        if (!this.gameObject.activeInHierarchy)
-            this.gameObject.SetActive(true);
-        else
-            this.gameObject.SetActive(false);
+        this.gameObject.SetActive(isLive);
     }
 }
