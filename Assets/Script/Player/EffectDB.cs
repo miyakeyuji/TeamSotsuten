@@ -75,8 +75,8 @@ public class EffectDB : MonoBehaviour {
     private Vector3[] scaleArray = new Vector3[] 
     {
         new Vector3(20.0f,20.0f,20.0f),
-        new Vector3(10.0f,10.0f,10.0f),
-        new Vector3(10.0f,10.0f,10.0f)
+        new Vector3(5.0f,5.0f,5.0f),
+        new Vector3(5.0f,5.0f,5.0f)
     };
 
     /// <summary>
