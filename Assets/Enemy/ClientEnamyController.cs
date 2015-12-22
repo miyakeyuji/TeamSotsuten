@@ -25,6 +25,7 @@ public class ClientEnamyController : MonoBehaviour
 
     void Update()
     {
+        
         //現在のステートを確認し、処理
         switch(EnamyAI.GetNowState())
         {
