@@ -275,14 +275,6 @@ Prefab:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11455478, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
-      propertyPath: arCameraDevice
-      value: 
-      objectReference: {fileID: 620755138}
-    - target: {fileID: 11455478, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
-      propertyPath: singleCameraDevice
-      value: 
-      objectReference: {fileID: 1994869678}
-    - target: {fileID: 11455478, guid: 49d1e01eda1b6f24b85da0d46a41e452, type: 2}
       propertyPath: debugText
       value: 
       objectReference: {fileID: 1952240484}
@@ -840,10 +832,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 147850, guid: c5b97273fbfc1f348a4f73e2d1377604, type: 2}
   m_PrefabInternal: {fileID: 1443788891}
---- !u!4 &620755138 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 448424, guid: c5b97273fbfc1f348a4f73e2d1377604, type: 2}
-  m_PrefabInternal: {fileID: 1443788891}
 --- !u!114 &643823938 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11493884, guid: 6fa4e331534f3964dad66793d088e77a,
@@ -1253,6 +1241,10 @@ Prefab:
       objectReference: {fileID: 1994869673}
     - target: {fileID: 11452642, guid: 55ea8bc1ca70ae84e8cabdc18506fa17, type: 2}
       propertyPath: vrCamera
+      value: 
+      objectReference: {fileID: 620755137}
+    - target: {fileID: 11452642, guid: 55ea8bc1ca70ae84e8cabdc18506fa17, type: 2}
+      propertyPath: arCamera
       value: 
       objectReference: {fileID: 620755137}
     m_RemovedComponents: []
@@ -1957,10 +1949,6 @@ Material:
 --- !u!1 &1994869673 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 114268, guid: e2532a334b01be94f9fdc9729ac69af1, type: 2}
-  m_PrefabInternal: {fileID: 861418}
---- !u!4 &1994869678 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 447436, guid: e2532a334b01be94f9fdc9729ac69af1, type: 2}
   m_PrefabInternal: {fileID: 861418}
 --- !u!1001 &2004783646
 Prefab:
