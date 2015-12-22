@@ -1,10 +1,23 @@
-﻿using UnityEngine;
+﻿///-------------------------------------------------------------------------
+///
+/// code by miyake yuji
+///
+/// エフェクトの作成管理スクリプト
+/// 
+///-------------------------------------------------------------------------
+using UnityEngine;
 using System.Collections;
 
 public class EffectCreate : MonoBehaviour
 {
     [SerializeField]
-    public GameObject start;
+    CheckActive strong;
+
+    [SerializeField]
+    CheckActive Weak;
+
+    [SerializeField]
+    GameObject player;
 
     /// <summary>
     /// どの攻撃タイプのエフェクトを生成するか確認
@@ -13,9 +26,11 @@ public class EffectCreate : MonoBehaviour
     void CheckType(MotionManager.MotionSkillType skillType)
     {
         GameObject checkObject = null;
+
         switch (skillType)
         {
             case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
+                strong.Check(skillType , player);
                 checkObject = transform.FindChild("LeftRight").gameObject;
                 break;
             case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
