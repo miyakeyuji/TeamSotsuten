@@ -136,40 +136,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2f7149a40038e41bdee7c849f2789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accRange: .300000012
-  calcTime: 1
+  calcTime: .5
   motionData:
-  - isCalcX: 0
-    isCalcY: 0
-    isCalcZ: 1
-    skillType: 1
-    acc:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: .5}
+  - skillType: 1
+    accMin: 1
+    accMax: 1.60000002
     clearIndex: 0
-  - isCalcX: 0
-    isCalcY: 0
-    isCalcZ: 1
-    skillType: 2
-    acc:
-    - {x: 0, y: 0, z: -1}
-    - {x: 0, y: 0, z: -1.5}
-    clearIndex: 0
-  - isCalcX: 1
-    isCalcY: 0
-    isCalcZ: 0
-    skillType: 3
-    acc:
-    - {x: -.5, y: 0, z: 0}
-    - {x: -1, y: 0, z: 0}
-    clearIndex: 0
-  - isCalcX: 1
-    isCalcY: 0
-    isCalcZ: 0
-    skillType: 4
-    acc:
-    - {x: .5, y: 0, z: 0}
-    - {x: 1, y: 0, z: 0}
+  - skillType: 2
+    accMin: 1.70000005
+    accMax: 2
     clearIndex: 0
   attackSkill: {fileID: 0}
   jobRotater: {fileID: 0}

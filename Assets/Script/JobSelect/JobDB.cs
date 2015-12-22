@@ -115,9 +115,10 @@ public class JobDB : MonoBehaviour {
     /// <summary>
     /// 決定処理
     /// </summary>
-    public void Decision()
+    public void Decision(MonoBehaviour script)
     {
-        characterSelectSequence.ChangeScene();
+        //Destroy(script);
+        //characterSelectSequence.ChangeScene();
         jobSelectType.text = SelectedJobType.ToString() + "\n";
         jobSelectType.text += "決定！！";
     }

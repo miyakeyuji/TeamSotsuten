@@ -43,8 +43,7 @@ MonoBehaviour:
   hidenGameObject:
   - {fileID: 0}
   - {fileID: 0}
-  hidenBehaviour:
-  - {fileID: 11489172}
+  hidenBehaviour: []
 --- !u!114 &11489172
 MonoBehaviour:
   m_ObjectHideFlags: 1

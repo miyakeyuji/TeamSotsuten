@@ -17,6 +17,9 @@ namespace Vuforia
     /// </summary>
     public class BackgroundPlaneBehaviour : BackgroundPlaneAbstractBehaviour
     {
-	
+        void LateUpdate()
+        {
+            transform.localScale = new Vector3(1920 * 2.2f, 1, 1080 * 4.2f);
+        }
     }
 }
