@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OwnerEnamyUpdater : MonoBehaviour 
+public class OwnerEnemyUpdater: MonoBehaviour 
 {
     EnemyAI AI = null;
 
