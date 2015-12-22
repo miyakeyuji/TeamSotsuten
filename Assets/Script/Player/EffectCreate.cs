@@ -37,8 +37,6 @@ public class EffectCreate : MonoBehaviour
     /// <param name="skillType"></param>
     void CheckType(MotionManager.MotionSkillType skillType)
     {
-        GameObject checkObject = null;
-
         /// <summary>
         /// 攻撃タイプを判別
         /// </summary>
@@ -46,11 +44,9 @@ public class EffectCreate : MonoBehaviour
         {
             case MotionManager.MotionSkillType.STRENGTH:
                 strength.Check(skillType , player , enemy);
-                checkObject = strength.gameObject;
                 break;
             case MotionManager.MotionSkillType.WEAK:
                 Weak.Check(skillType,player , enemy);
-                checkObject = Weak.gameObject;
                 break;
             default:
                 break;
