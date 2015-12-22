@@ -16,7 +16,6 @@ public class ClientEnamyController : MonoBehaviour
 
     void Start()
     {
-        if (ConnectionManager.IsWacth) Destroy(this);
 
         EnamyGraph.GetComponent<SpriteRenderer>().enabled = false;
         EnamyAI = gameObject.GetComponent<EnemyAI>();
@@ -33,6 +32,9 @@ public class ClientEnamyController : MonoBehaviour
                 break;
             case EnemyData.EnamyState.SPAWN:    // 出現
                 EnamyGraph.GetComponent<ClientEnemyOperator>().Spawn();
+                break;
+            case EnemyData.EnamyState.HIT:      // ヒット時
+                EnamyGraph.GetComponent<ClientEnemyOperator>().Hit();
                 break;
         }
 
