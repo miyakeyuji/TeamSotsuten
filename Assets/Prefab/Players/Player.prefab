@@ -246,8 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc98d14e902bf44fb0c573e4e8e89ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arCameraDevice: {fileID: 0}
-  singleCameraDevice: {fileID: 0}
   debugText: {fileID: 0}
 --- !u!114 &11471146
 MonoBehaviour:

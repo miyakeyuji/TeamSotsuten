@@ -11,18 +11,6 @@ using UnityEngine.UI;
 
 public class GetDevicePosition : MonoBehaviour
 {
-    /// <summary>
-    /// デバイスの情報を保持するオブジェクトを登録する
-    /// </summary>
-    [SerializeField]
-    Transform arCameraDevice = null;
-
-    /// <summary>
-    /// デバイスの情報を保持するオブジェクトを登録する
-    /// </summary>
-    [SerializeField]
-    Transform singleCameraDevice = null;
-
     [SerializeField]
     Text debugText = null;
 
@@ -43,11 +31,11 @@ public class GetDevicePosition : MonoBehaviour
         /// デバイスの座標を取得
         if (SequenceManager.Instance.IsBuildWatch)
         {
-            transform.position = singleCameraDevice.position;
+            transform.position = SequenceManager.Instance.SingleCamera.transform.position;
         }
         else
         {
-            transform.position = arCameraDevice.position;
+            transform.position = SequenceManager.Instance.ARCamera.transform.position;
         }
 
         debugText.text = "プレイヤー座標 : " + transform.position;

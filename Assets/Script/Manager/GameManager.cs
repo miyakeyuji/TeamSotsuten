@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// ARカメラ用トランスフォーム、登録してください。
     /// </summary>
+    [SerializeField]
     Transform ARCameraDevice = null;
 
     // プレイヤーデータ
@@ -43,11 +44,12 @@ public class GameManager : Singleton<GameManager>
         view = GetComponent<PhotonView>();
 
 
-        // ARCameraを削除
-        if (ARCameraDevice == null)
-        {
-            Debugger.LogError("GameManagerのARCameraがnullです！！");
-            return;
+        // ARCameraが入っているか（クライアントのみの処理）
+        if (ConnectionManager.IsSmartPhone) {
+            if (ARCameraDevice == null)
+            {
+                Debugger.LogError("GameManagerのARCameraがnullです！！");
+            }
         }
 
         SendPlayerDataAwake();
@@ -105,11 +107,9 @@ public class GameManager : Singleton<GameManager>
         int index = ConnectionManager.ID;
 
         // ターゲット画像が読み込まれていないなら処理しない。
-        // ちゃんと機能していないので、一時コメントアウトしています
         if (!Vuforia.VuforiaBehaviour.IsMarkerLookAt)
-        //if (PlayerDataArray[index].Position == ARCameraDevice.position)
         {
-            Debugger.Log("ターゲットロスト");
+           // Debugger.Log("ターゲットロスト");
             return;
         }
 
@@ -121,7 +121,7 @@ public class GameManager : Singleton<GameManager>
     {//  スマートフォンのポジションの同期
         PlayerDataArray[_arrayNum].Position = _pos;
 
-        Debugger.Log("PlayerDataArray index = " + _arrayNum + "Position x = " + _pos.x + " y = " +_pos.y + " z = " + _pos.z);
+        //Debugger.Log("PlayerDataArray index = " + _arrayNum + "Position x = " + _pos.x + " y = " +_pos.y + " z = " + _pos.z);
     }
 
 

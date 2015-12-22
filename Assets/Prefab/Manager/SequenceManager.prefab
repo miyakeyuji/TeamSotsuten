@@ -54,7 +54,7 @@ MonoBehaviour:
   nowScene: 0
   isBuildWatch: 0
   singleCamera: {fileID: 0}
-  vrCamera: {fileID: 0}
+  arCamera: {fileID: 0}
 --- !u!114 &11483596
 MonoBehaviour:
   m_ObjectHideFlags: 1
