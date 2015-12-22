@@ -49,6 +49,5 @@ public class CheckActive : MonoBehaviour {
     void Start()
     {
         effctDB = GetComponentInParent<EffectDB>();
-
     }
 }
