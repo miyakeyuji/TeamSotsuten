@@ -1,27 +1,44 @@
-﻿using UnityEngine;
+﻿///-------------------------------------------------------------------------
+///
+/// code by miyake yuji
+///
+/// エフェクトオブジェクトがアクティブになっているか
+/// 
+///-------------------------------------------------------------------------
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 
 public class CheckActive : MonoBehaviour {
+    /// <summary>
+    /// エフェクトのデータベース
+    /// </summary>
     EffectDB effctDB;
+
+    /// <summary>
+    /// ターゲットとなるオブジェクト
+    /// </summary>
+    [SerializeField]
+    GameObject enemy;
 
     /// <summary>
     /// 子に置いているオブジェクトで非アクティブのオブジェクトを探し、
     /// 最初に見つけたものを使用する
     /// </summary>
     /// <param name="skillType"></param>
-    public void Check(MotionManager.MotionSkillType sType)
+    public void Check(MotionManager.MotionSkillType sType,GameObject player)
     {
         foreach (Transform child in transform)
         {
             if (!child.gameObject.activeSelf)
             {
-                var a = child.GetComponent<EffectMover>();
-                a.OnObject(
+                var effect = child.GetComponent<EffectMover>();
+                effect.OnObject(
                     effctDB.dataList[(int)sType].skillType,
                     effctDB.dataList[(int)sType].speed,
-                    GameObject.Find("Enemy").gameObject
+                    enemy,
+                    player
                     );
                 break;
             }

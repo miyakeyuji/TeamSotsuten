@@ -1,15 +1,37 @@
-﻿using UnityEngine;
+﻿///-------------------------------------------------------------------------
+///
+/// code by miyake yuji
+///
+/// エフェクトのデータベース
+/// 
+///-------------------------------------------------------------------------
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
 
 public class EffectDB : MonoBehaviour {
 
+    /// <summary>
+    /// エフェクトのデータベース用構造体
+    /// </summary>
     public struct EffectData
     {
+        /// <summary>
+        /// 攻撃タイプ
+        /// </summary>
         public MotionManager.MotionSkillType skillType;
+
+        /// <summary>
+        /// 攻撃の速度
+        /// </summary>
         public float speed;
 
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        /// <param name="_type">攻撃タイプ</param>
+        /// <param name="_speed">速度</param>
         public EffectData(
             MotionManager.MotionSkillType _type , 
             float _speed
@@ -35,6 +57,9 @@ public class EffectDB : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        ///<summary>
+        /// データをリストへ入れる 
+        ///</summary>
         foreach (MotionManager.MotionSkillType motionType in Enum.GetValues(typeof(MotionManager.MotionSkillType)))
         {
             EffectData data = new EffectData(
