@@ -54,7 +54,7 @@ public class SequenceManager : Singleton<SequenceManager>
     GameObject singleCamera = null;
 
     [SerializeField]
-    GameObject vrCamera = null;
+    GameObject arCamera = null;
 
     public bool IsBuildWatch { get { return isBuildWatch; } }
 
@@ -63,6 +63,9 @@ public class SequenceManager : Singleton<SequenceManager>
     public bool IsNowConnnectionScene { get { return nowScene == SceneID.CONNECTION; } }
     public bool IsNowResultScene { get { return nowScene == SceneID.RESULT; } }
     public bool IsNowTitleScene { get { return nowScene == SceneID.TITLE; } }
+
+    public GameObject SingleCamera { get { return singleCamera; } }
+    public GameObject ARCamera { get { return arCamera; } }
 
     public override void Awake() 
     {
@@ -88,16 +91,13 @@ public class SequenceManager : Singleton<SequenceManager>
         if (isBuildWatch)
         {
             singleCamera.SetActive(true);
-            vrCamera.SetActive(false);
+            arCamera.SetActive(false);
         }
         else
         {
             singleCamera.SetActive(false);
-            vrCamera.SetActive(true);
+            arCamera.SetActive(true);
         }
-
-        
-
     }
 
     public override void Start() 

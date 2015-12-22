@@ -190,15 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054b1e6a10ddaeb45a204ba8483b3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  player: {fileID: 142276}
-  speed: 5
-  upDownAttackSprite: {fileID: 21300000, guid: bac3f947fc481f64aac22ee007ec1497, type: 3}
-  downUpAttackSprite: {fileID: 21300000, guid: 89d5b9ccd40aa7c4780557be537f7d2f, type: 3}
-  leftRightAttackSprite: {fileID: 21300000, guid: e13d1729ed14bdb44b010fdb28c077e7,
-    type: 3}
-  rightLeftAttackSprite: {fileID: 21300000, guid: 7b9c0b18ef45e1243908f9f214309fed,
-    type: 3}
 --- !u!114 &11414814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,15 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054b1e6a10ddaeb45a204ba8483b3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  player: {fileID: 142276}
-  speed: 5
-  upDownAttackSprite: {fileID: 21300000, guid: bac3f947fc481f64aac22ee007ec1497, type: 3}
-  downUpAttackSprite: {fileID: 21300000, guid: 89d5b9ccd40aa7c4780557be537f7d2f, type: 3}
-  leftRightAttackSprite: {fileID: 21300000, guid: e13d1729ed14bdb44b010fdb28c077e7,
-    type: 3}
-  rightLeftAttackSprite: {fileID: 21300000, guid: 7b9c0b18ef45e1243908f9f214309fed,
-    type: 3}
 --- !u!114 &11419874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -230,15 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054b1e6a10ddaeb45a204ba8483b3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  player: {fileID: 142276}
-  speed: 5
-  upDownAttackSprite: {fileID: 21300000, guid: bac3f947fc481f64aac22ee007ec1497, type: 3}
-  downUpAttackSprite: {fileID: 21300000, guid: 89d5b9ccd40aa7c4780557be537f7d2f, type: 3}
-  leftRightAttackSprite: {fileID: 21300000, guid: e13d1729ed14bdb44b010fdb28c077e7,
-    type: 3}
-  rightLeftAttackSprite: {fileID: 21300000, guid: 7b9c0b18ef45e1243908f9f214309fed,
-    type: 3}
 --- !u!114 &11441802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,15 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054b1e6a10ddaeb45a204ba8483b3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  player: {fileID: 142276}
-  speed: 5
-  upDownAttackSprite: {fileID: 21300000, guid: bac3f947fc481f64aac22ee007ec1497, type: 3}
-  downUpAttackSprite: {fileID: 21300000, guid: 89d5b9ccd40aa7c4780557be537f7d2f, type: 3}
-  leftRightAttackSprite: {fileID: 21300000, guid: e13d1729ed14bdb44b010fdb28c077e7,
-    type: 3}
-  rightLeftAttackSprite: {fileID: 21300000, guid: 7b9c0b18ef45e1243908f9f214309fed,
-    type: 3}
 --- !u!114 &11454072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,6 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c17cfda217907a4081856ef88120197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectCreator: {fileID: 0}
 --- !u!114 &11455478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -281,8 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc98d14e902bf44fb0c573e4e8e89ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arCameraDevice: {fileID: 0}
-  singleCameraDevice: {fileID: 0}
   debugText: {fileID: 0}
 --- !u!114 &11471146
 MonoBehaviour:
@@ -295,15 +258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054b1e6a10ddaeb45a204ba8483b3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  player: {fileID: 142276}
-  speed: 5
-  upDownAttackSprite: {fileID: 21300000, guid: bac3f947fc481f64aac22ee007ec1497, type: 3}
-  downUpAttackSprite: {fileID: 21300000, guid: 89d5b9ccd40aa7c4780557be537f7d2f, type: 3}
-  leftRightAttackSprite: {fileID: 21300000, guid: e13d1729ed14bdb44b010fdb28c077e7,
-    type: 3}
-  rightLeftAttackSprite: {fileID: 21300000, guid: 7b9c0b18ef45e1243908f9f214309fed,
-    type: 3}
 --- !u!212 &21216328
 SpriteRenderer:
   m_ObjectHideFlags: 1

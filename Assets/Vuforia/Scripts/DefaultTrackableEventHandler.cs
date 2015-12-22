@@ -24,7 +24,12 @@ namespace Vuforia
         SequenceBehaviour scene = null;
 
         #region UNTIY_MONOBEHAVIOUR_METHODS
-    
+
+        void Awake()
+        {
+
+        }
+
         void Start()
         {
             mTrackableBehaviour = GetComponent<TrackableBehaviour>();

@@ -18,6 +18,12 @@ namespace Vuforia
 
         void Awake()
         {
+
+#if UNITY_EDITOR
+            Destroy(gameObject);
+            return;
+#endif
+
             if (VuforiaRuntimeUtilities.IsVuforiaEnabled())
             {
                 // We remove the mesh components at run-time only, but keep them for

@@ -10,46 +10,10 @@ using System.Collections;
 
 public class EffectMover : MonoBehaviour
 {
-
-    /// <summary>
-    /// 目的地となる座標を登録
-    /// </summary>
-    [SerializeField]
-    GameObject target;
-    /// <summary>
-    /// プレイヤーオブジェクトを登録
-    /// </summary>
-    [SerializeField]
-    GameObject player;
-
-    /// <summary>
-    /// 攻撃エフェクトの移動速度
-    /// </summary>
-    [SerializeField]
-    float speed = 5.0f;
-
-    /// <summary>
-    /// 攻撃用のスプライト
-    /// </summary>
-    [SerializeField]
-    Sprite upDownAttackSprite;
-    [SerializeField]
-    Sprite downUpAttackSprite;
-    [SerializeField]
-    Sprite leftRightAttackSprite;
-    [SerializeField]
-    Sprite rightLeftAttackSprite;
-
     /// <summary>
     /// ITweenの再生中の管理
     /// </summary>
     bool itweenCheck;
-
-    /// <summary>
-    /// 攻撃用のエフェクトの貼り付け先
-    /// </summary>
-    SpriteRenderer attackSpriteRenderer;
-    private Sprite strongAttackSprite;
 
     /// <summary>
     /// 動作から取得したIDを取得
@@ -60,44 +24,26 @@ public class EffectMover : MonoBehaviour
     /// プレイヤーの挙動を受け取り攻撃タイプを判別
     /// </summary>
     /// <param name="attackType">動作から受け取った行動ID</param>
-    public void OnObject(MotionManager.MotionSkillType attackType)
+    public void OnObject(
+        MotionManager.MotionSkillType attackType , 
+        float speed , 
+        GameObject target)
     {
+        gameObject.SetActive(true);
+
         iTween.Stop(gameObject);
 
         //　エフェクトがどの攻撃タイプか情報を保存
         type = attackType;
 
-        //　エフェクトのターゲットを設定
-        Vector3 targetPosition;
-        targetPosition = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
-
-        //　動きから受け取ったタイプからテクスチャなどをオブジェクトに張り付ける
-        switch (attackType)
+        if (itweenCheck == false)
         {
-            case MotionManager.MotionSkillType.VERTICAL_UP_DOWN:
-                if (itweenCheck != false) break;
-                attackSpriteRenderer.sprite = upDownAttackSprite;
-                Move(targetPosition);
-                break;
-            case MotionManager.MotionSkillType.VERTICAL_DOWN_UP:
-                if (itweenCheck != false) break;
-                attackSpriteRenderer.sprite = downUpAttackSprite;
-                Move(targetPosition);
-                break;
-            case MotionManager.MotionSkillType.HORIZONTAL_LEFT_RIGHT:
-                if (itweenCheck != false) break;
-                attackSpriteRenderer.sprite = leftRightAttackSprite;
-                Move(targetPosition);
-                break;
-            case MotionManager.MotionSkillType.HORIZONTAL_RIGHT_LEFT:
-                if (itweenCheck != false) break;
-                attackSpriteRenderer.sprite = rightLeftAttackSprite;
-                Move(targetPosition);
-                break;
+            Move(target.transform.position, speed);
+            
         }
-
         //　ITweenが再生中のフラグを立てる
         itweenCheck = true;
+        
     }
 
     /// <summary>
@@ -106,7 +52,7 @@ public class EffectMover : MonoBehaviour
     /// </summary>
     void ItweenOnStart()
     {
-        gameObject.transform.position = player.transform.position;
+       // gameObject.transform.position = player.transform.position;
     }
 
     /// <summary>
@@ -115,7 +61,7 @@ public class EffectMover : MonoBehaviour
     void ItweenOnComplete()
     {
         //プレイヤーの位置まで戻す
-        gameObject.transform.position = player.transform.position;
+        //gameObject.transform.position = player.transform.position;
 
         // ITweenが無効になっているフラグたて
         itweenCheck = false;
@@ -127,7 +73,7 @@ public class EffectMover : MonoBehaviour
     /// <summary>
     /// エフェクトの動きに関する挙動(ITween使用)
     /// </summary>
-    void Move(Vector3 targetPosition)
+    void Move(Vector3 targetPosition ,float speed)
     {
         //　targetPositionに向かって等速で移動
         iTween.MoveTo(gameObject,
@@ -145,11 +91,8 @@ public class EffectMover : MonoBehaviour
     /// </summary>
     void Start()
     {
-        //　エフェクト用のテクスチャを貼るコンポーネントを取得
-        attackSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
         // プレイヤーの位置までいったん移動
-        gameObject.transform.position = player.transform.position;
+       // gameObject.transform.position = player.transform.position;
 
         // オブジェクトの非アクティブ化
         gameObject.SetActive(false);

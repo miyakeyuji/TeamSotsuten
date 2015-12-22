@@ -42,8 +42,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hidenGameObject:
   - {fileID: 0}
-  hidenBehaviour:
-  - {fileID: 11481950}
+  hidenBehaviour: []
 --- !u!114 &11481950
 MonoBehaviour:
   m_ObjectHideFlags: 1

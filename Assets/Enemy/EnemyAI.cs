@@ -1,17 +1,27 @@
-﻿using UnityEngine;
+﻿///
+/// 高木へ、コメント書きましょう
+///
+/// code by TKG and ogata 
+
+using UnityEngine;
 using System.Collections;
 
 public class EnemyAI : MonoBehaviour 
 {
     EnemyData Enemy = null;
 
-    bool DodSpawn = false;
+    // 湧くことが出来ます。
+    bool CanSpawn = true;
 
-    public bool NowStateMatcingc(EnemyData.EnamyState _statNnum)
+
+    /// <summary>
+    /// 現在のステートを返します
+    /// </summary>
+    /// <returns></returns>
+    public EnemyData.EnamyState GetNowState()
     {
-        return (Enemy.State == _statNnum);
+        return Enemy.State;
     }
-
 
     void Start()
     {
@@ -21,14 +31,22 @@ public class EnemyAI : MonoBehaviour
     //エネミーデータのStateを変更します。
     void StateChanger()
     {
-        if (Enemy.IsActive() && !DodSpawn) 
+        if (Enemy.IsActive() && CanSpawn) 
         {
             Enemy.StateChange(EnemyData.EnamyState.SPAWN);
-            DodSpawn = true;
+            CanSpawn = false;
         }
-        else if (!Enemy.IsActive() && DodSpawn)
+        else if (!Enemy.IsActive() && !CanSpawn)
         {
             Enemy.StateChange(EnemyData.EnamyState.DEAD);
+        }
+        else if(Enemy.IsActive() && Enemy.IsHit())
+        {//攻撃がヒットした場合
+            Enemy.StateChange(EnemyData.EnamyState.HIT);
+        }
+        else if(Enemy.IsActive())
+        {
+
         }
         else 
         {
