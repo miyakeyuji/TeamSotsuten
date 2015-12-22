@@ -31,11 +31,11 @@ public class EffectCreate : MonoBehaviour
         {
             case MotionManager.MotionSkillType.STRENGTH:
                 strength.Check(skillType , player);
-                checkObject = transform.FindChild("Strength").gameObject;
+                checkObject = strength.gameObject;
                 break;
             case MotionManager.MotionSkillType.WEAK:
-                checkObject = transform.FindChild("Weak").gameObject;
                 Weak.Check(skillType,player);
+                checkObject = Weak.gameObject;
                 break;
             default:
                 break;
