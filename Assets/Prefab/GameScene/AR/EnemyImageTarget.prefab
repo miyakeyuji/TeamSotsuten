@@ -179,7 +179,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefav: {fileID: 0}
+  interval: 1
   id: -1
+  flashTime: 3
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &11456348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -204,7 +208,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefav: {fileID: 0}
+  interval: 1
   id: -1
+  flashTime: 3
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &11495946
 MonoBehaviour:
   m_ObjectHideFlags: 1
