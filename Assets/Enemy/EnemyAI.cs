@@ -44,10 +44,6 @@ public class EnemyAI : MonoBehaviour
         {//攻撃がヒットした場合
             Enemy.StateChange(EnemyData.EnamyState.HIT);
         }
-        else if(Enemy.IsActive())
-        {
-
-        }
         else 
         {
             Enemy.StateChange(EnemyData.EnamyState.NONE); 
