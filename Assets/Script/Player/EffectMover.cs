@@ -25,34 +25,30 @@ public class EffectMover : MonoBehaviour
     /// </summary>
     /// <param name="attackType">動作から受け取った行動ID</param>
     public void OnObject(
-        MotionManager.MotionSkillType attackType , 
-        float speed , 
-        GameObject target)
+        MotionManager.MotionSkillType attackType,
+        float speed,
+        GameObject target,
+        GameObject player
+        )
     {
+        //　エフェクトオブジェクトのアクティブ化
         gameObject.SetActive(true);
 
+        //　プレイヤーの位置からスタート
+        gameObject.transform.position = player.transform.position;
+
+        //アニメーションが動いたていたら一度止める
         iTween.Stop(gameObject);
 
         //　エフェクトがどの攻撃タイプか情報を保存
         type = attackType;
 
-        if (itweenCheck == false)
-        {
-            Move(target.transform.position, speed);
-            
-        }
+        //　ITweenの再生中か確認
+        if (itweenCheck == false) Move(target.transform.position, speed);
+
         //　ITweenが再生中のフラグを立てる
         itweenCheck = true;
         
-    }
-
-    /// <summary>
-    /// ITween開始時にプレイヤーとエフェクトのX、Z座標を合わせる
-    /// エフェクトの出現位置の調整
-    /// </summary>
-    void ItweenOnStart()
-    {
-       // gameObject.transform.position = player.transform.position;
     }
 
     /// <summary>
@@ -60,9 +56,6 @@ public class EffectMover : MonoBehaviour
     /// </summary>
     void ItweenOnComplete()
     {
-        //プレイヤーの位置まで戻す
-        //gameObject.transform.position = player.transform.position;
-
         // ITweenが無効になっているフラグたて
         itweenCheck = false;
 
@@ -81,7 +74,6 @@ public class EffectMover : MonoBehaviour
             "position", targetPosition,
             "speed", speed,
             "easetype", iTween.EaseType.linear,
-            "onstart", "ItweenOnStart",
             "oncomplete", "ItweenOnComplete"
             ));
     }
