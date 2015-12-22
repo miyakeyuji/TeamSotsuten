@@ -20,6 +20,8 @@ public class EffectMover : MonoBehaviour
     /// </summary>
     MotionManager.MotionSkillType type;
 
+    float takeDamage;
+
     /// <summary>
     /// プレイヤーの挙動を受け取り攻撃タイプを判別
     /// </summary>
@@ -28,7 +30,9 @@ public class EffectMover : MonoBehaviour
         MotionManager.MotionSkillType attackType,
         float speed,
         GameObject target,
-        GameObject player
+        GameObject player,
+        Vector3 scale,
+        float damage
         )
     {
         //　エフェクトオブジェクトのアクティブ化
@@ -42,6 +46,10 @@ public class EffectMover : MonoBehaviour
 
         //　エフェクトがどの攻撃タイプか情報を保存
         type = attackType;
+
+        takeDamage = damage;
+
+        gameObject.transform.localScale = scale;
 
         //　ITweenの再生中か確認
         if (itweenCheck == false) Move(target.transform.position, speed);
@@ -61,6 +69,8 @@ public class EffectMover : MonoBehaviour
 
         //オブジェクトの非アクティブ化
         gameObject.SetActive(false);
+
+        GameManager.Instance.SendEnemyHit(type,(int)takeDamage);
     }
 
     /// <summary>

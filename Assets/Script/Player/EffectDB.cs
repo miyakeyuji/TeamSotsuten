@@ -12,6 +12,7 @@ using System;
 
 public class EffectDB : MonoBehaviour {
 
+    
     /// <summary>
     /// エフェクトのデータベース用構造体
     /// </summary>
@@ -27,6 +28,10 @@ public class EffectDB : MonoBehaviour {
         /// </summary>
         public float speed;
 
+        public Vector3 scale;
+
+        public float damage;
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -34,11 +39,15 @@ public class EffectDB : MonoBehaviour {
         /// <param name="_speed">速度</param>
         public EffectData(
             MotionManager.MotionSkillType _type , 
-            float _speed
+            float _speed,
+            Vector3 _scale,
+            float _damage
             )
         {
             skillType = _type;
             speed = _speed;
+            scale = _scale;
+            damage = _damage;
         }
     }
 
@@ -47,7 +56,16 @@ public class EffectDB : MonoBehaviour {
     /// 順番は攻撃タイプの列挙型に準拠
     /// 列挙側では0番目がNONEのため協力技の分として仮定
     /// </summary>
-    private float[] speedArray = new float[] {0.0f,5.1f, 5.2f, 5.3f, 5.4f };
+    private float[] speedArray = new float[] {0.0f,1.5f,1.0f, 0.2f, 0.3f, 0.4f };
+
+    private Vector3[] scaleArray = new Vector3[] 
+    {
+        new Vector3(0.0f,0.0f,0.0f),
+        new Vector3(10.0f,10.0f,10.0f),
+        new Vector3(10.0f,10.0f,10.0f)
+    };
+
+    private float[] damageArray = new float[] { 0.0f, 10.0f , 15.0f };
 
     /// <summary>
     /// ゲーム中に参照するエフェクトデータのリスト
@@ -64,7 +82,9 @@ public class EffectDB : MonoBehaviour {
         {
             EffectData data = new EffectData(
                 motionType,
-                speedArray[(int)motionType]);
+                speedArray[(int)motionType],
+                scaleArray[(int)motionType],
+                damageArray[(int)motionType]);
             dataList.Add(data);
         }
 	}

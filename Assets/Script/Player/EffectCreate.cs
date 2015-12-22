@@ -19,6 +19,9 @@ public class EffectCreate : MonoBehaviour
     [SerializeField]
     GameObject player;
 
+    [SerializeField]
+    GameObject enemy;
+
     /// <summary>
     /// どの攻撃タイプのエフェクトを生成するか確認
     /// </summary>
@@ -30,11 +33,11 @@ public class EffectCreate : MonoBehaviour
         switch (skillType)
         {
             case MotionManager.MotionSkillType.STRENGTH:
-                strength.Check(skillType , player);
+                strength.Check(skillType , player , enemy);
                 checkObject = strength.gameObject;
                 break;
             case MotionManager.MotionSkillType.WEAK:
-                Weak.Check(skillType,player);
+                Weak.Check(skillType,player , enemy);
                 checkObject = Weak.gameObject;
                 break;
             default:
