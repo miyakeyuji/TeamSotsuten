@@ -113,6 +113,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
         view = GetComponent(typeof(PhotonView)) as PhotonView;
 
         MotionManager.Instance.gameObject.SetActive(false);
+        HitEffectManager.Instance.gameObject.SetActive(false);
     }
 
     public override void Start()
@@ -317,7 +318,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
 
         SequenceManager.Instance.ChangeScene(nextSceneID);
         MotionManager.Instance.gameObject.SetActive(true);
-
+        HitEffectManager.Instance.gameObject.SetActive(true);
     }
     
     /// <summary>
