@@ -404,5 +404,14 @@ public class GameManager : Singleton<GameManager>
 
 
 
+    /// <summary>
+    /// 書かないといけない関数
+    /// </summary>
+    /// <param name="stream"></param>
+    /// <param name="info"></param>
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+
+    }
 
 }

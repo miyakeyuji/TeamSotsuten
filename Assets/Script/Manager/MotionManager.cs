@@ -15,10 +15,10 @@ public class MotionManager : Singleton<MotionManager>
     /// </summary>
     public enum MotionSkillType
     {
-        NONE,      //< 未定義
+        NONE = -1,      //< 未定義
 
-        WEAK,     //< 弱
-        STRENGTH, //< 強
+        WEAK = 0,     //< 弱
+        STRENGTH = 1, //< 強
         
         //VERTICAL_UP_DOWN,       //< 上から下 縦振り
         //VERTICAL_DOWN_UP,       //< 下から上 縦振り
