@@ -29,6 +29,12 @@ public class HitEffectManager : Singleton<HitEffectManager> {
 
     void Start()
     {
+        if (!ConnectionManager.IsSmartPhone)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         var id = ConnectionManager.ID == 0 ? 0 : 1;
         view.RPC("SyncCreateEffect", ConnectionManager.GetSmartPhonePlayer(id));
     }
@@ -101,4 +107,13 @@ public class HitEffectManager : Singleton<HitEffectManager> {
         }
     }
 
+    /// <summary>
+    /// 書かないといけない関数
+    /// </summary>
+    /// <param name="stream"></param>
+    /// <param name="info"></param>
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+
+    }
 }
