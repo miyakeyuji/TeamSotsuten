@@ -55,6 +55,14 @@ public class EnemyData: MonoBehaviour
 
     public bool IsHit() { return GameManager.Instance.GetEnemyData(id).IsHit; }
 
+    /// <summary>
+    /// ヒットフラグを解除する。
+    /// </summary>
+    public void HitRelease()
+    {
+        GameManager.Instance.GetEnemyData(id).IsHit = false;
+    }
+
     //GameManager用のエネミーデータ
     public void SetMyDate()
     {
@@ -62,7 +70,9 @@ public class EnemyData: MonoBehaviour
         GameManager.Instance.SendEnemyPosition(0, Position);
         GameManager.Instance.SendEnemyRotation(0, Rotation);
         GameManager.Instance.SendEnemyIsActive(id, true);
+
     }
+
 
     /// <summary>
     /// GameManager側で保持しているHPに更新
