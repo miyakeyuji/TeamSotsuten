@@ -19,6 +19,8 @@ public class EnemyManager : Singleton<EnemyManager>
         Update,     //< アップデート
     }
 
+    [SerializeField]
+    SpriteRenderer enemyRenderer = null;
 
     [SerializeField]
     List<EnemyData> enemyList = new List<EnemyData>();  //< 登録エネミー
@@ -40,6 +42,15 @@ public class EnemyManager : Singleton<EnemyManager>
 
         state = State.Start;
 
+    }
+
+    /// <summary>
+    /// 敵の画像情報を設定する。
+    /// </summary>
+    /// <param name="sprite"></param>
+    public void SetEnemySprite(Sprite sprite)
+    {
+        enemyRenderer.sprite = sprite;
     }
 
     /// <summary>
@@ -66,7 +77,6 @@ public class EnemyManager : Singleton<EnemyManager>
         if (SequenceManager.Instance.IsBuildWatch) return;
         if (state == State.None) return;
         if (!Vuforia.VuforiaBehaviour.IsMarkerLookAt) return;
-
 
         switch (state)
         {
@@ -97,6 +107,8 @@ public class EnemyManager : Singleton<EnemyManager>
                 // 死んでないなら処理をする。
                 if (GetActiveEnemyData().State != EnemyData.EnamyState.DEAD)
                 {
+                    GetActiveEnemyData().UpdateData();
+
                     // SV側がHitフラグだ立ったら、CL状態を変更する。
                     if (GetActiveEnemyData().IsHit())
                     {
@@ -107,6 +119,7 @@ public class EnemyManager : Singleton<EnemyManager>
                     // SV側のライフが0なら、CL状態を変更する。
                     if (GetActiveEnemyData().Life <= 0)
                     {
+                        GetActiveEnemyData().HitRelease();
                         GetActiveEnemyData().StateChange(EnemyData.EnamyState.DEAD);
                         Debugger.Log(">> GetActiveEnemy State DEAD");
                     }
@@ -117,8 +130,14 @@ public class EnemyManager : Singleton<EnemyManager>
                     if (!GetActiveEnemyData().IsActive())
                     {
                         activeEnemyID++;
-                        state = State.Start;
 
+                        //if (activeEnemyID >= enemyList.Count)
+                        //{
+                        //    SequenceManager.Instance.ChangeScene(SceneID.RESULT);
+                        //    return;
+                        //}
+
+                        state = State.Start;
                         Debugger.Log(">> 次のWaveに遷移する");
                     }
                 }

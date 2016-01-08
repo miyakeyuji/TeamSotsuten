@@ -250,10 +250,14 @@ public class GameManager : Singleton<GameManager>
     /// <param name="_isActive"></param>
     public void SendEnemyIsActive(int _arrayNumber,bool _isActive)
     {
-        if (CheckOutRangeArrayNumberEnemy(_arrayNumber, "SendEnemyIsActive"))
-            return;
-        
-        view.RPC("SyncEnemyIsActive", PhotonTargets.All,new object[] { _arrayNumber,_isActive});
+        // TODO サーバーと通信を起こす。
+
+        //if (CheckOutRangeArrayNumberEnemy(_arrayNumber, "SendEnemyIsActive"))
+        //    return;
+
+        EnemyDataArray[_arrayNumber].IsActive = _isActive;
+
+//        view.RPC("SyncEnemyIsActive", PhotonTargets.All,new object[] { _arrayNumber,_isActive});
     }
 
     [PunRPC]
@@ -261,7 +265,6 @@ public class GameManager : Singleton<GameManager>
     {//エネミースポーン情報送信
         EnemyDataArray[_arrayNumber].IsActive = _isActive;
     }
-
 
     /// <summary>
     /// エネミーのHPをセット(変更)します。（同期）
@@ -278,7 +281,8 @@ public class GameManager : Singleton<GameManager>
 
     [PunRPC]
     void SyncEnemyHP(int _arrayNumber, int _hp, PhotonMessageInfo _info)
-    {//HP同期
+    {
+        //HP同期
         EnemyDataArray[_arrayNumber].HP = _hp;
     }
 
@@ -366,12 +370,6 @@ public class GameManager : Singleton<GameManager>
         //とりあえず空白,今後処理を記述、もしくは関数ごと削除します。
     }
 
-
-    
-
-
-    
-
     
     /// <summary>
     /// エネミーが攻撃に当たった時用の関数
@@ -412,6 +410,19 @@ public class GameManager : Singleton<GameManager>
         EnemyDataArray[_enemyArrayNumber].IsHit = true;
     }
 
+
+    /// <summary>
+    /// リザルトシーンに遷移
+    /// </summary>
+    public void ChangeResultScene()
+    {
+        view.RPC("SyncChangeResultScene", PhotonTargets.All);
+    }
+
+    private void SyncChangeResultScene(PhotonMessageInfo info)
+    {
+        SequenceManager.Instance.ChangeScene(SceneID.RESULT);
+    }
 
 
     /// <summary>

@@ -26,13 +26,11 @@ public class EnemyData: MonoBehaviour
     public int Life
     {
         get { return life; }
-        private set { if (life == -1) Life = value; }
     }
 
     public int Id
     {
         get { return id; }
-        private set { if (id == -1) id = value; }
     }
 
     public enum EnamyState
@@ -47,6 +45,10 @@ public class EnemyData: MonoBehaviour
 
     [SerializeField]
     EnamyState state = EnamyState.NONE;
+
+    [SerializeField]
+    Sprite sprite = null;
+
     public EnamyState State{  get { return state; }}
 
     public void StateChange(EnamyState _statNnum) { state = _statNnum; }
@@ -66,20 +68,18 @@ public class EnemyData: MonoBehaviour
     //GameManager用のエネミーデータ
     public void SetMyDate()
     {
-        GameManager.Instance.SendEnemyHP(0, life);
-        GameManager.Instance.SendEnemyPosition(0, Position);
-        GameManager.Instance.SendEnemyRotation(0, Rotation);
+        GameManager.Instance.SendEnemyHP(id, life);
+        GameManager.Instance.SendEnemyPosition(id, transform.position);
+        GameManager.Instance.SendEnemyRotation(id, transform.rotation.eulerAngles);
         GameManager.Instance.SendEnemyIsActive(id, true);
 
+        EnemyManager.Instance.SetEnemySprite(sprite);
     }
 
 
-    /// <summary>
-    /// GameManager側で保持しているHPに更新
-    /// </summary>
-    public void LifeUpDate()
+    public void UpdateData()
     {
-        Life = GameManager.Instance.GetEnemyData(id).HP;
+        life = GameManager.Instance.GetEnemyData(id).HP;
     }
 
 }
