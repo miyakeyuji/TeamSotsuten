@@ -11,18 +11,14 @@ using System.Collections.Generic;
 
 public class Debugger : MonoBehaviour 
 {
-    static List<Text> debugTextList = new List<Text>();
+    static Text debugText = null;
     static int messageNum = 0;
-    
 
     void Awake()
     {
-        var child = transform.GetComponentsInChildren<Canvas>();
+        var child = transform.GetComponentInChildren<Canvas>();
 
-        for (int i = 0; i < child.Length; i++)
-        {
-            debugTextList.Add(child[i].GetComponentInChildren<Text>());
-        }
+        debugText = child.GetComponentInChildren<Text>();
 
         Reset();
     }
@@ -32,10 +28,7 @@ public class Debugger : MonoBehaviour
     /// </summary>
     public static void Reset()
     {
-        for (int i = 0; i < debugTextList.Count; i++)
-        {
-            debugTextList[i].text = "";
-        }
+        debugText.text = "";
     }
 
 
@@ -50,10 +43,8 @@ public class Debugger : MonoBehaviour
 #endif
         OverLineTextReset();
 
-        for (int i = 0; i < debugTextList.Count; i++)
-        {
-            debugTextList[i].text += message + "\n";
-        }
+        debugText.text += message + "\n";
+
         messageNum++;
     }
 
@@ -68,10 +59,8 @@ public class Debugger : MonoBehaviour
 #endif
         OverLineTextReset();
 
-        for (int i = 0; i < debugTextList.Count; i++)
-        {
-            debugTextList[i].text += "<color=red>" + message + "</color>" + "\n";
-        }
+        debugText.text += "<color=red>" + message + "</color>" + "\n";
+
         messageNum++;
 
     }
@@ -87,10 +76,7 @@ public class Debugger : MonoBehaviour
 #endif
         OverLineTextReset();
 
-        for (int i = 0; i < debugTextList.Count; i++)
-        {
-            debugTextList[i].text += "<color=yellow>" + message + "</color>" + "\n";
-        }
+        debugText.text += "<color=yellow>" + message + "</color>" + "\n";
 
         messageNum++;
 
@@ -105,10 +91,7 @@ public class Debugger : MonoBehaviour
         {
             messageNum = 0;
 
-            for (int i = 0; i < debugTextList.Count; i++)
-            {
-                debugTextList[i].text = "";
-            }
+            debugText.text = "";
         }
     }
 }

@@ -387,19 +387,29 @@ public class GameManager : Singleton<GameManager>
                 enemyIndex = i;
         }
 
+        // FIX 判定がおかしかった。
         if (CheckOutRangeArrayNumberEnemy(enemyIndex, "SendEnemyHit"))
-            return;
+        {
+            //return;
+        }
 
-        view.RPC("SyncEnemyHit", PhotonTargets.All, new object[] { enemyIndex, _playerAttackType, _damage });
+        Debugger.Log(">>> SendEnemyHit()");
+
+        // TODO サーバーと通信を起こす。
+        EnemyDataArray[enemyIndex].HP -= _damage;
+        EnemyDataArray[enemyIndex].HitAttackType = _playerAttackType;
+        EnemyDataArray[enemyIndex].IsHit = true;
+
+        //view.RPC("SyncEnemyHit", PhotonTargets.All, new object[] { enemyIndex, _playerAttackType, _damage });
     }
 
     [PunRPC]
     private void SyncEnemyHit(int _enemyArrayNumber, MotionManager.MotionSkillType _playerAttackType, int _damage, PhotonMessageInfo _info)
-    {//エネミーが攻撃に当たった時の同期
+    {
+        //エネミーが攻撃に当たった時の同期
         EnemyDataArray[_enemyArrayNumber].HP -= _damage;
         EnemyDataArray[_enemyArrayNumber].HitAttackType = _playerAttackType;
         EnemyDataArray[_enemyArrayNumber].IsHit = true;
-
     }
 
 
