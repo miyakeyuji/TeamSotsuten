@@ -60,9 +60,11 @@ public class ConnectionManager : Singleton<ConnectionManager>
 
     static TerminalType type = TerminalType.Null;
 
-    int smartPhoneID = 0;
-    int watchID = 0;
+    // 接続数
+    static public int SmartPhoneConnectionNum = 0;
+    static public int WatchConnectionNum = 0;
 
+    // 自分がどの端末で接続しているか
     static public bool IsWacth { get { return type == TerminalType.Watch; } }
     static public bool IsSmartPhone { get { return type == TerminalType.Phone; } }
     static public bool IsOwner { get { return type == TerminalType.Owner; } }
@@ -136,7 +138,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
         if(PhotonNetwork.isMasterClient)
         {
             // 2人なら、もう一つの要素も2にする。
-            if (watchID >= 1)
+            if (WatchConnectionNum >= 1)
             {
                 // すべての接続が完了したら処理する。
                 view.RPC("AllCompletion", PhotonTargets.All);
@@ -254,12 +256,12 @@ public class ConnectionManager : Singleton<ConnectionManager>
     [PunRPC]
     public void SetSmartPhoneID(PhotonPlayer player, PhotonMessageInfo info)
     {
-        smartPhonePlayer[smartPhoneID] = player;
+        smartPhonePlayer[SmartPhoneConnectionNum] = player;
         
-        var debugIndex = smartPhoneID + 1;
+        var debugIndex = SmartPhoneConnectionNum + 1;
         Debugger.Log("スマホ_" + debugIndex + " : 接続");
         
-        smartPhoneID++;
+        SmartPhoneConnectionNum++;
     }
 
     /// <summary>
@@ -271,12 +273,12 @@ public class ConnectionManager : Singleton<ConnectionManager>
     [PunRPC]
     public void SetWatchID(PhotonPlayer player, PhotonMessageInfo info)
     {
-        watchPlayer[watchID] = player;
+        watchPlayer[WatchConnectionNum] = player;
 
-        var debugIndex = watchID + 1;
+        var debugIndex = WatchConnectionNum + 1;
         Debugger.Log("ウォッチ_" + debugIndex + " : 接続");
 
-        watchID++;
+        WatchConnectionNum++;
     }
 
 
@@ -343,7 +345,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
 
         if (!PhotonNetwork.isMasterClient)
         {
-            ID = smartPhoneID;
+            ID = SmartPhoneConnectionNum;
             Debugger.Log("ID : " + ID);
         }
 

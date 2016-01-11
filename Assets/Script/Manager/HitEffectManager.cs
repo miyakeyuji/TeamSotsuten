@@ -35,8 +35,13 @@ public class HitEffectManager : Singleton<HitEffectManager> {
             return;
         }
 
-        var id = ConnectionManager.ID == 0 ? 0 : 1;
-        view.RPC("SyncCreateEffect", ConnectionManager.GetSmartPhonePlayer(id));
+        if (ConnectionManager.ID == 0)
+        {
+            for (int i = 0; i < ConnectionManager.SmartPhoneConnectionNum; i++)
+            {
+                view.RPC("SyncCreateEffect", ConnectionManager.GetSmartPhonePlayer(i));
+            }
+        }
     }
 
     [PunRPC]
@@ -66,12 +71,12 @@ public class HitEffectManager : Singleton<HitEffectManager> {
     /// <param name="position"></param>
     public void WeakHitEffectPlay(Vector3 position)
     {
-        weakHitEffectList[weakPlayIndex].gameObject.SetActive(true);
-        weakHitEffectList[weakPlayIndex].transform.position = position;
-        weakHitEffectList[weakPlayIndex].Play();
-        weakPlayIndex++;
-
-        weakPlayIndex = weakHitEffectList.Count <= weakPlayIndex ? 0 : weakPlayIndex;
+        for (int i = 0; i < ConnectionManager.SmartPhoneConnectionNum; i++)
+        {
+            view.RPC("SyncWeakHitEffectPlay",
+                ConnectionManager.GetSmartPhonePlayer(i),
+                new object[] { position });
+        }
     }
 
     /// <summary>
@@ -80,13 +85,38 @@ public class HitEffectManager : Singleton<HitEffectManager> {
     /// <param name="position"></param>
     public void StrengthHitEffectPlay(Vector3 position)
     {
+        for(int i = 0;i<ConnectionManager.SmartPhoneConnectionNum;i++)
+        {
+            view.RPC("SyncStrengthHitEffectPlay", 
+                ConnectionManager.GetSmartPhonePlayer(i),
+                new object[]{position});
+        }
+
+    }
+
+    [PunRPC]
+    void SyncStrengthHitEffectPlay(Vector3 position,PhotonMessageInfo info)
+    {
         strengthHitEffectList[strengthPlayIndex].gameObject.SetActive(true);
         strengthHitEffectList[strengthPlayIndex].transform.position = position;
         strengthHitEffectList[strengthPlayIndex].Play();
+
         strengthPlayIndex++;
 
         strengthPlayIndex = strengthHitEffectList.Count <= strengthPlayIndex ? 0 : strengthPlayIndex;
     }
+
+    [PunRPC]
+    void SyncWeakHitEffectPlay(Vector3 position, PhotonMessageInfo info)
+    {
+        weakHitEffectList[weakPlayIndex].gameObject.SetActive(true);
+        weakHitEffectList[weakPlayIndex].transform.position = position;
+        weakHitEffectList[weakPlayIndex].Play();
+        weakPlayIndex++;
+
+        weakPlayIndex = weakHitEffectList.Count <= weakPlayIndex ? 0 : weakPlayIndex;
+    }
+
 
     void Update()
     {
