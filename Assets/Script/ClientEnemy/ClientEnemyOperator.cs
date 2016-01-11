@@ -1,143 +1,175 @@
 ﻿//-------------------------------------------------------------
 // データのやり取りを管理するクラス
 //
-// code by Gai Takakura
+// code by m_yamada featuring Gai
 //-------------------------------------------------------------
 using UnityEngine;
 using System.Collections;
 
 // サーバーとの通信を行う
-public class ClientEnemyOperator : MonoBehaviour {
+public class ClientEnemyOperator : MonoBehaviour 
+{
+
     /// <summary>
     /// 生成する攻撃
     /// </summary>
     [SerializeField]
-    GameObject prefav = null;
-    GameObject createdAttack = null;
+    GameObject createAttack = null;
 
-    private float nextTime;
-    public float interval = 1.0f;   // 点滅周期
-
-    /// <summary>
-    /// エネミーのID
-    /// </summary>
     [SerializeField]
-    private int id = -1;
-    public int ID
-    {
-        get
-        {
-            return id;
-        }
-        set
-        {
-            if (id == -1) id = value;
-        }
-    }
+    float flashTime = 0.5f;    // 点滅する時間
+
+    SpriteRenderer spriteRenderer = null;
 
     bool isLive = false;
-    SpriteRenderer spriteRenderer = null;
-    float flashingTimer = 0f;       // 点滅する時間を管理
-    public float flashTime = 3f;    // 点滅する時間
+    float countTime = 0;
 
     [SerializeField]
     Color defaultColor = new Color(1f, 1f, 1f, 1f);
+
     [SerializeField]
     Color flashColor = new Color(1f, 0f, 0f, 1f);
+
 
     // Use this for initialization
     void Start()
     {
-        nextTime = Time.time;
         spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    void OnEnable()
-    {
-        //spriteRenderer.color = defaultColor;
     }
 
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
         // 確認用
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Hit();
         }
+#endif
 
-        if(spriteRenderer != null)
-        {
-            if(flashingTimer > 0)
-            {
-                if (Time.time > nextTime)
+        switch (EnemyManager.Instance.GetActiveEnemyData().State)
+        { 
+            case EnemyData.EnamyState.ACTIVE:
+
+                break;
+
+            case EnemyData.EnamyState.HIT:
+                Hit();
+
+                countTime -= Time.deltaTime;
+                if (countTime <= 0)
                 {
-                    if(spriteRenderer.color != defaultColor)
-                    {
-                        spriteRenderer.color = defaultColor;
-                    }
-                    else
-                    {
-                        spriteRenderer.color = flashColor;
-                    }
-                    nextTime += interval;
-                }
-                flashingTimer -= Time.deltaTime;
-                if (flashingTimer <= 0)
-                {
-                    flashingTimer = 0;
-                    spriteRenderer.color = defaultColor;
+                    HitEffectCompleted();
                 }
 
-            }
+                break;
+
+            case EnemyData.EnamyState.SPAWN:
+                Spawn();
+                break;
+
+            case EnemyData.EnamyState.STAY:
+                break;
+
+            case EnemyData.EnamyState.DEAD:
+                Dead();
+                break;
         }
-        else
-        {
-            Debug.Log("SpriteRendererがありません");
-        }
+
     }
 
     /// <summary>
     /// 発生
     /// </summary>
-    public void Spawn()
+    void Spawn()
     {
+        if (isLive) return;
+
         isLive = true;
+
+        ChangeActive();
+
+        Debugger.Log(">> Spawn()");
 
         var hash = new Hashtable();
         {
-            hash.Add("scale", new Vector3(1f, 1f, 1f)); // 設定するサイズ
+            hash.Add("scale", new Vector3(0.1f, 0.1f, 0.1f)); // 設定するサイズ
             hash.Add("time", 1f);                       // 1秒で行う
-            hash.Add("easetype", "easeOutQuad");        // イージングタイプを設定
-            hash.Add("onstart", "ChangeActive");        // 初めにメソッドを呼ぶ
+            hash.Add("easetype", iTween.EaseType.easeOutQuad);        // イージングタイプを設定
+            hash.Add("oncomplete", "SpawnCompleted");     // 最後にメソッドを呼ぶ
         }
+
         iTween.ScaleTo (this.gameObject, hash);
+    }
+
+    void SpawnCompleted()
+    {
+        Debugger.Log(">> SpawnCompleted()");
+
+        EnemyManager.Instance.GetActiveEnemyData().StateChange(EnemyData.EnamyState.ACTIVE);
     }
 
     /// <summary>
     /// 死亡
     /// </summary>
-    public void Dead()
+    void Dead()
     {
+        if (!isLive) return;
+
         isLive = false;
 
         var hash = new Hashtable();
         {
             hash.Add("scale", new Vector3(0f, 0f, 0f)); // 設定するサイズ
             hash.Add("time", 1f);                       // 1秒で行う
-            hash.Add("easetype", "easeOutQuad");        // イージングタイプを設定
+            hash.Add("easetype", iTween.EaseType.easeOutQuad);        // イージングタイプを設定
             hash.Add("oncomplete", "ChangeActive");     // 最後にメソッドを呼ぶ
         }
+
         iTween.ScaleTo(this.gameObject, hash);
     }
 
     /// <summary>
     /// 衝突時の処理
     /// </summary>
-    public void Hit()
+    void Hit()
     {
-        nextTime = Time.time;
-        flashingTimer = flashTime;
+        if (!EnemyManager.Instance.GetActiveEnemyData().IsHit()) return;
+
+        // 光らせる数
+        const float flashNum = 3;
+
+        countTime = flashTime * flashNum;
+
+        var hash = new Hashtable();
+        {
+            hash.Add("from", defaultColor); // 設定するサイズ
+            hash.Add("to", flashColor); // 設定するサイズ
+            hash.Add("time", flashTime);                       // 1秒で行う
+            hash.Add("easetype", iTween.EaseType.easeOutQuad);        // イージングタイプを設定
+            hash.Add("looptype", iTween.LoopType.pingPong);        // イージングタイプを設定
+            hash.Add("onupdate", "ColorUpdateHandler");        // イージングタイプを設定
+        }
+
+        iTween.ValueTo(gameObject, hash);
+
+        EnemyManager.Instance.GetActiveEnemyData().HitRelease();
+    }
+
+    void ColorUpdateHandler(Color color)
+    {
+        spriteRenderer.color = color;
+    }
+    
+    void HitEffectCompleted()
+    {
+        iTween.Stop(gameObject);
+
+        Debugger.Log(">> HitEffectCompleted()");
+
+        EnemyManager.Instance.GetActiveEnemyData().StateChange(EnemyData.EnamyState.ACTIVE);
+        spriteRenderer.color = defaultColor;
     }
 
     /// <summary>
@@ -145,6 +177,6 @@ public class ClientEnemyOperator : MonoBehaviour {
     /// </summary>
     void ChangeActive()
     {
-        this.gameObject.SetActive(isLive);
+        GameManager.Instance.SendEnemyIsActive(EnemyManager.Instance.GetActiveEnemyData().Id, isLive);
     }
 }

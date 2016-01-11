@@ -75,6 +75,8 @@ public class EffectMover : MonoBehaviour
         // オブジェクトの非アクティブ化
         gameObject.SetActive(false);
 
+        if (EnemyManager.Instance.GetActiveEnemyData().State == EnemyData.EnamyState.DEAD) return;
+
         // マネージャーへターゲットへのダメージを渡す
         GameManager.Instance.SendEnemyHit(type,takeDamage);
     }
