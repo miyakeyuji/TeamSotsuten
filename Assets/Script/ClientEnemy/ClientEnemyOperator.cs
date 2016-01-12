@@ -70,7 +70,6 @@ public class ClientEnemyOperator : MonoBehaviour
                 break;
 
             case EnemyData.EnamyState.STAY:
-
                 break;
 
             case EnemyData.EnamyState.DEAD:
@@ -178,6 +177,6 @@ public class ClientEnemyOperator : MonoBehaviour
     /// </summary>
     void ChangeActive()
     {
-        this.gameObject.SetActive(isLive);
+        GameManager.Instance.SendEnemyIsActive(EnemyManager.Instance.GetActiveEnemyData().Id, isLive);
     }
 }
