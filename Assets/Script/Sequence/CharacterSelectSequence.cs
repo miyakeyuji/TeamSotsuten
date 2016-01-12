@@ -48,7 +48,7 @@ public class CharacterSelectSequence : SequenceBehaviour
     {
         if (ConnectionManager.IsSmartPhone)
         {
-            view.RPC("SyncDecision", ConnectionManager.OwnerPlayer);
+            view.RPC("SyncDecision", ConnectionManager.GetSmartPhonePlayer());
         }
     }
 
@@ -76,7 +76,7 @@ public class CharacterSelectSequence : SequenceBehaviour
 	
     void Update ()
     {
-        if (ConnectionManager.IsOwner && decisionPlayerNum >= 1)
+        if (ConnectionManager.IsSmartPhone && decisionPlayerNum >= 1)
         {
             view.RPC("SyncChangeScene", PhotonTargets.All);
         }

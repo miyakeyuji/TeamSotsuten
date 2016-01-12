@@ -34,11 +34,6 @@ public class WatchManager : Singleton<WatchManager>
 
         Input.gyro.enabled = true;
 
-        if (ConnectionManager.IsOwner)
-        {
-            enabled = false;
-        }
-
         var child = transform.GetComponentsInChildren<Canvas>();
 
         for (int i = 0; i < child.Length; i++)
@@ -64,7 +59,7 @@ public class WatchManager : Singleton<WatchManager>
             var gyroAngle = Input.gyro.attitude.eulerAngles;
 
             view.RPC("SyncData", 
-                ConnectionManager.GetSmartPhonePlayer(ConnectionManager.ID), 
+                ConnectionManager.GetSmartPhonePlayer(), 
                 new object[] { acc, gyroAngle });
             
             DebugTextShow(acc, gyroAngle);
