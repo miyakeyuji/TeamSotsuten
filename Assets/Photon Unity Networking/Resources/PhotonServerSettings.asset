@@ -65,4 +65,6 @@ MonoBehaviour:
   - SyncEnemyHit
   - SyncPlayerAttackIsHit
   - SyncCreateEffect
+  - SyncStrengthHitEffectPlay
+  - SyncWeakHitEffectPlay
   DisableAutoOpenWizard: 1

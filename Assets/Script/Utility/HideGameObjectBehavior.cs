@@ -19,7 +19,7 @@ public class HideGameObjectBehavior : MonoBehaviour {
     {
 
 #if !UNITY_EDITOR
-        if (!SequenceManager.Instance.IsBuildWatch) return;
+        if (!ConnectionManager.IsWacth) return;
 
         // ここでゲームオブジェクトを非アクティブにしている。
         for (int i = 0; i < hidenGameObject.Length; i++)

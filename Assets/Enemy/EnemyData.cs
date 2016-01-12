@@ -57,6 +57,8 @@ public class EnemyData: MonoBehaviour
 
     public bool IsHit() { return GameManager.Instance.GetEnemyData(id).IsHit; }
 
+    public MotionManager.MotionSkillType HitSkillType() { return GameManager.Instance.GetEnemyData(id).HitAttackType; }
+
     /// <summary>
     /// ヒットフラグを解除する。
     /// </summary>
