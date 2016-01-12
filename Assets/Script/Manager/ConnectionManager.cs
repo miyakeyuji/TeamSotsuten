@@ -13,7 +13,6 @@ public class ConnectionManager : Singleton<ConnectionManager>
     enum TerminalType
     {
         Null = -1,
-        Owner,
         Phone,
         Watch,
     }
@@ -23,9 +22,6 @@ public class ConnectionManager : Singleton<ConnectionManager>
 
     [SerializeField]
     string roomName = "Room";
-
-    [SerializeField]
-    Button hostButton = null;
 
     [SerializeField]
     Button smartPhoneButton = null;
@@ -60,36 +56,32 @@ public class ConnectionManager : Singleton<ConnectionManager>
 
     static TerminalType type = TerminalType.Null;
 
-    int smartPhoneID = 0;
-    int watchID = 0;
+    // 接続数
+    static public int SmartPhoneConnectionNum = 0;
+    static public int WatchConnectionNum = 0;
 
+    // 自分がどの端末で接続しているか
     static public bool IsWacth { get { return type == TerminalType.Watch; } }
     static public bool IsSmartPhone { get { return type == TerminalType.Phone; } }
-    static public bool IsOwner { get { return type == TerminalType.Owner; } }
-
-    /// <summary>
-    /// オーナー（ホスト）
-    /// </summary>
-    static public PhotonPlayer OwnerPlayer { get; private set; }
 
     /// <summary>
     /// スマホのプレイヤー情報
     /// </summary>
-    static PhotonPlayer[] smartPhonePlayer = new PhotonPlayer[2];
+    static PhotonPlayer smartPhonePlayer = null;
 
     /// <summary>
     /// ウォッチのプレイヤー情報
     /// </summary>
-    static PhotonPlayer[] watchPlayer = new PhotonPlayer[2];
+    static PhotonPlayer watchPlayer = null;
 
     /// <summary>
     /// スマホのプレイヤーを取得
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    static public PhotonPlayer GetSmartPhonePlayer(int id)
+    static public PhotonPlayer GetSmartPhonePlayer()
     {
-        return smartPhonePlayer[id];
+        return smartPhonePlayer;
     }
 
     /// <summary>
@@ -97,9 +89,9 @@ public class ConnectionManager : Singleton<ConnectionManager>
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    static public PhotonPlayer GetWatchPlayer(int id)
+    static public PhotonPlayer GetWatchPlayer()
     {
-        return watchPlayer[id];
+        return watchPlayer;
     }
 
     public override void Awake()
@@ -123,7 +115,6 @@ public class ConnectionManager : Singleton<ConnectionManager>
         eegressButton.gameObject.SetActive(false);
 
         eegressButton.onClick.AddListener(OnEegress);
-        hostButton.onClick.AddListener(OnOwnerConnection);
         smartPhoneButton.onClick.AddListener(OnPhoneConnection);
         watchButton.onClick.AddListener(OnWatchConnection);
 
@@ -136,7 +127,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
         if(PhotonNetwork.isMasterClient)
         {
             // 2人なら、もう一つの要素も2にする。
-            if (watchID >= 1)
+            if (WatchConnectionNum >= 1)
             {
                 // すべての接続が完了したら処理する。
                 view.RPC("AllCompletion", PhotonTargets.All);
@@ -145,7 +136,7 @@ public class ConnectionManager : Singleton<ConnectionManager>
                 {
                     // ホストが持っている端末情報を子機へ同期させる。
                     // すべての端末がホストの各端末情報をもらう。
-                    var data = new object[] { 0, OwnerPlayer, smartPhonePlayer[0], watchPlayer[0] };
+                    var data = new object[] { smartPhonePlayer, watchPlayer };
                     view.RPC("SyncTerminalInfo", PhotonTargets.All, data);
                     view.RPC("SyncChangeScene", PhotonTargets.All);
                 }
@@ -171,8 +162,6 @@ public class ConnectionManager : Singleton<ConnectionManager>
     {
         smartPhoneButton.enabled = false;
         watchButton.enabled = false;
-        hostButton.enabled = false;
-
     }
 
     /// <summary>
@@ -203,20 +192,6 @@ public class ConnectionManager : Singleton<ConnectionManager>
 
     }
 
-    /// <summary>
-    /// オーナーのコネクションアクション
-    /// </summary>
-    public void OnOwnerConnection()
-    {
-        if (PhotonNetwork.isMasterClient) return;
-
-        Debugger.Log(">> OnOwnerConnection()");
-
-        StartCoroutine("OnConnection");
-        type = TerminalType.Owner;
-
-        AllConnectionButtonDisable();
-    }
 
     /// <summary>
     /// コネクションする。
@@ -254,12 +229,12 @@ public class ConnectionManager : Singleton<ConnectionManager>
     [PunRPC]
     public void SetSmartPhoneID(PhotonPlayer player, PhotonMessageInfo info)
     {
-        smartPhonePlayer[smartPhoneID] = player;
+        smartPhonePlayer = player;
         
-        var debugIndex = smartPhoneID + 1;
+        var debugIndex = SmartPhoneConnectionNum + 1;
         Debugger.Log("スマホ_" + debugIndex + " : 接続");
         
-        smartPhoneID++;
+        SmartPhoneConnectionNum++;
     }
 
     /// <summary>
@@ -271,12 +246,12 @@ public class ConnectionManager : Singleton<ConnectionManager>
     [PunRPC]
     public void SetWatchID(PhotonPlayer player, PhotonMessageInfo info)
     {
-        watchPlayer[watchID] = player;
+        watchPlayer = player;
 
-        var debugIndex = watchID + 1;
+        var debugIndex = WatchConnectionNum + 1;
         Debugger.Log("ウォッチ_" + debugIndex + " : 接続");
 
-        watchID++;
+        WatchConnectionNum++;
     }
 
 
@@ -298,13 +273,12 @@ public class ConnectionManager : Singleton<ConnectionManager>
     /// <param name="phone"></param>
     /// <param name="watch"></param>
     [PunRPC]
-    void SyncTerminalInfo(int id, PhotonPlayer owner, PhotonPlayer phone, PhotonPlayer watch, PhotonMessageInfo info)
+    void SyncTerminalInfo(PhotonPlayer phone, PhotonPlayer watch, PhotonMessageInfo info)
     {
         Debugger.Log(">> 端末情報を同期します。");
 
-        OwnerPlayer = owner;
-        watchPlayer[id] = watch;
-        smartPhonePlayer[id] = phone;
+        watchPlayer = watch;
+        smartPhonePlayer = phone;
     }
 
     /// <summary>
@@ -336,14 +310,11 @@ public class ConnectionManager : Singleton<ConnectionManager>
     {
         Debugger.Log(">> ルーム参加");
 
-        OwnerPlayer = PhotonNetwork.masterClient;
-        Debugger.Log("Owner : " + OwnerPlayer.ID);
-
         var index = PhotonNetwork.playerList.Length - 1;
 
         if (!PhotonNetwork.isMasterClient)
         {
-            ID = smartPhoneID;
+            ID = SmartPhoneConnectionNum;
             Debugger.Log("ID : " + ID);
         }
 
@@ -360,10 +331,6 @@ public class ConnectionManager : Singleton<ConnectionManager>
 
                 view.RPC("SetWatchID", PhotonTargets.All, new object[] { PhotonNetwork.playerList[index] });
                 view.RPC("ActiveRoomState", PhotonTargets.All);
-                break;
-
-            case TerminalType.Owner:
-                Debugger.Log("オーナー : 接続中");
                 break;
 
             default:
