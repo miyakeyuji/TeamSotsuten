@@ -61,7 +61,7 @@ public class EffectMover : MonoBehaviour
 
         //　ITweenが再生中のフラグを立てる
         itweenCheck = true;
-        
+
     }
 
     /// <summary>
@@ -74,6 +74,8 @@ public class EffectMover : MonoBehaviour
 
         // オブジェクトの非アクティブ化
         gameObject.SetActive(false);
+
+        if (EnemyManager.Instance.GetActiveEnemyData().State == EnemyData.EnamyState.DEAD) return;
 
         // マネージャーへターゲットへのダメージを渡す
         GameManager.Instance.SendEnemyHit(type,takeDamage);
@@ -88,7 +90,7 @@ public class EffectMover : MonoBehaviour
         iTween.MoveTo(gameObject,
             iTween.Hash(
             "position", targetPosition,
-            "speed", speed,
+            "time", speed,
             "easetype", iTween.EaseType.linear,
             "oncomplete", "ItweenOnComplete"
             ));
@@ -111,4 +113,5 @@ public class EffectMover : MonoBehaviour
         // 攻撃タイプの初期化
         type = MotionManager.MotionSkillType.NONE;
     }
+
 }

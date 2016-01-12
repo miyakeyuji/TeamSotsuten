@@ -62,11 +62,10 @@ public class EffectDB : MonoBehaviour {
     /// <summary>
     /// 各エフェクトの細かいデータ一覧
     /// 順番は攻撃タイプの列挙型に準拠
-    /// 列挙側では0番目がNONEのため協力技の分として仮定
     /// </summary>
     private float[] speedArray = new float[] 
     {
-        0.5f,1.5f,1.0f, 0.2f, 0.3f, 0.4f
+        1.0f,1.0f
     };
 
     /// <summary>
@@ -76,13 +75,12 @@ public class EffectDB : MonoBehaviour {
     {
         new Vector3(20.0f,20.0f,20.0f),
         new Vector3(5.0f,5.0f,5.0f),
-        new Vector3(5.0f,5.0f,5.0f)
     };
 
     /// <summary>
     /// ダメージ配列
     /// </summary>
-    private int[] damageArray = new int[] { 50, 10 , 15 };
+    private int[] damageArray = new int[] { 50, 10 };
 
     /// <summary>
     /// ゲーム中に参照するエフェクトデータのリスト
@@ -92,17 +90,25 @@ public class EffectDB : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+
+        // NONEを引いた値をカウントにする。
+        var valueCount = Enum.GetValues(typeof(MotionManager.MotionSkillType)).Length - 1;
+
         ///<summary>
         /// データをリストへ入れる 
         ///</summary>
-        foreach (MotionManager.MotionSkillType motionType in Enum.GetValues(typeof(MotionManager.MotionSkillType)))
+        for (int i = 0;i < valueCount;i++)
         {
+            var motionType = (MotionManager.MotionSkillType)i;
             EffectData data = new EffectData(
                 motionType,
-                speedArray[(int)motionType],
-                scaleArray[(int)motionType],
-                damageArray[(int)motionType]);
+                speedArray[i],
+                scaleArray[i],
+                damageArray[i]);
+
             dataList.Add(data);
         }
+
+
 	}
 }

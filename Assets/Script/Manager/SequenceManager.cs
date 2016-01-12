@@ -160,7 +160,5 @@ public class SequenceManager : Singleton<SequenceManager>
             Application.Quit();
         }
 
-
-
     }
 }
