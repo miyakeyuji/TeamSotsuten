@@ -74,10 +74,8 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         base.Update();
 
-        if (SequenceManager.Instance.IsBuildWatch) return;
-        if (state == State.None) return;
         if (!Vuforia.VuforiaBehaviour.IsMarkerLookAt) return;
-
+        
         switch (state)
         {
             case State.Start:    //< 待機前処理
@@ -131,11 +129,11 @@ public class EnemyManager : Singleton<EnemyManager>
                     {
                         activeEnemyID++;
 
-                        //if (activeEnemyID >= enemyList.Count)
-                        //{
-                        //    SequenceManager.Instance.ChangeScene(SceneID.RESULT);
-                        //    return;
-                        //}
+                        if (activeEnemyID >= enemyList.Count)
+                        {
+                            SequenceManager.Instance.ChangeScene(SceneID.RESULT);
+                            return;
+                        }
 
                         state = State.Start;
                         Debugger.Log(">> 次のWaveに遷移する");

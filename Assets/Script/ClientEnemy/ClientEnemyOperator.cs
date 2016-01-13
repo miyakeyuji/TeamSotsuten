@@ -154,6 +154,11 @@ public class ClientEnemyOperator : MonoBehaviour
 
         iTween.ValueTo(gameObject, hash);
 
+        // HitEffect再生 座標の-30は、敵の手前に出す数値
+        HitEffectManager.Instance.EffectPlay(
+            EnemyManager.Instance.GetActiveEnemyData().HitSkillType(), 
+            transform.position - new Vector3(0,0,30));
+
         EnemyManager.Instance.GetActiveEnemyData().HitRelease();
     }
 
